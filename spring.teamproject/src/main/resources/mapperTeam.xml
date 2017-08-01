@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.mysql.mapperTeam">
+    
+    <select id="login" parameterType="ModelTeam" resultType="int">        
+        SELECT count(*)
+          FROM team_login
+         WHERE email = #{email} and pw = #{pw}
+    </select>
+   
+    
+    <select id="getTeamList"  parameterType="ModelTeam"  >
+        SELECT *
+          FROM team_login
+        WHERE email like concat('%', #{email}, '%');
+    </select>         
+        
+    <insert id="insertTeam" parameterType="ModelTeam">
+        INSERT INTO 
+        team_login ( email   , pw   , phone   , address, sex,   emailselect )
+        VALUES       ( #{email}, #{pw}, #{phone}, #{address}, #{sex}, #{emailselect})
+    </insert>
+    
+    <select id="getCafeList"  resultType="ModelCafe">
+        SELECT *
+          FROM cafe
+        ORDER BY cafe_name asc;
+    </select>
+
+ </mapper>
