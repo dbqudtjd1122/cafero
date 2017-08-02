@@ -4,8 +4,6 @@ package com.android.teamproject.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.android.teamproject.Main_Model_Adapter.ModelCafe;
-
 public class ModelCafeinfo implements Parcelable {
     
      private Integer cafeno;

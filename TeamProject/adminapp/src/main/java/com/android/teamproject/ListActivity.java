@@ -8,17 +8,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TabHost;
-import android.widget.Toast;
 
 import com.android.teamproject.Http.HttpRequest;
-import com.android.teamproject.Main_Model_Adapter.ArrayAdapterEx;
-import com.android.teamproject.Main_Model_Adapter.ModelCafe;
+import com.android.teamproject.Adapter.ArrayAdapterEx;
+import com.android.teamproject.Model.ModelCafeinfo;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -29,7 +27,7 @@ public class ListActivity extends AppCompatActivity {
 
     private ArrayAdapterEx adapterEx;
 
-    private List<ModelCafe> cafelist;
+    private List<ModelCafeinfo> cafelist;
     private ListView listView;
 
     @Override
@@ -63,11 +61,11 @@ public class ListActivity extends AppCompatActivity {
         listView.setOnItemLongClickListener(new OnItemHandler());
         listView.setOnItemSelectedListener(new OnItemHandler());
 
-        ModelCafe model = new ModelCafe();
-        model.setCafe_name("aaaa");
+        ModelCafeinfo model = new ModelCafeinfo();
+        model.setCafename("aaaa");
         model.setReview_count(1);
-        model.setStar(1.1f);
-        model.setStar_count(1);
+        model.setAvg_grade(1.1f);
+        model.setLike_count(1);
         model.setBrand("aaa");
 
         // 1.
@@ -91,7 +89,7 @@ public class ListActivity extends AppCompatActivity {
             //msg += "ListView Item Count : " + parent.getCount();
             //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
 
-            ModelCafe s = (ModelCafe) parent.getItemAtPosition(position);
+            ModelCafeinfo s = (ModelCafeinfo) parent.getItemAtPosition(position);
 
 
         }
@@ -113,7 +111,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
         // Http List DB 가져오기
-        public class Httplist extends AsyncTask<String, Integer, List<ModelCafe>> {
+        public class Httplist extends AsyncTask<String, Integer, List<ModelCafeinfo>> {
 
             private ProgressDialog waitDlg = null;
 
@@ -129,7 +127,7 @@ public class ListActivity extends AppCompatActivity {
             }
 
             @Override
-            protected List<ModelCafe> doInBackground(String... params) {
+            protected List<ModelCafeinfo> doInBackground(String... params) {
 
                 return itemlist();
             }
@@ -140,7 +138,7 @@ public class ListActivity extends AppCompatActivity {
             }
 
             @Override
-            protected void onPostExecute(List<ModelCafe> s) {
+            protected void onPostExecute(List<ModelCafeinfo> s) {
                 super.onPostExecute(s);
 
                 // 1.
@@ -157,12 +155,12 @@ public class ListActivity extends AppCompatActivity {
             }
         }
 
-        public List<ModelCafe> itemlist() {
+        public List<ModelCafeinfo> itemlist() {
             String weburl = "http://192.168.0.52:8080/team/getcafelist";
 
             HttpRequest request = null;
             JSONArray response = null;
-            List<ModelCafe> list = null;
+            List<ModelCafeinfo> list = null;
 
             try {
                 request = new HttpRequest(weburl).addHeader("charset", "utf-8")
@@ -185,7 +183,7 @@ public class ListActivity extends AppCompatActivity {
 
                 // JSONArray를 List<ModelCafe> 객체로 변환
                 String jsonInString = response.toString();
-                list = new Gson().fromJson(jsonInString, new TypeToken<List<ModelCafe>>() {
+                list = new Gson().fromJson(jsonInString, new TypeToken<List<ModelCafeinfo>>() {
                 }.getType());
 
             } catch (IOException e) {
