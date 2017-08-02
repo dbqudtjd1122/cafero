@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
     defaultConfig {
-        applicationId "com.android.cafe.ownerapp"
+        applicationId "com.cafe.ownerapp"
         minSdkVersion 22
         targetSdkVersion 25
         versionCode 1
@@ -27,7 +27,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    // ... �̾
+    // ... �̾
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:design:25.3.1'
