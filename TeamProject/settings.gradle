@@ -1,1 +1,1 @@
-include ':app', ':common', ':ownerapp', ':userapp'
+include ':adminapp', ':common', ':ownerapp', ':userapp'
