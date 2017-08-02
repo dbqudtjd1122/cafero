@@ -219,7 +219,7 @@
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ddo"/>
+                    android:src="@drawable/hollys"/>
             
             </FrameLayout>
             
@@ -234,9 +234,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/bhcjpg"/>
-        
+                    android:scaleType="centerInside"
+                    android:src="@drawable/starbucks"/>
+            
             </FrameLayout>
         
         
