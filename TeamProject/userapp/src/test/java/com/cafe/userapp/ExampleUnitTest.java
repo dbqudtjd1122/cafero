@@ -1,4 +1,4 @@
-package com.android.cafe.userapp;
+package com.cafe.userapp;
 
 import org.junit.Test;
 
