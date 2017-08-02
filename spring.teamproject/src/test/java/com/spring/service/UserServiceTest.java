@@ -12,17 +12,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.spring.model.ModelTeam;
+import com.spring.model.ModelUser;
 
-public class TeamServiceTest {
+public class UserServiceTest {
     
     private static ApplicationContext context = null;
-    private static IServiceTeam service = null;
+    private static IServiceUser service = null;
     
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         context= new ClassPathXmlApplicationContext("file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml");
-        service=context.getBean("serviceteam", IServiceTeam.class);
+        service=context.getBean("serviceteam", IServiceUser.class);
     }
     
     @Before
@@ -31,19 +31,19 @@ public class TeamServiceTest {
     
     @Test
     public void testLogin() {
-        ModelTeam test = new ModelTeam("bsyoo", "1231");
+        ModelUser test = new ModelUser("bsyoo", "1231");
         int result = service.login(test);
         assertEquals(1, result);
         
-        test = new ModelTeam("test2id", "test2pw");
+        test = new ModelUser("test2id", "test2pw");
         result = service.login(test);
         assertEquals(0, result);
     }
     
     @Test
     public void testGetTeamList() {
-        ModelTeam test = new ModelTeam();
-        List<ModelTeam> result = service.getTeamList(test);
+        ModelUser test = new ModelUser();
+        List<ModelUser> result = service.getTeamList(test);
         
         assertNotNull(result);
         assertNotEquals(0, result.size());
@@ -51,7 +51,7 @@ public class TeamServiceTest {
     
     @Test
     public void testInsertTeam() {
-        ModelTeam team = new ModelTeam("dbqudtjd1122@nate.com", "1231", "010-9928-9787", "서울시 중랑구 면목동11", "y", "n");
+        ModelUser team = new ModelUser("dbqudtjd1122@nate.com", "1231", "010-9928-9787", "서울시 중랑구 면목동11", "y", "n", "상어알");
         
         int result = service.insertTeam(team);
         

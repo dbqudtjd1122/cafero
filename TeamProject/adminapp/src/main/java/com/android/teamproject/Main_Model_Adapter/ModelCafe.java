@@ -1,16 +1,20 @@
 package com.android.teamproject.Main_Model_Adapter;
 
-public class ModelCafe {
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class ModelCafe implements Parcelable {
     
-     private Integer cafe_number;
-     private String brand;
-     private String cafe_name;
-     private String location;
-     private String address;
-     private String phone;
-     private Float star;
-     private Integer review_count;
-     private Integer star_count;
+     public Integer cafe_number;
+     public String brand;
+     public String cafe_name;
+     public String location;
+     public String address;
+     public String phone;
+     public Float star;
+     public Integer review_count;
+     public Integer star_count;
      
  
     public ModelCafe() {
@@ -97,7 +101,33 @@ public class ModelCafe {
                 + ", review_count=" + review_count + ", star_count="
                 + star_count + "]";
     }
-    
-     
-    
+
+    public static Parcelable.Creator<ModelCafe> getCREATOR() {
+        return CREATOR;
+    }
+
+    protected ModelCafe(Parcel in) {
+    }
+
+    public static final Parcelable.Creator<ModelCafe> CREATOR = new Parcelable.Creator<ModelCafe>() {
+        @Override
+        public ModelCafe createFromParcel(Parcel in) {
+            return new ModelCafe(in);
+        }
+
+        @Override
+        public ModelCafe[] newArray(int size) {
+            return new ModelCafe[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+    }
 }

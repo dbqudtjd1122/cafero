@@ -18,19 +18,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.spring.model.ModelTeam;
-import com.spring.service.IServiceTeam;
+import com.spring.model.ModelUser;
+import com.spring.service.IServiceUser;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
-public class TeamController {
+public class UserController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(TeamController.class);
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@Autowired
-	IServiceTeam svr;
+	IServiceUser svr;
 	
 	@RequestMapping(value = "/team/currentversion", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
@@ -44,9 +44,9 @@ public class TeamController {
 	@RequestMapping(value = "/team/login", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public int currentversion(Locale locale, Model model, @RequestParam(value="email", defaultValue="")String email
-                                                        , @RequestParam(value="pw", defaultValue="")String pw) {
+                                                        , @RequestParam(value="passwd", defaultValue="")String passwd) {
         logger.info("/team/login");
-        ModelTeam team= new ModelTeam(email, pw);
+        ModelUser team= new ModelUser(email, passwd);
         
         int result = svr.login(team);
         
@@ -55,29 +55,29 @@ public class TeamController {
 	
 	@RequestMapping(value = "/team/teamone", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public ModelTeam teamone(Locale locale, Model model, @RequestParam(value="name", defaultValue="")String name) {
+    public ModelUser teamone(Locale locale, Model model, @RequestParam(value="name", defaultValue="")String name) {
         logger.info("/team/teamone");
         
-        ModelTeam result = new ModelTeam("email", "pw", "phone", "address", "y", "n");
+        ModelUser result = new ModelUser("email", "pw", "userphone", "useraddr", "y", "n", "상어알");
         
         return result;
     }
 	
 	@RequestMapping(value = "/team/Teamlist", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public List<ModelTeam> Teamlist(Locale locale, Model model, @RequestParam(value="email", defaultValue="")String email) {
+    public List<ModelUser> Teamlist(Locale locale, Model model, @RequestParam(value="email", defaultValue="")String email) {
         logger.info("/team/Teamlist");
-        ModelTeam team= new ModelTeam();
+        ModelUser team= new ModelUser();
         team.setEmail(email);
         
-        List<ModelTeam> result = svr.getTeamList(team);
+        List<ModelUser> result = svr.getTeamList(team);
         
         return result;
     }
 	
 	@RequestMapping(value = "/team/insertteam", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public int insertTeam(Locale locale, Model model, @RequestBody ModelTeam team) {
+    public int insertTeam(Locale locale, Model model, @RequestBody ModelUser team) {
 	    logger.info("/team/insertteam");
         
         int result = svr.insertTeam(team);

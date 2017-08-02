@@ -4,29 +4,29 @@
 
 <mapper namespace="mapper.mysql.mapperTeam">
     
-    <select id="login" parameterType="ModelTeam" resultType="int">        
+    <select id="login" parameterType="ModelUser" resultType="int">        
         SELECT count(*)
-          FROM team_login
-         WHERE email = #{email} and pw = #{pw}
+          FROM tb_cafe_user
+         WHERE email = #{email} and passwd = #{passwd}
     </select>
    
     
-    <select id="getTeamList"  parameterType="ModelTeam"  >
+    <select id="getTeamList"  parameterType="ModelUser"  >
         SELECT *
-          FROM team_login
+          FROM tb_cafe_user
         WHERE email like concat('%', #{email}, '%');
     </select>         
         
-    <insert id="insertTeam" parameterType="ModelTeam">
+    <insert id="insertTeam" parameterType="ModelUser">
         INSERT INTO 
-        team_login ( email   , pw   , phone   , address, sex,   emailselect )
-        VALUES       ( #{email}, #{pw}, #{phone}, #{address}, #{sex}, #{emailselect})
+        tb_cafe_user ( email   , passwd   , userphone   , useraddr   ,   sex ,  emailselect   , usernickname )
+        VALUES       ( #{email}, #{passwd}, #{userphone}, #{useraddr}, #{sex}, #{emailselect} , #{usernickname}  )
     </insert>
     
-    <select id="getCafeList"  resultType="ModelCafe">
+    <select id="getCafeList"  resultType="ModelCafeinfo">
         SELECT *
-          FROM cafe
-        ORDER BY cafe_name asc;
+          FROM tb_cafe_cafeinfo
+        ORDER BY cafeno asc;
     </select>
 
  </mapper>

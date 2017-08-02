@@ -14,7 +14,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.android.teamproject.Http.HttpRequest;
-import com.android.teamproject.Http.ModelTeam;
+import com.android.teamproject.Model.ModelUser;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -22,7 +22,7 @@ import java.net.HttpURLConnection;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    private EditText edtemail, edtpw, edtphone, edtaddr;
+    private EditText edtemail, edtpw, edtphone, edtaddr, nickname;
     private CheckBox checkemail, checkall, checkBox1, checkBox2;
     private RadioButton rtn1, rtn2;
     private RadioGroup rtng;
@@ -39,6 +39,7 @@ public class SignUpActivity extends AppCompatActivity {
         edtpw = (EditText) findViewById(R.id.edt_input_pw);
         edtphone = (EditText) findViewById(R.id.edt_input_num);
         edtaddr = (EditText) findViewById(R.id.edt_input_addr);
+        nickname = (EditText) findViewById(R.id.edt_input_nickname);
 
         checkemail = (CheckBox) findViewById(R.id.checkBox);
         checkall = (CheckBox) findViewById(R.id.checkALL);
@@ -72,9 +73,9 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
                 else {
-                    if(rtn1.isChecked() == true){sex = "Y";} else {sex = "N";}
-                    if(checkemail.isChecked() == true){emailcheck = "Y";} else {emailcheck = "N";}
-                    new HttpLogin().execute(edtemail.getText().toString(), edtpw.getText().toString(), edtphone.getText().toString(), edtaddr.getText().toString(), emailcheck.toString(), sex.toString());
+                    if(rtn1.isChecked() == true){sex = "남자";} else {sex = "여자";}
+                    if(checkemail.isChecked() == true){emailcheck = "1";} else {emailcheck = "0";}
+                    new HttpLogin().execute(edtemail.getText().toString(), edtpw.getText().toString(), edtphone.getText().toString(), edtaddr.getText().toString(), emailcheck.toString(), sex.toString(), nickname.getText().toString());
                 }
             }
         });
@@ -105,9 +106,10 @@ public class SignUpActivity extends AppCompatActivity {
             String addr = String.valueOf(strings[3]);
             String sex = String.valueOf( strings[4]);
             String checkemail = String.valueOf(strings[5]);
+            String nickname = String.valueOf(strings[6]);
 
 
-            String result = insert(email, pw, phone, addr, sex, checkemail );
+            String result = insert(email, pw, phone, addr, sex, checkemail, nickname );
 
             return result;
         }
@@ -137,7 +139,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    public String insert(String email, String pw, String phone, String addr, String sex, String checkemail ){
+    public String insert(String email, String pw, String phone, String addr, String sex, String checkemail, String nickname ){
         String weburl = "http://192.168.0.52:8080/team/insertteam";
 
         HttpRequest request = null;
@@ -146,7 +148,8 @@ public class SignUpActivity extends AppCompatActivity {
         int httpCode = 0;
         try {
             // ModelPerson을 json으로 변환
-            ModelTeam obj = new ModelTeam(email, pw, phone, addr, sex, checkemail) ;
+            ModelUser obj = new ModelUser(email, pw, phone, addr, sex, checkemail, nickname) ;
+
             String data = new Gson().toJson(obj);
 
             request = new HttpRequest(weburl).addHeader("charset", "utf-8")

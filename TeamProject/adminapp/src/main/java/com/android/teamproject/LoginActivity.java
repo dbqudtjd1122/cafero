@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
         try {
             request = new HttpRequest(weburl).addHeader("charset", "utf-8");
             request.addParameter("email", id);
-            request.addParameter("pw", pw);
+            request.addParameter("passwd", pw);
             int httpCode = request.post();
 
             if(httpCode == HttpURLConnection.HTTP_OK){

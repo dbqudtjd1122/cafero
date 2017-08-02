@@ -7,20 +7,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.spring.dao.IDaoCafe;
-import com.spring.model.ModelCafe;
+import com.spring.dao.IDaoCafeinfo;
+import com.spring.model.ModelCafeinfo;
 
 @Repository("servicecafe")
-public class ServiceCafe implements IServiceCafe {
+public class ServiceCafeinfo implements IServiceCafeinfo {
     // SLF4J Logging
-    private static Logger logger = LoggerFactory.getLogger(ServiceCafe.class);
+    private static Logger logger = LoggerFactory.getLogger(ServiceCafeinfo.class);
     
     @Autowired
-    IDaoCafe dao;
+    IDaoCafeinfo dao;
     
     @Override
-    public List<ModelCafe> getCafeList() {
-        List<ModelCafe> result = null;
+    public List<ModelCafeinfo> getCafeList() {
+        List<ModelCafeinfo> result = null;
         try {
             result = dao.getCafeList();
         } catch (Exception e) {

@@ -7,19 +7,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.spring.dao.IDaoTeam;
-import com.spring.model.ModelTeam;
+import com.spring.dao.IDaoUser;
+import com.spring.model.ModelUser;
 
 @Repository("serviceteam")
-public class ServiceTeam implements IServiceTeam {
+public class ServiceUser implements IServiceUser {
     // SLF4J Logging
-    private static Logger logger = LoggerFactory.getLogger(ServiceTeam.class);
+    private static Logger logger = LoggerFactory.getLogger(ServiceUser.class);
 
     @Autowired
-    IDaoTeam dao;
+    IDaoUser dao;
     
     @Override
-    public int login(ModelTeam team) {
+    public int login(ModelUser team) {
         int result = -1;
         try {
             result = dao.login(team);
@@ -31,8 +31,8 @@ public class ServiceTeam implements IServiceTeam {
     }
 
     @Override
-    public List<ModelTeam> getTeamList(ModelTeam team) {
-        List<ModelTeam> result = null;
+    public List<ModelUser> getTeamList(ModelUser team) {
+        List<ModelUser> result = null;
         try {
             result = dao.getTeamList(team);
         } catch (Exception e) {
@@ -43,7 +43,7 @@ public class ServiceTeam implements IServiceTeam {
     }
 
     @Override
-    public int insertTeam(ModelTeam team) {
+    public int insertTeam(ModelUser team) {
         int result = -1;
         try {
             result = dao.insertTeam(team);

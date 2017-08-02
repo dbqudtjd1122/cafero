@@ -10,18 +10,18 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.spring.model.ModelCafe;
+import com.spring.model.ModelCafeinfo;
 
 
-public class CafeServiceTest extends ServiceCafe {
+public class CafeinfoServiceTest extends ServiceCafeinfo {
    
     private static ApplicationContext context = null;
-    private static IServiceCafe service = null;
+    private static IServiceCafeinfo service = null;
     
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         context= new ClassPathXmlApplicationContext("file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml");
-        service=context.getBean("servicecafe", IServiceCafe.class);
+        service=context.getBean("servicecafe", IServiceCafeinfo.class);
     }
     
     @Before
@@ -30,7 +30,7 @@ public class CafeServiceTest extends ServiceCafe {
     
     @Test
     public void testgetListCafe() {
-        List<ModelCafe> result = service.getCafeList();
+        List<ModelCafeinfo> result = service.getCafeList();
         
         assertNotNull(result);
         assertNotEquals(0, result.size());

@@ -15,28 +15,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.spring.model.ModelCafe;
-import com.spring.model.ModelTeam;
-import com.spring.service.IServiceCafe;
-import com.spring.service.IServiceTeam;
+import com.spring.model.ModelCafeinfo;
+import com.spring.model.ModelUser;
+import com.spring.service.IServiceCafeinfo;
+import com.spring.service.IServiceUser;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
-public class CafeController {
+public class CafeinfoController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(CafeController.class);
+	private static final Logger logger = LoggerFactory.getLogger(CafeinfoController.class);
 	
 	@Autowired
-	IServiceCafe svr;
+	IServiceCafeinfo svr;
 	
 	@RequestMapping(value = "/team/getcafelist", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public List<ModelCafe> getCafeList(Locale locale, Model model) {
+    public List<ModelCafeinfo> getCafeList(Locale locale, Model model) {
         logger.info("/team/getcafelist");
         
-        List<ModelCafe> result = svr.getCafeList();
+        List<ModelCafeinfo> result = svr.getCafeList();
         
         return result;
     }

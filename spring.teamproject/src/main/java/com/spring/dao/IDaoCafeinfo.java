@@ -6,11 +6,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.spring.model.ModelCafe;
+import com.spring.model.ModelCafeinfo;
 
 @Repository
-public interface IDaoCafe {
+public interface IDaoCafeinfo {
      
-    List<ModelCafe> getCafeList();
+    List<ModelCafeinfo> getCafeList();
     
 }

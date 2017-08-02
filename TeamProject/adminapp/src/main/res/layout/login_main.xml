@@ -63,7 +63,7 @@
                     android:ems="10"
                     android:hint="EMail"
                     android:inputType="textPersonName"
-                    android:text=""
+                    android:text="qwe1"
                     android:textSize="15dp"/>
     
                 <EditText
@@ -76,7 +76,7 @@
                     android:ems="10"
                     android:hint="PW"
                     android:inputType="textPassword"
-                    android:text=""
+                    android:text="31"
                     android:textSize="15dp"/>
             </LinearLayout>
         

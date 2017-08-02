@@ -19,27 +19,16 @@ import java.util.List;
 
 public class ArrayAdapterEx extends android.widget.ArrayAdapter<ModelCafe> {
 
-    public ArrayList<ModelCafe> mData = null;
-
     public ArrayAdapterEx(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull List<ModelCafe> objects) {
         super(context, resource, textViewResourceId, objects);
     }
 
-    public void delete(Integer index){
-        mData.remove(index);
-        notifyDataSetChanged();
-    }
-    public  void clear(){
-        mData.clear();
-        notifyDataSetChanged();
-    }
-
     class ViewHolder{
-        ImageView brandimage;
+        TextView cafe_name;
         RatingBar star;
-        TextView brandname;
         TextView review_count;
         TextView star_count;
+        // ImageView brandimage;
 
     }
 
@@ -50,18 +39,18 @@ public class ArrayAdapterEx extends android.widget.ArrayAdapter<ModelCafe> {
 
         if(viewHolder == null){
             viewHolder = new ViewHolder();
-            viewHolder.brandimage= (ImageView) itemLayout.findViewById(R.id.brandimage);
+            // viewHolder.brandimage= (ImageView) itemLayout.findViewById(R.id.brandimage);
             viewHolder.star= (RatingBar) itemLayout.findViewById(R.id.star);
-            viewHolder.brandname= (TextView) itemLayout.findViewById(R.id.brandname);
-            viewHolder.review_count= (TextView) itemLayout.findViewById(R.id.reviewcount);
-            viewHolder.star_count= (TextView) itemLayout.findViewById(R.id.starcount);
+            viewHolder.cafe_name= (TextView) itemLayout.findViewById(R.id.cafe_name);
+            viewHolder.review_count= (TextView) itemLayout.findViewById(R.id.review_count);
+            viewHolder.star_count= (TextView) itemLayout.findViewById(R.id.star_count);
             itemLayout.setTag(viewHolder);
         }
         // viewHolder.brandimage.setImageResource(getItem(position).getBrand_image());
         viewHolder.star.setRating(getItem(position).getStar());
-        viewHolder.brandname.setText(getItem(position).getBrand());
-        viewHolder.review_count.setText(getItem(position).getReview_count());
-        viewHolder.star_count.setText(getItem(position).getStar_count());
+        viewHolder.cafe_name.setText(getItem(position).getCafe_name());
+        viewHolder.review_count.setText("리뷰"+getItem(position).getReview_count()+"개".toString() );
+        viewHolder.star_count.setText("즐겨찾기"+getItem(position).getStar_count()+"명".toString()  );
 
         return itemLayout;
     }

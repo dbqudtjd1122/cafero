@@ -8,18 +8,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.spring.model.ModelCafe;
+import com.spring.model.ModelCafeinfo;
 
 @Repository("daocafe")
-public class DaoCafe implements IDaoCafe {
+public class DaoCafeinfo implements IDaoCafeinfo {
     // SLF4J Logging
-    private static Logger logger = LoggerFactory.getLogger(DaoCafe.class);
+    private static Logger logger = LoggerFactory.getLogger(DaoCafeinfo.class);
     
     @Autowired
     private SqlSession session;
     
     @Override
-    public List<ModelCafe> getCafeList() {
+    public List<ModelCafeinfo> getCafeList() {
         return session.selectList("mapper.mysql.mapperTeam.getCafeList");
     }
 }

@@ -3,8 +3,8 @@ package com.spring.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.spring.dao.IDaoCafe;
+import com.spring.dao.IDaoUser;
 
-public interface IServiceCafe extends IDaoCafe{
+public interface IServiceUser extends IDaoUser{
     
 }
