@@ -1,16 +1,25 @@
 
--- cafeboard µ¥ÀÌÅÍº£ÀÌ½º ±¸Á¶ ³»º¸³»±â
-DROP DATABASE IF EXISTS cafeboard;
+use mysql;
 
-CREATE DATABASE cafeboard DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+-- cafeboard ë°ì´í„°ë² ì´ìŠ¤ êµ¬ì¡° ë‚´ë³´ë‚´ê¸°
+DROP DATABASE IF EXISTS cafedb;
 
--- »ç¿ëÀÚ Ãß°¡
-GRANT ALL ON *.* TO tester1@localhost IDENTIFIED BY '1234';
+CREATE DATABASE cafedb DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
--- µ¥ÀÌÅÍº£ÀÌ½º º¯°æ
-USE cafeboard;
+-- ì‚¬ìš©ì ì¶”ê°€
+drop user if exists 'cafe1';
+select * from user  where user='cafe1';
 
--- À¯ÀúÅ×ÀÌºí
+create user 'cafe1'@'%' IDENTIFIED BY '1234';
+
+GRANT ALL privileges ON cafedb.* TO 'cafe1'@'%' ;
+
+FLUSH PRIVILEGES;
+
+-- ë°ì´í„°ë² ì´ìŠ¤ ë³€ê²½
+USE cafedb;
+
+-- ìœ ì €í…Œì´ë¸”
 
 DROP TABLE IF EXISTS TB_cafe_user;
 CREATE TABLE TB_cafe_user (
@@ -32,14 +41,14 @@ AUTO_INCREMENT=1
 DEFAULT CHARACTER SET utf8 
 COLLATE utf8_general_ci;
 
-Insert into TB_cafe_user (email, passwd, userphone, useraddr, sex, emailselect, usernickname) values ('dshhi89@nate.com','123123','01038192704','°í´ã¾¾Æ¼','³²ÀÚ','0','ÇÏ°èµ¿¸Ş½Ã');
-Insert into TB_cafe_user (email, passwd, userphone, useraddr, sex, emailselect, usernickname) values ('aa@nate.com','123123','01012342704','±ºÇÔµµ','¿©ÀÚ','0','ÇÏ°èµ¿È£³¯µÎ');
-Insert into TB_cafe_user (email, passwd, userphone, useraddr, sex, emailselect, usernickname) values ('bb@nate.com','123123','01056782704','¹ß¸®','³²ÀÚ','1','ÇÏ°èµ¿¹èÆ®¸Ç');
-Insert into TB_cafe_user (email, passwd, userphone, useraddr, sex, emailselect, usernickname) values ('cc@nate.com','123123','01032142704','¿ì¸®Áı','¿©ÀÚ','1','ÇÏ°èµ¿½ºÆÄÀÌ´õ¸Ç');
+Insert into TB_cafe_user (email, passwd, userphone, useraddr, sex, emailselect, usernickname) values ('dshhi89@nate.com','123123','01038192704','ê³ ë‹´ì”¨í‹°','ë‚¨ì','0','í•˜ê³„ë™ë©”ì‹œ');
+Insert into TB_cafe_user (email, passwd, userphone, useraddr, sex, emailselect, usernickname) values ('aa@nate.com','123123','01012342704','êµ°í•¨ë„','ì—¬ì','0','í•˜ê³„ë™í˜¸ë‚ ë‘');
+Insert into TB_cafe_user (email, passwd, userphone, useraddr, sex, emailselect, usernickname) values ('bb@nate.com','123123','01056782704','ë°œë¦¬','ë‚¨ì','1','í•˜ê³„ë™ë°°íŠ¸ë§¨');
+Insert into TB_cafe_user (email, passwd, userphone, useraddr, sex, emailselect, usernickname) values ('cc@nate.com','123123','01032142704','ìš°ë¦¬ì§‘','ì—¬ì','1','í•˜ê³„ë™ìŠ¤íŒŒì´ë”ë§¨');
 
 select * from TB_cafe_user;
 
--- Ä«ÆäÁ¤º¸ Å×ÀÌºí
+-- ì¹´í˜ì •ë³´ í…Œì´ë¸”
 DROP TABLE IF EXISTS TB_cafe_cafeinfo;
 CREATE TABLE TB_cafe_cafeinfo (
       cafeno        INT             AUTO_INCREMENT
@@ -60,16 +69,16 @@ AUTO_INCREMENT=1
 DEFAULT CHARACTER SET utf8 
 COLLATE utf8_general_ci;
 
-Insert into TB_cafe_cafeinfo (brand, cafename, cafeaddr, cafephone) values ('ÀÌµğ¾ß','ÀÌµğ¾ß_³ë¿ø¿ªÁ¡','³ë¿ø¿ª 9¹øÃâ±¸ ¾Õ','1577-1212');
-Insert into TB_cafe_cafeinfo (brand, cafename, cafeaddr, cafephone) values ('ÇÒ¸®½º','ÇÒ¸®½º_»ó°è¿ªÁ¡','»ó°è¿ª 2¹øÃâ±¸ ³ª¿Í¼­ ¾ÕÀ¸·Î »ïº¸','1577-1213');
-Insert into TB_cafe_cafeinfo (brand, cafename, cafeaddr, cafephone) values ('½ºÅ¸¹÷½º','½ºÅ¸¹÷½º_ÇÏ°è¿ªÁ¡','ÇÏ°èµ¿ 4¹øÃâ±¸ ³ª¿Í¼­ µÚ·Î »ïº¸','1577-1210');
+Insert into TB_cafe_cafeinfo (brand, cafename, cafeaddr, cafephone) values ('ì´ë””ì•¼','ì´ë””ì•¼_ë…¸ì›ì—­ì ','ë…¸ì›ì—­ 9ë²ˆì¶œêµ¬ ì•','1577-1212');
+Insert into TB_cafe_cafeinfo (brand, cafename, cafeaddr, cafephone) values ('í• ë¦¬ìŠ¤','í• ë¦¬ìŠ¤_ìƒê³„ì—­ì ','ìƒê³„ì—­ 2ë²ˆì¶œêµ¬ ë‚˜ì™€ì„œ ì•ìœ¼ë¡œ ì‚¼ë³´','1577-1213');
+Insert into TB_cafe_cafeinfo (brand, cafename, cafeaddr, cafephone) values ('ìŠ¤íƒ€ë²…ìŠ¤','ìŠ¤íƒ€ë²…ìŠ¤_í•˜ê³„ì—­ì ','í•˜ê³„ë™ 4ë²ˆì¶œêµ¬ ë‚˜ì™€ì„œ ë’¤ë¡œ ì‚¼ë³´','1577-1210');
 
 
 select * from TB_cafe_cafeinfo;
 
 
 
--- Ä«Æä ¸®ºä Å×ÀÌºí
+-- ì¹´í˜ ë¦¬ë·° í…Œì´ë¸”
 DROP TABLE IF EXISTS TB_cafe_review;
 CREATE TABLE IF NOT EXISTS  TB_cafe_review (
       commentno     INT        AUTO_INCREMENT
@@ -86,7 +95,7 @@ DEFAULT CHARACTER SET utf8
 COLLATE utf8_general_ci;
 
 
--- Ä«Æä °ü¸® µ¥ÀÌÅÍ Å×ÀÌºí
+-- ì¹´í˜ ê´€ë¦¬ ë°ì´í„° í…Œì´ë¸”
 DROP TABLE IF EXISTS TB_cafe_management_data;
 
 CREATE TABLE IF NOT EXISTS  TB_cafe_management_data (
@@ -106,7 +115,7 @@ DEFAULT CHARACTER SET utf8
 COLLATE utf8_general_ci;
 
 
--- Ä«Æä ¸®ºä ÀÌ¹ÌÁöµ¥ÀÌÅÍ Å×ÀÌºí
+-- ì¹´í˜ ë¦¬ë·° ì´ë¯¸ì§€ë°ì´í„° í…Œì´ë¸”
 DROP TABLE IF EXISTS TB_cafe_reviewimg_data;
 CREATE TABLE IF NOT EXISTS  TB_cafe_reviewimg_data (
       reviewfileno   INT             AUTO_INCREMENT
@@ -124,7 +133,7 @@ AUTO_INCREMENT=1
 DEFAULT CHARACTER SET utf8 
 COLLATE utf8_general_ci;
 
--- Ä«Æä ¸Ş´º Å×ÀÌºí
+-- ì¹´í˜ ë©”ë‰´ í…Œì´ë¸”
 DROP TABLE IF EXISTS TB_cafe_menu;
 CREATE TABLE IF NOT EXISTS  TB_cafe_menu (
       cafeno         INT             
@@ -141,7 +150,7 @@ DEFAULT CHARACTER SET utf8
 COLLATE utf8_general_ci;
 
 
--- Ä«Æä º°Á¡ Å×ÀÌºí
+-- ì¹´í˜ ë³„ì  í…Œì´ë¸”
 DROP TABLE IF EXISTS TB_cafe_star_point;
 CREATE TABLE IF NOT EXISTS  TB_cafe_star_point (
       starno         INT             AUTO_INCREMENT
@@ -156,7 +165,7 @@ DEFAULT CHARACTER SET utf8
 COLLATE utf8_general_ci;
 
 
--- foreign key ¼³Á¤
+-- foreign key ì„¤ì •
 
 alter table TB_cafe_review add constraint cafereview_cafeinfo_fk foreign key(cafeno) references TB_cafe_cafeinfo(cafeno);
 alter table TB_cafe_management_data add constraint cafemanagement_cafemenu_fk foreign key(menu_id) references TB_cafe_menu(menu_id);
