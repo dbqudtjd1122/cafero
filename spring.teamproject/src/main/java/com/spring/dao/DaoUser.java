@@ -1,5 +1,6 @@
 package com.spring.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -19,6 +20,11 @@ public class DaoUser implements IDaoUser {
     private SqlSession session;
     
     @Override
+    public ModelUser selectUserOne(int userno) {
+        return session.selectOne("mapper.mysql.mapperTeam.selectUserOne", userno);
+    }
+    
+    @Override
     public int login(ModelUser team) {
         return session.selectOne("mapper.mysql.mapperTeam.login", team);
     }
@@ -31,5 +37,23 @@ public class DaoUser implements IDaoUser {
     @Override
     public int insertTeam(ModelUser team) {
         return session.insert("mapper.mysql.mapperTeam.insertTeam", team);
+    }
+    
+    @Override
+    public int updatePasswd(ModelUser updateValue, ModelUser searchValue) {
+        HashMap<String, ModelUser> map = new HashMap<>();
+        map.put("updateValue", updateValue);
+        map.put("searchValue", searchValue);
+                
+        return session.update("mapper.mapperUser.updatePasswd", map);
+    }
+    
+    @Override
+    public int updateUserinfo(ModelUser updateValue, ModelUser searchValue) {
+        
+        HashMap<String,ModelUser> map = new HashMap<String,ModelUser>();
+        map.put("updateValue", updateValue);
+        map.put("searchValue", searchValue);
+        return session.update("mapper.mysql.mapperTeam.updateUserinfo",map);
     }
 }

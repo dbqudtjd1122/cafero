@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.model.ModelUser;
 import com.spring.service.IServiceUser;
@@ -75,14 +78,25 @@ public class UserController {
         return result;
     }
 	
-	@RequestMapping(value = "/team/insertteam", method = {RequestMethod.GET, RequestMethod.POST})
-    @ResponseBody
-    public int insertTeam(Locale locale, Model model, @RequestBody ModelUser team) {
-	    logger.info("/team/insertteam");
+	/*@RequestMapping(value = "/user/changepassword", method = RequestMethod.POST)
+    public String changepassword(Model model
+            , RedirectAttributes rttr
+            , @RequestParam(value="currentPasswd", defaultValue="") String  currentPasswd
+            , @RequestParam(value="newPasswd", defaultValue=""    ) String  newPasswd
+            , HttpSession session ) {
+        logger.info("changepassword : post");
         
-        int result = svr.insertTeam(team);
+        ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
         
-        return result;
-    }
+        int result = svr.updatePasswd(newPasswd, currentPasswd, user.getEmail() );
+        
+        if( result == 1) {
+            return "user/changepassword_post";
+        }
+        else {
+            rttr.addFlashAttribute("msg", "DB 오류로 인해 패스워드 변경 실패. 관리자 문의");                 
+            return "redirect:/user/changepassword";
+        }
+    }*/
 	
 }

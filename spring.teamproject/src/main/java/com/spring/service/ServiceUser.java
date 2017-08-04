@@ -53,4 +53,47 @@ public class ServiceUser implements IServiceUser {
         }
         return result;
     }
+    
+    @Override
+    public int updateUserinfo(ModelUser updateValue, ModelUser searchValue) {
+        
+        int result = -1;
+        
+        try {
+            result = dao.updateUserinfo(updateValue, searchValue);
+        } catch (Exception e) {
+            logger.error("updateUserinfo" + e.getMessage() );
+            throw e;
+        }
+        
+        return result;
+    }
+    
+    @Override
+    public int updatePasswd(ModelUser updateValue, ModelUser searchValue) {
+        int result = -1;
+        try {
+            result = dao.updatePasswd( updateValue, searchValue);
+        } catch (Exception e) {
+            logger.error("updatePasswd" + e.getMessage() );
+        }
+        return result;
+    }
+
+    @Override
+    public ModelUser selectUserOne(int userno) {
+        
+        ModelUser result = null;
+        
+        try {
+            result = dao.selectUserOne(userno);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            // e.printStackTrace();
+            logger.error("selectUserOne" + e.getMessage() );
+            throw e;
+        }
+        
+        return result;
+    }
 }

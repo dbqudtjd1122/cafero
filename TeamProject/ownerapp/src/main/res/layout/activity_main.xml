@@ -63,7 +63,6 @@
         android:text="  보안설정"/>
     
     <TextView
-        
         android:background="@drawable/boarder"
         android:gravity="center_vertical"
         android:id="@+id/tv_changepw"

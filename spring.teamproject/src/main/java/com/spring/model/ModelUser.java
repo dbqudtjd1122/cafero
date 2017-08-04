@@ -29,11 +29,11 @@ public class ModelUser {
     public void setEmail(String email) {
         this.email = email;
     }
-    public String getPw() {
+    public String getPasswd() {
         return passwd;
     }
-    public void setPw(String pw) {
-        this.passwd = pw;
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
     }
     public String getUserphone() {
         return userphone;
@@ -67,18 +67,18 @@ public class ModelUser {
     }
     @Override
     public String toString() {
-        return "ModelUser [userno=" + userno + ", email=" + email + ", pw=" + passwd
+        return "ModelUser [userno=" + userno + ", email=" + email + ", passwd=" + passwd
                 + ", userphone=" + userphone + ", useraddr=" + useraddr
                 + ", sex=" + sex + ", emailselect=" + emailselect
                 + ", usernickname=" + usernickname + "]";
     }
-    public ModelUser(Integer userno, String email, String pw, String userphone,
+    public ModelUser(Integer userno, String email, String passwd, String userphone,
             String useraddr, String sex, String emailselect,
             String usernickname) {
         super();
         this.userno = userno;
         this.email = email;
-        this.passwd = pw;
+        this.passwd = passwd;
         this.userphone = userphone;
         this.useraddr = useraddr;
         this.sex = sex;
@@ -88,16 +88,16 @@ public class ModelUser {
     public ModelUser() {
         super();
     }
-    public ModelUser(String email, String pw) {
+    public ModelUser(String email, String passwd) {
         super();
         this.email = email;
-        this.passwd = pw;
+        this.passwd = passwd;
     }
-    public ModelUser(String email, String pw, String userphone, String useraddr,
+    public ModelUser(String email, String passwd, String userphone, String useraddr,
             String sex, String emailselect, String usernickname) {
         super();
         this.email = email;
-        this.passwd = pw;
+        this.passwd = passwd;
         this.userphone = userphone;
         this.useraddr = useraddr;
         this.sex = sex;
