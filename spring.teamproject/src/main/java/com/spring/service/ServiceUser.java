@@ -96,4 +96,15 @@ public class ServiceUser implements IServiceUser {
         
         return result;
     }
+    
+    @Override
+    public int deleteUser(ModelUser searchValue) {
+        int result = -1;
+        try {
+            result = dao.deleteUser(searchValue);
+        } catch (Exception e) {
+            logger.error("updateUserInfo " + e.getMessage() );
+        }
+        return result;
+    }
 }

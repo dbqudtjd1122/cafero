@@ -71,10 +71,19 @@
     <update id="updatePasswd" parameterType="hashmap" >
             UPDATE tb_cafe_user
             SET  passwd     = #{updateValue.passwd}
-               
-               <if test="searchValue.email != null and searchValue.email != ''" >
-              AND email    = #{searchValue.email}
+              WHERE 
+                <if test="searchValue.email != null and searchValue.email != ''" >
+               email    = #{searchValue.email}
               </if>
-             
+            
     </update>
+    
+    <delete id="deleteUser" parameterType="ModelUser" >
+            DELETE FROM TB_cafe_user 
+             WHERE 
+             <if test="email != null and email != ''" >
+               email    = #{email}
+              </if>
+           
+    </delete>
  </mapper>

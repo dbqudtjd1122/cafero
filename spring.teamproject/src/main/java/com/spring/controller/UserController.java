@@ -78,7 +78,7 @@ public class UserController {
         return result;
     }
 	
-	/*@RequestMapping(value = "/user/changepassword", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/changepassword", method = RequestMethod.POST)
     public String changepassword(Model model
             , RedirectAttributes rttr
             , @RequestParam(value="currentPasswd", defaultValue="") String  currentPasswd
@@ -97,6 +97,6 @@ public class UserController {
             rttr.addFlashAttribute("msg", "DB 오류로 인해 패스워드 변경 실패. 관리자 문의");                 
             return "redirect:/user/changepassword";
         }
-    }*/
+    }
 	
 }

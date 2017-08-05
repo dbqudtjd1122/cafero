@@ -17,4 +17,5 @@ public interface IDaoUser {
     int insertTeam(ModelUser team);
     int updateUserinfo(ModelUser updateValue,ModelUser searchValue);
     int updatePasswd(ModelUser updateValue, ModelUser searchValue);
+    int deleteUser(ModelUser user);
 }

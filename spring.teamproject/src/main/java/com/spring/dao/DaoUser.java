@@ -45,15 +45,21 @@ public class DaoUser implements IDaoUser {
         map.put("updateValue", updateValue);
         map.put("searchValue", searchValue);
                 
-        return session.update("mapper.mapperUser.updatePasswd", map);
+        return session.update("mapper.mysql.mapperTeam.updatePasswd", map);
     }
     
     @Override
     public int updateUserinfo(ModelUser updateValue, ModelUser searchValue) {
         
-        HashMap<String,ModelUser> map = new HashMap<String,ModelUser>();
+        HashMap<String,ModelUser> map = new HashMap<>();
         map.put("updateValue", updateValue);
         map.put("searchValue", searchValue);
         return session.update("mapper.mysql.mapperTeam.updateUserinfo",map);
+    }
+    
+    @Override
+    public int deleteUser(ModelUser user) {
+        
+        return session.delete("mapper.mysql.mapperTeam.deleteUser",user);
     }
 }
