@@ -8,25 +8,42 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.cafe.adminapp.MainActivity"
-    tools:showIn="@layout/app_bar_main">
-    
+    tools:showIn="@layout/app_bar_main"
+    >
+  
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center"
+        >
     
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="30dp"
-            android:ems="10"
-            android:hint="지역 검색"
-            android:inputType="textPersonName"
-            android:text=""/>
+            android:layout_gravity="bottom"
+            android:orientation="horizontal">
+    
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="30dp"
+                android:ems="10"
+                android:hint="지역 검색"
+                android:inputType="textPersonName"
+                android:text=""/>
+    
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:text="검색"
+                android:background="@color/colorMINT"/>
+        </LinearLayout>
     
         <TextView
             android:id="@+id/textView2"
@@ -41,34 +58,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
     
         <ImageButton
             android:id="@+id/imageButton"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/aa"
-            android:layout_marginRight="20dp"/>
-    
-        <ImageButton
-            android:id="@+id/imageButton3"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            app:srcCompat="@drawable/cc"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
-            />
+            android:onClick="ImgOnClick"
+            app:srcCompat="@drawable/aa"/>
     
         <ImageButton
             android:id="@+id/imageButton2"
             android:layout_width="120dp"
             android:layout_height="120dp"
+            android:layout_marginRight="20dp"
             android:layout_weight="1"
+            android:onClick="ImgOnClick"
+            app:srcCompat="@drawable/cc"
+            />
+    
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_weight="1"
+            android:onClick="ImgOnClick"
             app:srcCompat="@drawable/bb"/>
 
 
@@ -118,12 +138,13 @@
         android:layout_marginRight="20dp">
         
         <ImageButton
-            android:id="@+id/imageButton6"
+            android:id="@+id/imageButton4"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/ff"
-            android:layout_marginRight="20dp"/>
+            android:layout_marginRight="20dp"
+            android:onClick="ImgOnClick"/>
         
         <ImageButton
             android:id="@+id/imageButton5"
@@ -131,14 +152,16 @@
             android:layout_height="120dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/ee"
-            android:layout_marginRight="20dp"/>
+            android:layout_marginRight="20dp"
+            android:onClick="ImgOnClick"/>
     
         <ImageButton
-            android:id="@+id/imageButton4"
+            android:id="@+id/imageButton6"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/dd"/>
+            app:srcCompat="@drawable/dd"
+            android:onClick="ImgOnClick"/>
     </LinearLayout>
     
     <LinearLayout
@@ -180,8 +203,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="horizontal"
         android:gravity="bottom"
+        android:orientation="horizontal"
         >
     
         <ImageButton
@@ -189,7 +212,8 @@
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ediya"/>
+            app:srcCompat="@drawable/ediya_banner"/>
     </LinearLayout>
+
 
 </LinearLayout>

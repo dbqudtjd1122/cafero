@@ -30,9 +30,14 @@ public class CafeinfoServiceTest extends ServiceCafeinfo {
     
     @Test
     public void testgetListCafe() {
-        List<ModelCafeinfo> result = service.getCafeList();
+        ModelCafeinfo cafebigtype = new ModelCafeinfo();
+        cafebigtype.setCafebigtype("카페");
+        String orderKind = "review_count";
+        List<ModelCafeinfo> result = service.getCafeList(cafebigtype, orderKind);
         
         assertNotNull(result);
         assertNotEquals(0, result.size());
     }
+    
+   
 }

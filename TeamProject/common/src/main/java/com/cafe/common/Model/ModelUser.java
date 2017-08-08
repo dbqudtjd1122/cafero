@@ -1,4 +1,4 @@
-package com.cafe.adminapp.Model;
+package com.cafe.common.Model;
 
 public class ModelUser {
     

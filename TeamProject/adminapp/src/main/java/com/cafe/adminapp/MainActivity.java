@@ -1,7 +1,6 @@
 package com.cafe.adminapp;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,11 +11,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+
+import android.view.View;
 import android.widget.Toast;
-import android.content.Intent;
+
+import com.cafe.adminapp.cafeinfo.FragmentListActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -24,9 +23,13 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        setTitle("카페路로");
 
         // FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         // fab.setOnClickListener(new View.OnClickListener() {
@@ -119,5 +122,30 @@ public class MainActivity extends AppCompatActivity
         }
 
         return true;
+    }
+
+    public void ImgOnClick(View view) {
+
+        Intent intent2 = new Intent(MainActivity.this, FragmentListActivity.class);
+        switch (view.getId()){
+            case R.id.imageButton:
+                startActivity(intent2);
+                break;
+            case R.id.imageButton2:
+                startActivity(intent2);
+                break;
+            case R.id.imageButton3:
+                startActivity(intent2);
+                break;
+            case R.id.imageButton4:
+                startActivity(intent2);
+                break;
+            case R.id.imageButton5:
+                startActivity(intent2);
+                break;
+            case R.id.imageButton6:
+                startActivity(intent2);
+                break;
+        }
     }
 }

@@ -1,6 +1,10 @@
-package com.android.cafe.common;
+package com.cafe.common;
+
+import com.cafe.common.Model.ModelCafeinfo;
 
 import org.junit.Test;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -12,6 +16,10 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
+        ModelCafeinfo obj = new ModelCafeinfo("카페"); // cafebigtype
+        List<ModelCafeinfo> list = new HttpCafeinfo().itemlist(obj, "like_count");
+
+        assertNotNull(list);
+        assertTrue( list.get(0).getLike_count() >= list.get(list.size()-1).getLike_count() );
     }
 }

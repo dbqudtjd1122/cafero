@@ -9,7 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.cafe.adminapp.Http.HttpRequest;
+import com.cafe.adminapp.cafeinfo.FragmentListActivity;
+import com.cafe.common.Http.HttpRequest;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -90,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                 waitDlg = null;
             }
             if (s.equals("1")) {
-                Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+                Intent intent = new Intent(getApplicationContext(), FragmentListActivity.class);
                 startActivity(intent);
             }
         }
