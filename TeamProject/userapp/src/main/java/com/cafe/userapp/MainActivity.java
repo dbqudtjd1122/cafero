@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity
         vflipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_left_in));
         vflipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_left_out));
 
-        vflipper.setFlipInterval(3000);
+        vflipper.setFlipInterval(2000);
 
         vflipper.startFlipping();
 

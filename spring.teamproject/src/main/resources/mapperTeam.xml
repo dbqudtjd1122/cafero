@@ -10,6 +10,11 @@
          WHERE email = #{email} and passwd = #{passwd}
     </select>
    
+    <select id="selectUserOne" parameterType="int" resultType="ModelUser">
+             SELECT *
+             FROM TB_cafe_user 
+             WHERE userno = #{userno}
+    </select>
     
     <select id="getTeamList"  parameterType="ModelUser"  >
         SELECT *
@@ -35,4 +40,36 @@
                                  
           </trim>
     </select>
+<update id="updateUserinfo" parameterType="hashmap">
+        UPDATE tb_cafe_user
+            SET email   = #{updateValue.email}
+              , passwd     = #{updateValue.passwd}
+              , userphone = #{updateValue.userphone}
+              , useraddr = #{updateValue.useraddr}
+              , sex = #{updateValue.sex}
+              , usernickname = #{updateValue.usernickname}
+              , emailselect = #{updateValue.emailselect}
+              
+            WHERE 1 = 1 
+              <if test="searchValue.email != null and searchValue.email != ''" >
+              AND email    = #{searchValue.email}
+              </if>
+              
+    </update>
+    
+    <update id="updatePasswd" parameterType="hashmap" >
+            UPDATE TB_cafe_user 
+               SET passwd = #{newPasswd}            
+             WHERE passwd = #{currentPasswd} AND email = #{email}
+    </update>
+
+    
+    <delete id="deleteUser" parameterType="ModelUser" >
+            DELETE FROM TB_cafe_user 
+             WHERE 
+             <if test="email != null and email != ''" >
+               email    = #{email}
+              </if>
+           
+    </delete>
  </mapper>

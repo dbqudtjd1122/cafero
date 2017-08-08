@@ -24,6 +24,9 @@ public class UserServiceTest {
         context= new ClassPathXmlApplicationContext("file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml");
         service=context.getBean("serviceteam", IServiceUser.class);
     }
+
+
+    private String email;
     
     @Before
     public void setUp() throws Exception {
@@ -57,4 +60,50 @@ public class UserServiceTest {
         
         assertSame(result, 1);
     }
+    
+    @Test
+    public void testupdateUserinfo() {
+        
+        ModelUser updatevalue = new ModelUser();
+        updatevalue.setEmail("sonyo@hanmail.net");
+        updatevalue.setPasswd("14232");
+        updatevalue.setSex("0");
+        updatevalue.setUseraddr("건영백화점");
+        updatevalue.setUsernickname("지져스");
+        updatevalue.setUserphone("일오");
+       
+        ModelUser searchvalue = new ModelUser();
+        searchvalue.setUsernickname("하계동배트맨"); 
+        
+        int result = service.updateUserinfo(updatevalue, searchvalue);
+        
+        assertEquals(result, 1);
+    }
+    
+    @Test
+    public void testupdatePasswd() {
+        
+        ModelUser user = service.selectUserOne( 3 );
+        
+        // currentpasswd
+        user.setPasswd( "1543" );
+        user.setEmail("sonyo@hanmail.net");
+        
+        int result = service.updatePasswd("2704", user.getPasswd(), user.getEmail());
+        
+        assertEquals(result, 3);
+    }
+
+    
+    @Test
+    public void testdeleteUser() {
+        ModelUser user = new ModelUser();
+        user.setEmail("dshhi89@nate.com");
+       
+        int result = service.deleteUser(user);
+        assertEquals(result, 1);
+        
+    }
+
+    
 }
