@@ -24,6 +24,9 @@ public class UserServiceTest {
         context= new ClassPathXmlApplicationContext("file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml");
         service=context.getBean("serviceteam", IServiceUser.class);
     }
+
+
+    private String email;
     
     @Before
     public void setUp() throws Exception {
@@ -60,6 +63,7 @@ public class UserServiceTest {
     
     @Test
     public void testupdateUserinfo() {
+        
         ModelUser updatevalue = new ModelUser();
         updatevalue.setEmail("sonyo@hanmail.net");
         updatevalue.setPasswd("14232");
@@ -79,16 +83,17 @@ public class UserServiceTest {
     @Test
     public void testupdatePasswd() {
         
-        ModelUser updatevalue = new ModelUser();
-        updatevalue.setPasswd("569");
+        ModelUser user = service.selectUserOne( 3 );
         
-        ModelUser searchvalue = new ModelUser();
-        searchvalue.setEmail("dshhi89@nate.com");
+        // currentpasswd
+        user.setPasswd( "1543" );
+        user.setEmail("sonyo@hanmail.net");
         
-        int result = service.updatePasswd(updatevalue, searchvalue );
+        int result = service.updatePasswd("2704", user.getPasswd(), user.getEmail());
         
-        assertEquals(result, 1);
+        assertEquals(result, 3);
     }
+
     
     @Test
     public void testdeleteUser() {

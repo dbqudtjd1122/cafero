@@ -48,35 +48,15 @@
               <if test="searchValue.email != null and searchValue.email != ''" >
               AND email    = #{searchValue.email}
               </if>
-              <if test="searchValue.passwd != null and searchValue.passwd != ''" >
-              AND passwd    = #{searchValue.passwd}
-              </if>
-              <if test="searchValue.userphone != null and searchValue.userphone != ''" >
-              AND userphone    = #{searchValue.userphone}
-              </if>
-              <if test="searchValue.useraddr != null and searchValue.useraddr != ''" >
-              AND useraddr    = #{searchValue.useraddr}
-              </if>
-              <if test="searchValue.sex != null and searchValue.sex != ''" >
-              AND sex    = #{searchValue.sex}
-              </if>
-              <if test="searchValue.usernickname != null and searchValue.usernickname != ''">
-              AND usernickname    = #{searchValue.usernickname}
-              </if>
-              <if test="searchValue.emailselect != null and searchValue.emailselect != ''">
-              AND emailselect    = #{searchValue.emailselect}
-              </if>
+              
     </update>
     
     <update id="updatePasswd" parameterType="hashmap" >
-            UPDATE tb_cafe_user
-            SET  passwd     = #{updateValue.passwd}
-              WHERE 
-                <if test="searchValue.email != null and searchValue.email != ''" >
-               email    = #{searchValue.email}
-              </if>
-            
+            UPDATE TB_cafe_user 
+               SET passwd = #{newPasswd}            
+             WHERE passwd = #{currentPasswd} AND email = #{email}
     </update>
+
     
     <delete id="deleteUser" parameterType="ModelUser" >
             DELETE FROM TB_cafe_user 

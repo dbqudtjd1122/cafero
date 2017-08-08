@@ -78,25 +78,18 @@ public class UserController {
         return result;
     }
 	
-	@RequestMapping(value = "/user/changepassword", method = RequestMethod.POST)
-    public String changepassword(Model model
-            , RedirectAttributes rttr
-            , @RequestParam(value="currentPasswd", defaultValue="") String  currentPasswd
-            , @RequestParam(value="newPasswd", defaultValue=""    ) String  newPasswd
-            , HttpSession session ) {
-        logger.info("changepassword : post");
+	@RequestMapping(value = "/user/updateUserInfo", method = {RequestMethod.GET, RequestMethod.POST})
+	
+    public int updateUserInfo(Locale locale, Model model, @RequestBody ModelUser updateValue, ModelUser searchValue) {
+        logger.info("updateUserInfo : post");
         
-        ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+        updateValue = new ModelUser("email","selectEmail","passwd","userphone","nickname","sex","addr");
+        searchValue = svr.selectUserOne(4);
         
-        int result = svr.updatePasswd(newPasswd, currentPasswd, user.getEmail() );
-        
-        if( result == 1) {
-            return "user/changepassword_post";
-        }
-        else {
-            rttr.addFlashAttribute("msg", "DB 오류로 인해 패스워드 변경 실패. 관리자 문의");                 
-            return "redirect:/user/changepassword";
-        }
+        int result = svr.updateUserinfo(searchValue,updateValue);
+                         
+        return result;     
+	   
     }
 	
 }

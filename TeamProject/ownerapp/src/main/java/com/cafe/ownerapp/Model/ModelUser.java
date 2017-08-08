@@ -1,15 +1,10 @@
-package com.spring.model;
+package com.cafe.ownerapp.Model;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Repository;
-
-@Repository
 public class ModelUser {
     
     private Integer userno;
     private String email = "";
-    private String passwd = "";
+    private String pw = "";
     private String userphone = "";
     private String useraddr = "";
     private String sex = "";
@@ -29,11 +24,11 @@ public class ModelUser {
     public void setEmail(String email) {
         this.email = email;
     }
-    public String getPasswd() {
-        return passwd;
+    public String getPw() {
+        return pw;
     }
-    public void setPasswd(String passwd) {
-        this.passwd = passwd;
+    public void setPw(String pw) {
+        this.pw = pw;
     }
     public String getUserphone() {
         return userphone;
@@ -67,63 +62,42 @@ public class ModelUser {
     }
     @Override
     public String toString() {
-        return "ModelUser [userno=" + userno + ", email=" + email + ", passwd=" + passwd
+        return "ModelUser [userno=" + userno + ", email=" + email + ", pw=" + pw
                 + ", userphone=" + userphone + ", useraddr=" + useraddr
                 + ", sex=" + sex + ", emailselect=" + emailselect
                 + ", usernickname=" + usernickname + "]";
     }
-    public ModelUser(Integer userno, String email, String passwd, String userphone,
-            String useraddr, String sex, String emailselect,
-            String usernickname) {
+
+    public ModelUser(String email, String pw, String userphone, String useraddr, String sex, String emailselect, String usernickname) {
+        this.email = email;
+        this.pw = pw;
+        this.userphone = userphone;
+        this.useraddr = useraddr;
+        this.sex = sex;
+        this.emailselect = emailselect;
+        this.usernickname = usernickname;
+    }
+
+    public ModelUser(Integer userno, String email, String pw, String userphone,
+                     String useraddr, String sex, String emailselect,
+                     String usernickname) {
         super();
         this.userno = userno;
         this.email = email;
-        this.passwd = passwd;
+        this.pw = pw;
         this.userphone = userphone;
         this.useraddr = useraddr;
         this.sex = sex;
         this.emailselect = emailselect;
         this.usernickname = usernickname;
     }
-    public ModelUser() {
+    public ModelUser(String email, String passwd, String addr, String nickname, String userphone) {
         super();
     }
-    public ModelUser(String email, String passwd) {
-        super();
-        this.email = email;
-        this.passwd = passwd;
-    }
-    public ModelUser(String email, String passwd, String userphone, String useraddr,
-            String sex, String emailselect, String usernickname) {
+    public ModelUser(String email, String pw) {
         super();
         this.email = email;
-        this.passwd = passwd;
-        this.userphone = userphone;
-        this.useraddr = useraddr;
-        this.sex = sex;
-        this.emailselect = emailselect;
-        this.usernickname = usernickname;
-    }
-    public ModelUser(String email, String passwd, String userphone,
-            String useraddr, String usernickname) {
-        super();
-        this.email = email;
-        this.passwd = passwd;
-        this.userphone = userphone;
-        this.useraddr = useraddr;
-        this.usernickname = usernickname;
+        this.pw = pw;
     }
     
-    
-   
-    
-    
-    
-    
-    
-  
- 
-    
-  
-   
 }
