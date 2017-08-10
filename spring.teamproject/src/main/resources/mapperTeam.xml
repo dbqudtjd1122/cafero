@@ -4,8 +4,8 @@
 
 <mapper namespace="mapper.mysql.mapperTeam">
     
-    <select id="login" parameterType="ModelUser" resultType="int">        
-        SELECT count(*)
+    <select id="login" parameterType="ModelUser" resultType="ModelUser">        
+        SELECT *
           FROM tb_cafe_user
          WHERE email = #{email} and passwd = #{passwd}
     </select>
@@ -25,15 +25,21 @@
     <insert id="insertTeam" parameterType="ModelUser">
         INSERT INTO 
         tb_cafe_user ( email   , passwd   , userphone   , useraddr   ,   sex ,  emailselect   , usernickname )
-        VALUES       ( #{email}, #{passwd}, #{userphone}, #{useraddr}, #{sex}, #{emailselect} , #{usernickname}  )
+        VALUES       ( #{email}, #{passwd}, #{userphone}, #{useraddr}, #{sex}, #{emailselect} , #{usernickname} )
     </insert>
     
-    <select id="getCafeList"  resultType="ModelCafeinfo">
+    <select id="getCafeList"  parameterType="java.util.Map" resultType="ModelCafeinfo">
         SELECT *
           FROM tb_cafe_cafeinfo
-        ORDER BY cafeno asc;
+          where cafebigtype = #{searchValue.cafebigtype}
+          <trim prefix="ORDER BY"> 
+                        <if test="orderKind == 'cafename' ">  cafename ASC </if>
+                        <if test="orderKind == 'like_count' ">  like_count DESC </if>
+                        <if test="orderKind == 'avg_grade' ">  avg_grade DESC </if>
+                        <if test="orderKind == 'review_count' ">  review_count DESC </if> 
+                                 
+          </trim>
     </select>
-
 <update id="updateUserinfo" parameterType="hashmap">
         UPDATE tb_cafe_user
             SET 

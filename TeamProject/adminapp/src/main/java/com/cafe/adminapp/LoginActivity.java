@@ -4,20 +4,32 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.cafe.adminapp.Http.HttpRequest;
+import com.cafe.adminapp.cafeinfo.FragmentListActivity;
+import com.cafe.common.Http.HttpRequest;
+import com.cafe.common.Model.ModelCafeinfo;
+import com.cafe.common.Model.ModelUser;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText editID, editPW;
-    Button btnLogin, Signup;
+    private EditText editID, editPW;
+    private Button btnLogin, Signup;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // Http 로그인 확인
-    public class HttpLogin extends AsyncTask<String, Integer, String>{
+    public class HttpLogin extends AsyncTask<String, Integer, ModelUser> {
 
         private ProgressDialog waitDlg = null;
 
@@ -65,12 +77,12 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         @Override
-        protected String doInBackground(String... params) {
+        protected ModelUser doInBackground(String... params) {
 
             String id = params[0];
             String pw = params[1];
 
-            String result = login(id, pw);
+            ModelUser result = login(id, pw);
 
             return result;
         }
@@ -81,43 +93,56 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+        protected void onPostExecute(ModelUser modelUser) {
+            super.onPostExecute(modelUser);
 
             // Progressbar 감추기 : 서버 요청 완료수 Maiting dialog를 제거한다.
             if (waitDlg != null) {
                 waitDlg.dismiss();
                 waitDlg = null;
             }
-            if (s.equals("1")) {
-                Intent intent = new Intent(getApplicationContext(), ListActivity.class);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.putExtra("email" , modelUser.getEmail().toString());
+            intent.putExtra("nickname" , modelUser.getUsernickname().toString());
+            intent.putExtra("level" , modelUser.getUserlevel().toString());
+            startActivity(intent);
+
         }
     }
-    public String login(String id, String pw){
+
+    public ModelUser login(String id, String pw) {
         String weburl = "http://192.168.0.52:8080/team/login";
 
         HttpRequest request = null;
-        String response = "";
+        JSONObject response = null;
+        ModelUser user = null;
+
 
         try {
+
             request = new HttpRequest(weburl).addHeader("charset", "utf-8");
             request.addParameter("email", id);
             request.addParameter("passwd", pw);
+
             int httpCode = request.post();
 
-            if(httpCode == HttpURLConnection.HTTP_OK){
-                response = request.getStringResponse();
-            }
-            else {
+            if (httpCode == HttpURLConnection.HTTP_OK) {
+
+                response = request.getJSONObjectResponse();
+            } else {
                 // error
             }
+            String jsonInString = response.toString();
+            user = new Gson().fromJson(jsonInString, ModelUser.class);
+
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         } finally {
             request.close();
         }
-        return response;
+        return user;
+
     }
 }

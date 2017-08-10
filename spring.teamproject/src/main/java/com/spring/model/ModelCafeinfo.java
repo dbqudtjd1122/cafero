@@ -1,14 +1,10 @@
 package com.spring.model;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Repository;
 
-import com.mysql.jdbc.Blob;
-import com.sun.mail.iap.ByteArray;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-@Repository
-public class ModelCafeinfo {
+public class ModelCafeinfo implements Parcelable {
     
      private Integer cafeno;
      private String brand;
@@ -18,8 +14,16 @@ public class ModelCafeinfo {
      private Float avg_grade;
      private Integer review_count;
      private Integer like_count;
-     
-     
+     private String cafebigtype;
+     private String cafesmalltype;
+
+
+
+    public ModelCafeinfo(String cafebigtype) {
+        this.cafebigtype = cafebigtype;
+    }
+
+
     public Integer getCafeno() {
         return cafeno;
     }
@@ -68,18 +72,37 @@ public class ModelCafeinfo {
     public void setLike_count(Integer like_count) {
         this.like_count = like_count;
     }
+    public String getCafebigtype() {
+        return cafebigtype;
+    }
+    public void setCafebigtype(String cafebigtype) {
+        this.cafebigtype = cafebigtype;
+    }
+    public String getCafesmalltype() {
+        return cafesmalltype;
+    }
+    public void setCafesmalltype(String cafesmalltype) {
+        this.cafesmalltype = cafesmalltype;
+    }
+
+
     @Override
     public String toString() {
-        return "ModelCafeinfo [cafeno=" + cafeno + ", brand=" + brand
-                + ", cafename=" + cafename + ", cafeaddr=" + cafeaddr
-                + ", cafephone=" + cafephone + ", avg_grade=" + avg_grade
-                + ", review_count=" + review_count + ", like_count="
-                + like_count + "]";
+        return "ModelCafeinfo{" +
+                "cafeno=" + cafeno +
+                ", brand='" + brand + '\'' +
+                ", cafename='" + cafename + '\'' +
+                ", cafeaddr='" + cafeaddr + '\'' +
+                ", cafephone='" + cafephone + '\'' +
+                ", avg_grade=" + avg_grade +
+                ", review_count=" + review_count +
+                ", like_count=" + like_count +
+                ", cafebigtype='" + cafebigtype + '\'' +
+                ", cafesmalltype='" + cafesmalltype + '\'' +
+                '}';
     }
-    public ModelCafeinfo(Integer cafeno, String brand, String cafename,
-            String cafeaddr, String cafephone, Float avg_grade,
-            Integer review_count, Integer like_count) {
-        super();
+
+    public ModelCafeinfo(Integer cafeno, String brand, String cafename, String cafeaddr, String cafephone, Float avg_grade, Integer review_count, Integer like_count, String cafebigtype, String cafesmalltype) {
         this.cafeno = cafeno;
         this.brand = brand;
         this.cafename = cafename;
@@ -88,10 +111,39 @@ public class ModelCafeinfo {
         this.avg_grade = avg_grade;
         this.review_count = review_count;
         this.like_count = like_count;
+        this.cafebigtype = cafebigtype;
+        this.cafesmalltype = cafesmalltype;
     }
+
     public ModelCafeinfo() {
         super();
     }
-     
+    public static Parcelable.Creator<ModelCafeinfo> getCREATOR() {
+        return CREATOR;
+    }
 
+    protected ModelCafeinfo(Parcel in) {
+    }
+
+    public static final Parcelable.Creator<ModelCafeinfo> CREATOR = new Parcelable.Creator<ModelCafeinfo>() {
+        @Override
+        public ModelCafeinfo createFromParcel(Parcel in) {
+            return new ModelCafeinfo(in);
+        }
+
+        @Override
+        public ModelCafeinfo[] newArray(int size) {
+            return new ModelCafeinfo[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+    }
 }

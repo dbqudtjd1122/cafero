@@ -1,4 +1,4 @@
-package com.cafe.adminapp.Model;
+package com.cafe.common.Model;
 
 
 import android.os.Parcel;
@@ -14,8 +14,16 @@ public class ModelCafeinfo implements Parcelable {
      private Float avg_grade;
      private Integer review_count;
      private Integer like_count;
-     
-     
+     private String cafebigtype;
+     private String cafesmalltype;
+
+
+
+    public ModelCafeinfo(String cafebigtype) {
+        this.cafebigtype = cafebigtype;
+    }
+
+
     public Integer getCafeno() {
         return cafeno;
     }
@@ -64,18 +72,37 @@ public class ModelCafeinfo implements Parcelable {
     public void setLike_count(Integer like_count) {
         this.like_count = like_count;
     }
+    public String getCafebigtype() {
+        return cafebigtype;
+    }
+    public void setCafebigtype(String cafebigtype) {
+        this.cafebigtype = cafebigtype;
+    }
+    public String getCafesmalltype() {
+        return cafesmalltype;
+    }
+    public void setCafesmalltype(String cafesmalltype) {
+        this.cafesmalltype = cafesmalltype;
+    }
+
+
     @Override
     public String toString() {
-        return "ModelCafeinfo [cafeno=" + cafeno + ", brand=" + brand
-                + ", cafename=" + cafename + ", cafeaddr=" + cafeaddr
-                + ", cafephone=" + cafephone + ", avg_grade=" + avg_grade
-                + ", review_count=" + review_count + ", like_count="
-                + like_count + "]";
+        return "ModelCafeinfo{" +
+                "cafeno=" + cafeno +
+                ", brand='" + brand + '\'' +
+                ", cafename='" + cafename + '\'' +
+                ", cafeaddr='" + cafeaddr + '\'' +
+                ", cafephone='" + cafephone + '\'' +
+                ", avg_grade=" + avg_grade +
+                ", review_count=" + review_count +
+                ", like_count=" + like_count +
+                ", cafebigtype='" + cafebigtype + '\'' +
+                ", cafesmalltype='" + cafesmalltype + '\'' +
+                '}';
     }
-    public ModelCafeinfo(Integer cafeno, String brand, String cafename,
-            String cafeaddr, String cafephone, Float avg_grade,
-            Integer review_count, Integer like_count) {
-        super();
+
+    public ModelCafeinfo(Integer cafeno, String brand, String cafename, String cafeaddr, String cafephone, Float avg_grade, Integer review_count, Integer like_count, String cafebigtype, String cafesmalltype) {
         this.cafeno = cafeno;
         this.brand = brand;
         this.cafename = cafename;
@@ -84,7 +111,10 @@ public class ModelCafeinfo implements Parcelable {
         this.avg_grade = avg_grade;
         this.review_count = review_count;
         this.like_count = like_count;
+        this.cafebigtype = cafebigtype;
+        this.cafesmalltype = cafesmalltype;
     }
+
     public ModelCafeinfo() {
         super();
     }

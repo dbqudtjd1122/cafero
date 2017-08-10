@@ -34,9 +34,8 @@ public class UserServiceTest {
     
     @Test
     public void testLogin() {
-        ModelUser test = new ModelUser("bsyoo", "1231");
-        int result = service.login(test);
-        assertEquals(1, result);
+        ModelUser test = new ModelUser("aa@nate.com", "123123");
+        ModelUser result = service.login(test);
         
         test = new ModelUser("test2id", "test2pw");
         result = service.login(test);

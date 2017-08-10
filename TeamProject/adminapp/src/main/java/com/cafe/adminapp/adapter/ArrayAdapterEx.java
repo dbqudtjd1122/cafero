@@ -1,4 +1,4 @@
-package com.cafe.adminapp.Adapter;
+package com.cafe.adminapp.adapter;
 
 import android.content.Context;
 import android.support.annotation.IdRes;
@@ -7,10 +7,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.cafe.adminapp.Model.ModelCafeinfo;
+import com.cafe.common.Model.ModelCafeinfo;
 import com.cafe.adminapp.R;
 
 import java.util.List;
@@ -21,13 +22,14 @@ public class ArrayAdapterEx extends android.widget.ArrayAdapter<ModelCafeinfo> {
         super(context, resource, textViewResourceId, objects);
     }
 
-    class ViewHolder{
+
+
+    class ViewHolder {
         TextView cafename;
         RatingBar avg_grade;
         TextView review_count;
         TextView like_count;
-        // ImageView brandimage;
-
+        ImageView brandImg;
     }
 
     @Override
@@ -35,22 +37,29 @@ public class ArrayAdapterEx extends android.widget.ArrayAdapter<ModelCafeinfo> {
         View itemLayout = super.getView(position, convertView, parent);
         ViewHolder viewHolder = (ViewHolder) itemLayout.getTag();
 
-        if(viewHolder == null){
+        ModelCafeinfo cafeinfo = getItem(position);
+
+        if (viewHolder == null) {
             viewHolder = new ViewHolder();
-            // viewHolder.brandimage= (ImageView) itemLayout.findViewById(R.id.brandimage);
-            viewHolder.avg_grade= (RatingBar) itemLayout.findViewById(R.id.star);
-            viewHolder.cafename= (TextView) itemLayout.findViewById(R.id.cafe_name);
-            viewHolder.review_count= (TextView) itemLayout.findViewById(R.id.review_count);
-            viewHolder.like_count= (TextView) itemLayout.findViewById(R.id.star_count);
+            viewHolder.brandImg = (ImageView) itemLayout.findViewById(R.id.brandimage);
+            viewHolder.avg_grade = (RatingBar) itemLayout.findViewById(R.id.star);
+            viewHolder.cafename = (TextView) itemLayout.findViewById(R.id.cafe_name);
+            viewHolder.review_count = (TextView) itemLayout.findViewById(R.id.review_count);
+            viewHolder.like_count = (TextView) itemLayout.findViewById(R.id.star_count);
             itemLayout.setTag(viewHolder);
         }
-        // viewHolder.brandimage.setImageResource(getItem(position).getBrand_image());
+        if (cafeinfo.getBrand().equals("이디야")) {
+            viewHolder.brandImg.setImageResource(R.drawable.ediya);
+        } else if (cafeinfo.getBrand().equals("스타벅스")) {
+            viewHolder.brandImg.setImageResource(R.drawable.starbucks);
+        } else if (cafeinfo.getBrand().equals("할리스")) {
+            viewHolder.brandImg.setImageResource(R.drawable.hallis);
+        }
         viewHolder.avg_grade.setRating(getItem(position).getAvg_grade());
         viewHolder.cafename.setText(getItem(position).getCafename());
-        viewHolder.review_count.setText("리뷰"+getItem(position).getReview_count()+"개".toString() );
-        viewHolder.like_count.setText("즐겨찾기"+getItem(position).getLike_count()+"명".toString()  );
-
+        viewHolder.review_count.setText("리뷰" + getItem(position).getReview_count() + "개".toString());
+        viewHolder.like_count.setText("즐겨찾기" + getItem(position).getLike_count() + "명".toString());
 
         return itemLayout;
-    }
+        }
 }

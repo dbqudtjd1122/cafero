@@ -11,6 +11,6 @@ import com.spring.model.ModelCafeinfo;
 @Repository
 public interface IDaoCafeinfo {
      
-    List<ModelCafeinfo> getCafeList();
-    
+    List<ModelCafeinfo> getCafeList(ModelCafeinfo cafebigtype, String orderKind );
+   
 }

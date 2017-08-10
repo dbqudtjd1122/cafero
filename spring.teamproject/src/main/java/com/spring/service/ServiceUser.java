@@ -19,8 +19,8 @@ public class ServiceUser implements IServiceUser {
     IDaoUser dao;
     
     @Override
-    public int login(ModelUser team) {
-        int result = -1;
+    public ModelUser login(ModelUser team) {
+        ModelUser result = null;
         try {
             result = dao.login(team);
         } catch (Exception e) {

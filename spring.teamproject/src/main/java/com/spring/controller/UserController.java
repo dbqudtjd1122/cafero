@@ -46,12 +46,12 @@ public class UserController {
 	
 	@RequestMapping(value = "/team/login", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public int currentversion(Locale locale, Model model, @RequestParam(value="email", defaultValue="")String email
+    public ModelUser currentversion(Locale locale, Model model, @RequestParam(value="email", defaultValue="")String email
                                                         , @RequestParam(value="passwd", defaultValue="")String passwd) {
         logger.info("/team/login");
         ModelUser team= new ModelUser(email, passwd);
         
-        int result = svr.login(team);
+        ModelUser result = svr.login(team);
         
         return result;
     }

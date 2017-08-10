@@ -1,4 +1,4 @@
-package com.cafe.adminapp.Http;
+package com.cafe.common.Http;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,6 +19,8 @@ import java.util.Map;
 
 
 public class HttpRequest {
+
+
 
     public static enum Method {
         POST, PUT, DELETE, GET;

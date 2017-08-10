@@ -17,6 +17,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
 }
 
 dependencies {
@@ -35,4 +37,9 @@ dependencies {
     compile 'commons-codec:commons-codec:1.10'
     compile 'org.json:json:20160810'
     testCompile 'junit:junit:4.12'
+    compile project(path: ':common')
+    compile 'tech.thdev.support:base:1.0.1'
+
+
+
 }
