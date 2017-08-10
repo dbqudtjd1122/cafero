@@ -21,7 +21,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="#bfdfe0">
         
         <LinearLayout
             android:layout_width="wrap_content"
@@ -68,216 +69,19 @@
     
     </LinearLayout>
     
-
-    
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            
-            <View
-                android:layout_width="400dp"
-                android:layout_height="1dp"
-                android:background="#99FFFF"/>
-            
-            
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="11dp"
-                android:orientation="horizontal">
-                
-                
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    
-                    <ImageView
-                        android:id="@+id/imageButton1"
-                        android:layout_width="180dp"
-                        android:layout_height="150dp"
-                        android:layout_marginRight="10dp"
-                        android:scaleType="fitXY"
-                        app:srcCompat="@drawable/iceamericano"
-                        />
-                    
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="35dp"
-                        android:text="아메리카노
-4300원"
-                        />
-                
-                
-                </LinearLayout>
-                
-                
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    
-                    <ImageView
-                        android:id="@+id/imageButton2"
-                        android:layout_width="200dp"
-                        android:layout_height="150dp"
-                        android:scaleType="fitXY"
-                        app:srcCompat="@drawable/capuchino"/>
-                    
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="40dp"
-                        android:text="카푸치노
-4100원"/>
-                
-                
-                </LinearLayout>
-            
-            </LinearLayout>
-            
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="11dp"
-                android:orientation="horizontal">
-                
-                
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    
-                    <ImageView
-                        android:id="@+id/imageButton3"
-                        android:layout_width="180dp"
-                        android:layout_height="150dp"
-                        android:layout_marginRight="10dp"
-                        android:scaleType="fitXY"
-                        app:srcCompat="@drawable/nogcharalatte"/>
-                    
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="35dp"
-                        android:text="녹차라떼
- 4200원"/>
-                
-                
-                </LinearLayout>
-                
-                
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    
-                    <ImageView
-                        android:id="@+id/imageButton4"
-                        android:layout_width="200dp"
-                        android:layout_height="150dp"
-                        android:scaleType="fitXY"
-                        app:srcCompat="@drawable/espresso"/>
-                    
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="35dp"
-                        android:text="에스프레소
-  4100원"/>
-                
-                
-                </LinearLayout>
-            
-            </LinearLayout>
-            
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                
-                
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                
-                </LinearLayout>
-                
-                
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                
-                </LinearLayout>
-            
-            </LinearLayout>
-            
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="11dp"
-                android:orientation="horizontal">
-                
-                
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    
-                    <ImageView
-                        android:id="@+id/imageButton5"
-                        android:layout_width="180dp"
-                        android:layout_height="150dp"
-                        android:layout_marginRight="10dp"
-                        android:scaleType="fitXY"
-                        app:srcCompat="@drawable/hollystea"/>
-                    
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="35dp"
-                        android:text="티푸치노
- 4200원"/>
-                
-                </LinearLayout>
-                
-                
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    
-                    <ImageView
-                        android:id="@+id/imageButton6"
-                        android:layout_width="200dp"
-                        android:layout_height="150dp"
-                        android:scaleType="fitXY"
-                        app:srcCompat="@drawable/frappuccino"/>
-                    
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="35dp"
-                        android:text="프라푸치노
- 4600원"/>
-                
-                
-                </LinearLayout>
-            
-            </LinearLayout>
-        
-        </LinearLayout>
-    </ScrollView>
-
+    <GridView
+        android:id="@+id/gridView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:columnWidth="100dp"
+        android:gravity="center"
+        android:numColumns="2"
+        android:horizontalSpacing="10dp"
+        android:verticalSpacing="10dp"
+        android:drawSelectorOnTop="true"
+        android:stretchMode="columnWidth"
+        android:background="#bfdfe0">
+    </GridView>
 
 </LinearLayout>
