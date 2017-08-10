@@ -115,11 +115,11 @@ public class ModelUser {
     }
     public ModelUser(String email, String passwd, String userphone, String useraddr,
             String sex, String emailselect, String usernickname) {
-=======
+
     public ModelUser(String email, String passwd, String userphone,
             String useraddr, String sex, String emailselect,
             String usernickname) {
->>>>>>> aee0ce2d580ce65ea05cb232ae6c31d879e1f24d
+
         super();
         this.email = email;
         this.passwd = passwd;
@@ -129,7 +129,7 @@ public class ModelUser {
         this.emailselect = emailselect;
         this.usernickname = usernickname;
     }
-<<<<<<< HEAD
+
     public ModelUser(String email, String passwd, String userphone,
             String useraddr, String usernickname) {
         super();
@@ -144,7 +144,7 @@ public class ModelUser {
         this.passwd = passwd;
     }
     
-=======
+
     
     
   
