@@ -24,7 +24,6 @@ public class HttpCafeinfo {
         HttpRequest request = null;
         JSONArray response = null;
         List<ModelCafeinfo> list = null;
-        ModelCafeinfo cafeinfo = new ModelCafeinfo();
 
         //String asc = fragmentListActivity.result();
 

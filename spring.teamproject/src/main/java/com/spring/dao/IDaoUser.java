@@ -12,7 +12,7 @@ import com.spring.model.ModelUser;
 public interface IDaoUser {
     
     ModelUser selectUserOne(int userno);
-    int login(ModelUser team);
+    ModelUser login(ModelUser team);
     List<ModelUser> getTeamList(ModelUser team);
     int insertTeam(ModelUser team);
     int updateUserinfo(ModelUser updateValue,ModelUser searchValue);

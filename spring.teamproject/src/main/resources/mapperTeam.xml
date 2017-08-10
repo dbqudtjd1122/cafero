@@ -4,8 +4,8 @@
 
 <mapper namespace="mapper.mysql.mapperTeam">
     
-    <select id="login" parameterType="ModelUser" resultType="int">        
-        SELECT count(*)
+    <select id="login" parameterType="ModelUser" resultType="ModelUser">        
+        SELECT *
           FROM tb_cafe_user
          WHERE email = #{email} and passwd = #{passwd}
     </select>
