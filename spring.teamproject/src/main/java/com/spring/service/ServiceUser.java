@@ -19,8 +19,8 @@ public class ServiceUser implements IServiceUser {
     IDaoUser dao;
     
     @Override
-    public int login(ModelUser team) {
-        int result = -1;
+    public ModelUser login(ModelUser team) {
+        ModelUser result = null;
         try {
             result = dao.login(team);
         } catch (Exception e) {
@@ -50,6 +50,60 @@ public class ServiceUser implements IServiceUser {
         } catch (Exception e) {
             logger.error("insertTeam" + e.getMessage() );
             throw e;
+        }
+        return result;
+    }
+    
+    @Override
+    public int updateUserinfo(ModelUser updateValue,ModelUser searchValue) {
+        
+        int result = -1;
+        
+        try {
+            result = dao.updateUserinfo(updateValue,searchValue);
+        } catch (Exception e) {
+            logger.error("updateUserinfo" + e.getMessage() );
+            throw e;
+        }
+        
+        return result;
+    }
+    
+    @Override
+    public int updatePasswd(ModelUser updateValue, ModelUser searchValue) {
+        int result = -1;
+        try {
+            result = dao.updatePasswd( updateValue, searchValue);
+        } catch (Exception e) {
+            logger.error("updateUserInfo" + e.getMessage() );
+        }
+        return result;
+    }
+
+    @Override
+    public ModelUser selectUserOne(int userno) {
+        
+        ModelUser result = null;
+        
+        try {
+            result = dao.selectUserOne(userno);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            // e.printStackTrace();
+            logger.error("selectUserOne" + e.getMessage() );
+            throw e;
+        }
+        
+        return result;
+    }
+    
+    @Override
+    public int deleteUser(ModelUser searchValue) {
+        int result = -1;
+        try {
+            result = dao.deleteUser(searchValue);
+        } catch (Exception e) {
+            logger.error("updateUserInfo " + e.getMessage() );
         }
         return result;
     }

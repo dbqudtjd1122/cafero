@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.model.ModelUser;
 import com.spring.service.IServiceUser;
@@ -43,12 +46,12 @@ public class UserController {
 	
 	@RequestMapping(value = "/team/login", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public int currentversion(Locale locale, Model model, @RequestParam(value="email", defaultValue="")String email
+    public ModelUser currentversion(Locale locale, Model model, @RequestParam(value="email", defaultValue="")String email
                                                         , @RequestParam(value="passwd", defaultValue="")String passwd) {
         logger.info("/team/login");
         ModelUser team= new ModelUser(email, passwd);
         
-        int result = svr.login(team);
+        ModelUser result = svr.login(team);
         
         return result;
     }
@@ -58,7 +61,7 @@ public class UserController {
     public ModelUser teamone(Locale locale, Model model, @RequestParam(value="name", defaultValue="")String name) {
         logger.info("/team/teamone");
         
-        ModelUser result = new ModelUser("email", "pw", "userphone", "useraddr", "y", "n", "상어알");
+        ModelUser result = new ModelUser("pw", "userphone", "useraddr", "y", "n", "상어알");
         
         return result;
     }
@@ -75,14 +78,28 @@ public class UserController {
         return result;
     }
 	
-	@RequestMapping(value = "/team/insertteam", method = {RequestMethod.GET, RequestMethod.POST})
-    @ResponseBody
-    public int insertTeam(Locale locale, Model model, @RequestBody ModelUser team) {
-	    logger.info("/team/insertteam");
+	@RequestMapping(value = "/user/updateUserInfo", method = {RequestMethod.GET, RequestMethod.POST})
+    public int updateUserInfo(Locale locale, Model model, @RequestBody ModelUser updateValue) {
+        logger.info("updateUserInfo : post");
         
-        int result = svr.insertTeam(team);
+        ModelUser searchValue = svr.selectUserOne(1);
         
-        return result;
+        int result = svr.updateUserinfo(updateValue,searchValue);
+                         
+        return result;     
+	   
+    }
+	
+	@RequestMapping(value = "/user/updatePasswd", method = {RequestMethod.GET, RequestMethod.POST})
+    public int updatePasswd(Locale locale, Model model, @RequestBody ModelUser updateValue) {
+        logger.info("updateUserInfo : post");
+        
+        ModelUser searchValue = svr.selectUserOne(1);
+        
+        int result = svr.updatePasswd(updateValue,searchValue);
+                         
+        return result;     
+       
     }
 	
 }

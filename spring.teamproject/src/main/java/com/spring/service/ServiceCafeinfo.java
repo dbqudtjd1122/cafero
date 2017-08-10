@@ -18,14 +18,15 @@ public class ServiceCafeinfo implements IServiceCafeinfo {
     @Autowired
     IDaoCafeinfo dao;
     
+
     @Override
-    public List<ModelCafeinfo> getCafeList() {
+    public List<ModelCafeinfo> getCafeList(ModelCafeinfo cafebigtype,
+            String orderKind) {
         List<ModelCafeinfo> result = null;
         try {
-            result = dao.getCafeList();
+            result = dao.getCafeList(cafebigtype, orderKind);
         } catch (Exception e) {
             logger.error("getCafeList" + e.getMessage() );
-            throw e;
         }
         return result;
     }

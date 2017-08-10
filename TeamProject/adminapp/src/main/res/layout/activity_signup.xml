@@ -21,18 +21,20 @@
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:text="계정정보"
-                android:textSize="25dp"/>
+                android:textSize="25dp"
+                android:background="@color/colorMINT"
+                android:gravity="center_vertical"/>
     
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
-    
+        
                 <EditText
                     android:id="@+id/edt_input_email"
                     android:layout_width="wrap_content"
@@ -44,14 +46,14 @@
                     android:ems="10"
                     android:hint="이메일(example@naver.com)"
                     android:inputType="textPersonName"/>
-
+    
             </LinearLayout>
     
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
-    
+        
                 <EditText
                     android:id="@+id/edt_input_pw"
                     android:layout_width="wrap_content"
@@ -62,14 +64,14 @@
                     android:ems="10"
                     android:hint="비밀번호(8~20자 내)"
                     android:inputType="textPersonName"/>
-
+    
             </LinearLayout>
     
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
-    
+        
                 <EditText
                     android:id="@+id/edt_input_num"
                     android:layout_width="wrap_content"
@@ -86,7 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
-    
+        
                 <EditText
                     android:id="@+id/edt_input_nickname"
                     android:layout_width="wrap_content"
@@ -141,23 +143,23 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:orientation="horizontal">
+        
+        
+                <RadioButton
+                    android:id="@+id/radioButton1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="남성"/>
+        
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="여성"/>
     
-             
-                    <RadioButton
-                        android:id="@+id/radioButton1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="남성"/>
     
-                    <RadioButton
-                        android:id="@+id/radioButton2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="여성"/>
-    
-
             </RadioGroup>
     
             <LinearLayout
@@ -165,37 +167,37 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
-    
+        
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
-        
-        
+            
+            
                     <TextView
                         android:id="@+id/textView8"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="약관동의"
                         android:textSize="20dp"/>
-        
+            
                     <TextView
                         android:id="@+id/textView9"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="이용약관 동의"/>
-        
+            
                     <TextView
                         android:id="@+id/textView10"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="개인정보 수집이용 동의"/>
-        
-        
+            
+            
                     <TextView
                         android:id="@+id/textView14"
                         android:layout_width="match_parent"
@@ -205,22 +207,22 @@
 환경 설정에서 확인할 수 있습니다.
 만 14세 이상 고객만 가입이 가능합니다"
                         android:textSize="12dp"/>
-    
+        
                 </LinearLayout>
-    
+        
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
                     android:orientation="vertical">
-        
-                    <CheckBox
             
+                    <CheckBox
+                
                         android:id="@+id/checkALL"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="전체 동의"/>
-        
+            
                     <CheckBox
                         android:id="@+id/checkBox1"
                         android:layout_width="wrap_content"
@@ -228,7 +230,7 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="5dp"
                         />
-        
+            
                     <CheckBox
                         android:id="@+id/checkBox2"
                         android:layout_width="wrap_content"
@@ -236,8 +238,8 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="5dp"
                         />
-    
-    
+        
+        
                 </LinearLayout>
             </LinearLayout>
     

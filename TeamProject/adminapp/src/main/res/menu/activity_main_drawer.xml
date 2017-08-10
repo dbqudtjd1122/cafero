@@ -6,6 +6,7 @@
             android:id="@+id/login"
             android:title="로그인"
             android:clickable="true"
+            android:visible="true"
             />
         <item
             android:id="@+id/nav_camera"

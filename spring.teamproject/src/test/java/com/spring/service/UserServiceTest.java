@@ -24,6 +24,9 @@ public class UserServiceTest {
         context= new ClassPathXmlApplicationContext("file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml");
         service=context.getBean("serviceteam", IServiceUser.class);
     }
+
+
+    private String email;
     
     @Before
     public void setUp() throws Exception {
@@ -31,9 +34,8 @@ public class UserServiceTest {
     
     @Test
     public void testLogin() {
-        ModelUser test = new ModelUser("bsyoo", "1231");
-        int result = service.login(test);
-        assertEquals(1, result);
+        ModelUser test = new ModelUser("aa@nate.com", "123123");
+        ModelUser result = service.login(test);
         
         test = new ModelUser("test2id", "test2pw");
         result = service.login(test);
@@ -57,4 +59,42 @@ public class UserServiceTest {
         
         assertSame(result, 1);
     }
+    
+    @Test
+    public void testupdateUserinfo() {
+        
+        ModelUser updatevalue = new ModelUser("fsdf","fdsf","sdfsdf","sdfsd","fsdf","sdfsf");
+        
+        ModelUser searchValue = new ModelUser();
+        searchValue.setEmail("aa@afsd");
+        
+        int result = service.updateUserinfo(updatevalue,searchValue);
+        
+        assertEquals(result, 1);
+    }
+    
+    @Test
+    public void testupdatePasswd() {
+        
+        ModelUser updateValue = new ModelUser("56789");
+        ModelUser searchValue = new ModelUser();
+        searchValue.setEmail("aa@afsd");
+        
+        int result = service.updatePasswd(updateValue, searchValue);
+        
+        assertEquals(result, 1);
+    }
+
+    
+    @Test
+    public void testdeleteUser() {
+        ModelUser user = new ModelUser();
+        user.setEmail("dshhi89@nate.com");
+       
+        int result = service.deleteUser(user);
+        assertEquals(result, 1);
+        
+    }
+
+    
 }

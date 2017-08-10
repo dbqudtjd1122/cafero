@@ -13,8 +13,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.cafe.adminapp.Http.HttpRequest;
-import com.cafe.adminapp.Model.ModelUser;
+import com.cafe.common.Http.HttpRequest;
+import com.cafe.common.Model.ModelUser;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -34,6 +34,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
 
         edtemail = (EditText) findViewById(R.id.edt_input_email);
         edtpw = (EditText) findViewById(R.id.edt_input_pw);
