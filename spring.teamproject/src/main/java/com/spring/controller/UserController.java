@@ -61,7 +61,7 @@ public class UserController {
     public ModelUser teamone(Locale locale, Model model, @RequestParam(value="name", defaultValue="")String name) {
         logger.info("/team/teamone");
         
-        ModelUser result = new ModelUser("email", "pw", "userphone", "useraddr", "y", "n", "상어알");
+        ModelUser result = new ModelUser("pw", "userphone", "useraddr", "y", "n", "상어알");
         
         return result;
     }
@@ -79,17 +79,27 @@ public class UserController {
     }
 	
 	@RequestMapping(value = "/user/updateUserInfo", method = {RequestMethod.GET, RequestMethod.POST})
-	
-    public int updateUserInfo(Locale locale, Model model, @RequestBody ModelUser updateValue, ModelUser searchValue) {
+    public int updateUserInfo(Locale locale, Model model, @RequestBody ModelUser updateValue) {
         logger.info("updateUserInfo : post");
         
-        updateValue = new ModelUser("email","selectEmail","passwd","userphone","nickname","sex","addr");
-        searchValue = svr.selectUserOne(4);
+        ModelUser searchValue = svr.selectUserOne(1);
         
-        int result = svr.updateUserinfo(searchValue,updateValue);
+        int result = svr.updateUserinfo(updateValue,searchValue);
                          
         return result;     
 	   
+    }
+	
+	@RequestMapping(value = "/user/updatePasswd", method = {RequestMethod.GET, RequestMethod.POST})
+    public int updatePasswd(Locale locale, Model model, @RequestBody ModelUser updateValue) {
+        logger.info("updateUserInfo : post");
+        
+        ModelUser searchValue = svr.selectUserOne(1);
+        
+        int result = svr.updatePasswd(updateValue,searchValue);
+                         
+        return result;     
+       
     }
 	
 }

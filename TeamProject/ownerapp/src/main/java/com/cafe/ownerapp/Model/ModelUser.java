@@ -4,14 +4,16 @@ public class ModelUser {
     
     private Integer userno;
     private String email = "";
-    private String pw = "";
+    private String passwd = "";
     private String userphone = "";
     private String useraddr = "";
     private String sex = "";
     private String emailselect = "";
     private String usernickname = "";
-    
-    
+
+    public ModelUser() {
+    }
+
     public Integer getUserno() {
         return userno;
     }
@@ -24,11 +26,11 @@ public class ModelUser {
     public void setEmail(String email) {
         this.email = email;
     }
-    public String getPw() {
-        return pw;
+    public String getpasswd() {
+        return passwd;
     }
-    public void setPw(String pw) {
-        this.pw = pw;
+    public void setpasswd(String passwd) {
+        this.passwd = passwd;
     }
     public String getUserphone() {
         return userphone;
@@ -62,15 +64,23 @@ public class ModelUser {
     }
     @Override
     public String toString() {
-        return "ModelUser [userno=" + userno + ", email=" + email + ", pw=" + pw
+        return "ModelUser [userno=" + userno + ", email=" + email + ", passwd=" + passwd
                 + ", userphone=" + userphone + ", useraddr=" + useraddr
                 + ", sex=" + sex + ", emailselect=" + emailselect
                 + ", usernickname=" + usernickname + "]";
     }
 
-    public ModelUser(String email, String pw, String userphone, String useraddr, String sex, String emailselect, String usernickname) {
+    public ModelUser(String email, String passwd, String userphone, String useraddr, String sex, String emailselect, String usernickname) {
         this.email = email;
-        this.pw = pw;
+        this.passwd = passwd;
+        this.userphone = userphone;
+        this.useraddr = useraddr;
+        this.sex = sex;
+        this.emailselect = emailselect;
+        this.usernickname = usernickname;
+    }
+    public ModelUser(String passwd, String userphone, String useraddr, String sex, String emailselect, String usernickname) {
+        this.passwd = passwd;
         this.userphone = userphone;
         this.useraddr = useraddr;
         this.sex = sex;
@@ -78,13 +88,13 @@ public class ModelUser {
         this.usernickname = usernickname;
     }
 
-    public ModelUser(Integer userno, String email, String pw, String userphone,
+    public ModelUser(Integer userno, String email, String passwd, String userphone,
                      String useraddr, String sex, String emailselect,
                      String usernickname) {
         super();
         this.userno = userno;
         this.email = email;
-        this.pw = pw;
+        this.passwd = passwd;
         this.userphone = userphone;
         this.useraddr = useraddr;
         this.sex = sex;
@@ -94,10 +104,13 @@ public class ModelUser {
     public ModelUser(String email, String passwd, String addr, String nickname, String userphone) {
         super();
     }
-    public ModelUser(String email, String pw) {
+    public ModelUser(String email, String passwd) {
         super();
         this.email = email;
-        this.pw = pw;
+        this.passwd = passwd;
     }
-    
+
+    public ModelUser(String passwd) {
+        this.passwd = passwd;
+    }
 }

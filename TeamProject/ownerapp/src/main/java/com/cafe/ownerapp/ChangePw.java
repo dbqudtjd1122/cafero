@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.cafe.ownerapp.Http.HttpRequest;
+import com.cafe.ownerapp.Model.ModelUser;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -32,16 +34,21 @@ public class ChangePw extends AppCompatActivity {
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String pw = edt_first.getText().toString();
-                String pw2 = edt_second.getText().toString();
 
-                if (pw == null || pw2 == null || pw != pw2) {
-                    Toast.makeText(getApplicationContext(),"비밀번호를 정확하게 입력해",Toast.LENGTH_SHORT);
-                }
-                else {
 
-                }
+
+                String passwd = edt_first.getText().toString();
+                String passwd2 = edt_second.getText().toString();
+
+                    if (passwd.equals(passwd2)) {
+                        new HttpChangePw().execute(passwd); // execute 인자는 HttpLogin의 첫번째 String 인자에 들어감
+                    } else {
+                        Toast toast = Toast.makeText(getApplicationContext(), "비밀번호를 정확하게 입력해주3", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+
             }
+
         });
 
     }
@@ -62,12 +69,9 @@ public class ChangePw extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            String pw = params[0];   //  0번째 방 = id
+            String passwd = params[0];   //  0번째 방 = id
 
-
-
-
-            String result = changepw(pw);
+            String result = changepw(passwd);
             return result;
         }
 
@@ -97,15 +101,23 @@ public class ChangePw extends AppCompatActivity {
 
     }
 
-    public String changepw(String pw){
-        String weburl = "Http://192.168.0.54:8080/rest/login";
+    public String changepw(String passwd){
+        String weburl = "http://192.168.0.54:8080/user/updatePasswd";
 
         HttpRequest request = null;
-        String response = "";
+        String response = null;
+
         try {
-            request = new HttpRequest(weburl).addHeader("charset","utf-8");
-            request.addParameter("pw",pw);
-            int httpCode = request.post();
+            // ModelUser를 json으로 변환
+            ModelUser obj = new ModelUser(passwd);
+            String data = new Gson().toJson(obj); // java object to JSON
+
+            request = new HttpRequest(weburl)
+                    .addHeader("charset","utf-8")
+                    .addHeader("Content-Type", "application/json")
+                    .addHeader("Accept", "application/json");
+
+            int httpCode = request.post(data);
 
             if (httpCode == HttpURLConnection.HTTP_OK){
                 response = request.getStringResponse();

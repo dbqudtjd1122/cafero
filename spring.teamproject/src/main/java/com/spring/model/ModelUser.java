@@ -93,6 +93,16 @@ public class ModelUser {
         this.email = email;
         this.passwd = passwd;
     }
+    public ModelUser( String passwd, String userphone, String useraddr,
+            String sex, String emailselect, String usernickname) {
+        super();
+        this.passwd = passwd;
+        this.userphone = userphone;
+        this.useraddr = useraddr;
+        this.sex = sex;
+        this.emailselect = emailselect;
+        this.usernickname = usernickname;
+    }
     public ModelUser(String email, String passwd, String userphone, String useraddr,
             String sex, String emailselect, String usernickname) {
         super();
@@ -113,17 +123,9 @@ public class ModelUser {
         this.useraddr = useraddr;
         this.usernickname = usernickname;
     }
+    public ModelUser(String passwd) {
+        super();
+        this.passwd = passwd;
+    }
     
-    
-   
-    
-    
-    
-    
-    
-  
- 
-    
-  
-   
 }

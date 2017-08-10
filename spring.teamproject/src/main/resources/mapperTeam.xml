@@ -36,27 +36,23 @@
 
 <update id="updateUserinfo" parameterType="hashmap">
         UPDATE tb_cafe_user
-            SET email   = #{updateValue.email}
-              , passwd     = #{updateValue.passwd}
+            SET 
+               passwd     = #{updateValue.passwd}
               , userphone = #{updateValue.userphone}
               , useraddr = #{updateValue.useraddr}
               , sex = #{updateValue.sex}
               , usernickname = #{updateValue.usernickname}
               , emailselect = #{updateValue.emailselect}
               
-            WHERE 1 = 1 
-              <if test="searchValue.email != null and searchValue.email != ''" >
-              AND email    = #{searchValue.email}
-              </if>
+            WHERE email = #{searcheValue.email}
               
     </update>
     
     <update id="updatePasswd" parameterType="hashmap" >
             UPDATE TB_cafe_user 
-               SET passwd = #{newPasswd}            
-             WHERE passwd = #{currentPasswd} AND email = #{email}
+               SET passwd = #{updateValue.passwd}            
+             WHERE email = #{searchValue.email}
     </update>
-
     
     <delete id="deleteUser" parameterType="ModelUser" >
             DELETE FROM TB_cafe_user 

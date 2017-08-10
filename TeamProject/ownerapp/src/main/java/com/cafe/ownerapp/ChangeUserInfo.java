@@ -33,7 +33,7 @@ public class ChangeUserInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.change_user_info);
 
-        edtEmail = (EditText) findViewById(R.id.edt_change_email);
+
         edtPasswd = (EditText) findViewById(R.id.edt_change_pw);
         edtAddr = (EditText) findViewById(R.id.edt_change_addr);
         edtNickname = (EditText) findViewById(R.id.edt_change_nickname);
@@ -55,7 +55,7 @@ public class ChangeUserInfo extends AppCompatActivity {
                     if(checkEmail.isChecked() == true){emailstr = "1";} else {emailstr = "0";}
 
                 // AsyncTask 호출
-                String email = edtEmail.getText().toString();
+
                 String passwd = edtPasswd.getText().toString();
                 String addr = edtAddr.getText().toString();
                 String nickname = edtNickname.getText().toString();
@@ -63,7 +63,7 @@ public class ChangeUserInfo extends AppCompatActivity {
                 String selectEmail = emailstr.toString();
                 String sex = sexstr.toString();
 
-                new HttpLogin().execute(email,selectEmail,passwd,userphone,nickname,sex,addr); // execute 인자는 HttpLogin의 첫번째 String 인자에 들어감
+                new HttpLogin().execute(selectEmail,passwd,userphone,nickname,sex,addr); // execute 인자는 HttpLogin의 첫번째 String 인자에 들어감
             }
         });
 
@@ -86,15 +86,15 @@ public class ChangeUserInfo extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            String email = params[0];   //  0번째 방 = id
-            String selectEmail = params[1];   //  1번쨰 방 = pw
-            String passwd = params[2];
-            String userphone = params[3];
-            String nickname = params[4];
-            String sex = params[5];
-            String addr = params[6];
+             //  0번째 방 = id
+            String selectEmail = params[0];   //  1번쨰 방 = pw
+            String passwd = params[1];
+            String userphone = params[2];
+            String nickname = params[3];
+            String sex = params[4];
+            String addr = params[5];
 
-            String result = changeuserinfo(email,selectEmail,passwd,userphone,nickname,sex,addr);
+            String result = changeuserinfo(selectEmail,passwd,userphone,nickname,sex,addr);
             return result;
         }
 
@@ -123,7 +123,7 @@ public class ChangeUserInfo extends AppCompatActivity {
         }
     }
 
-    public String changeuserinfo(String email, String selectEmail, String passwd, String sex, String addr, String nickname, String userphone ){
+    public String changeuserinfo(String selectEmail, String passwd, String sex, String addr, String nickname, String userphone ){
         String weburl = "http://192.168.0.54:8080/user/updateUserInfo";
 
         HttpRequest request = null;
@@ -131,20 +131,13 @@ public class ChangeUserInfo extends AppCompatActivity {
 
         try {
             // ModelUser를 json으로 변환
-            ModelUser obj = new ModelUser(email,passwd,addr,nickname,sex,userphone,selectEmail);
+            ModelUser obj = new ModelUser(passwd,addr,nickname,sex,userphone,selectEmail);
             String data = new Gson().toJson(obj); // java object to JSON
 
             request = new HttpRequest(weburl)
                     .addHeader("charset","utf-8")
                     .addHeader("Content-Type", "application/json")
                     .addHeader("Accept", "application/json");
-//            request.addParameter("email",email);
-//            request.addParameter("passwd",passwd);
-//            request.addParameter("addr",addr);
-//            request.addParameter("nickname",nickname);
-//            request.addParameter("sex",sex);
-//            request.addParameter("userphone",userphone);
-//            request.addParameter("selectEmail",selectEmail);
 
             int httpCode = request.post(data);
 
