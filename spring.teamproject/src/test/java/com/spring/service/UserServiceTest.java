@@ -76,13 +76,10 @@ public class UserServiceTest {
     @Test
     public void testupdatePasswd() {
         
-        ModelUser updateValue = new ModelUser("56789");
-        ModelUser searchValue = new ModelUser();
-        searchValue.setEmail("aa@afsd");
+         
         
-        int result = service.updatePasswd(updateValue, searchValue);
         
-        assertEquals(result, 1);
+        
     }
 
     

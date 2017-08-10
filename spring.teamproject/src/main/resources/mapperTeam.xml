@@ -55,9 +55,9 @@
     </update>
     
     <update id="updatePasswd" parameterType="hashmap" >
-            UPDATE TB_cafe_user 
-               SET passwd = #{updateValue.passwd}            
-             WHERE email = #{searchValue.email}
+            UPDATE TB_USER 
+               SET passwd = #{newPasswd}            
+             WHERE passwd = #{currentPasswd} AND email = #{email}
     </update>
     
     <delete id="deleteUser" parameterType="ModelUser" >

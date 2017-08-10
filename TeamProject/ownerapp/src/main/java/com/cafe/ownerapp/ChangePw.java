@@ -21,6 +21,7 @@ public class ChangePw extends AppCompatActivity {
 
     private EditText edt_first, edt_second;
     private Button btn_ok;
+    private String email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,19 +30,21 @@ public class ChangePw extends AppCompatActivity {
         edt_first = (EditText) findViewById(R.id.edt_changepw_first);
         edt_second = (EditText) findViewById(R.id.edt_changepw_second);
 
+        Intent intent = getIntent();
+        email = intent.getExtras().getString("email");
+
         btn_ok = (Button) findViewById(R.id.btn_ok);
 
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                String currentPasswd = edt_first.getText().toString();
+                String newPasswd = edt_second.getText().toString();
 
+                    if (currentPasswd.equals(newPasswd)) {
+                        new HttpChangePw().execute(email,currentPasswd,newPasswd); // execute 인자는 HttpLogin의 첫번째 String 인자에 들어감
 
-                String passwd = edt_first.getText().toString();
-                String passwd2 = edt_second.getText().toString();
-
-                    if (passwd.equals(passwd2)) {
-                        new HttpChangePw().execute(passwd); // execute 인자는 HttpLogin의 첫번째 String 인자에 들어감
                     } else {
                         Toast toast = Toast.makeText(getApplicationContext(), "비밀번호를 정확하게 입력해주3", Toast.LENGTH_SHORT);
                         toast.show();
@@ -62,16 +65,22 @@ public class ChangePw extends AppCompatActivity {
 
             //ProgressDialog 보이기
             //서버에 요청 동안 Waiting dialog를 보여주도록 한다
+
             waitDlg = new ProgressDialog(ChangePw.this);
             waitDlg.setMessage("기다리삼");
             waitDlg.show();
+
+            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intent);
         }
 
         @Override
         protected String doInBackground(String... params) {
-            String passwd = params[0];   //  0번째 방 = id
+            String email = params[0];   //  0번째 방 = id
+            String currentPasswd = params[1];
+            String newPasswd = params[2];
 
-            String result = changepw(passwd);
+            String result = changepw(email,currentPasswd, newPasswd);
             return result;
         }
 
@@ -85,39 +94,27 @@ public class ChangePw extends AppCompatActivity {
                 waitDlg = null;
             }
 
-            // 받은 결과 출력
-            if (s.equals("1")){
-                //success
-                Toast.makeText(getApplicationContext(),"변경 성공",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(intent);
                 finish();
-            }
-            else {
-                // fail
-                Toast.makeText(getApplicationContext(),"변경 실패",Toast.LENGTH_SHORT).show();
-            }
+
         }
 
     }
 
-    public String changepw(String passwd){
+    public String changepw(String email,  String currentPasswd, String newPasswd){
         String weburl = "http://192.168.0.54:8080/user/updatePasswd";
 
         HttpRequest request = null;
         String response = null;
 
         try {
-            // ModelUser를 json으로 변환
-            ModelUser obj = new ModelUser(passwd);
-            String data = new Gson().toJson(obj); // java object to JSON
-
-            request = new HttpRequest(weburl)
-                    .addHeader("charset","utf-8")
-                    .addHeader("Content-Type", "application/json")
-                    .addHeader("Accept", "application/json");
-
-            int httpCode = request.post(data);
+            request = new HttpRequest(weburl).addHeader("charset", "utf-8");
+            request.addParameter("email", email);
+            request.addParameter("newPasswd", newPasswd);
+            request.addParameter("currentPasswd", currentPasswd);
+            
+            int httpCode = request.post();
 
             if (httpCode == HttpURLConnection.HTTP_OK){
                 response = request.getStringResponse();
@@ -133,4 +130,5 @@ public class ChangePw extends AppCompatActivity {
         }
         return response;
     }
+
 }

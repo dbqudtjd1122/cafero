@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 public class ModelUser {
     
     private Integer userno;
-    private Integer userlevel;
     private String email = "";
     private String passwd = "";
     private String userphone = "";
@@ -23,12 +22,6 @@ public class ModelUser {
     }
     public void setUserno(Integer userno) {
         this.userno = userno;
-    }
-    public Integer getUserlevel() {
-        return userlevel;
-    }
-    public void setUserlevel(Integer userlevel) {
-        this.userlevel = userlevel;
     }
     public String getEmail() {
         return email;
@@ -74,21 +67,16 @@ public class ModelUser {
     }
     @Override
     public String toString() {
-        return "ModelUser [userno=" + userno + ", userlevel=" + userlevel
-                + ", email=" + email + ", passwd=" + passwd + ", userphone="
-                + userphone + ", useraddr=" + useraddr + ", sex=" + sex
-                + ", emailselect=" + emailselect + ", usernickname="
-                + usernickname + "]";
+        return "ModelUser [userno=" + userno + ", email=" + email + ", passwd=" + passwd
+                + ", userphone=" + userphone + ", useraddr=" + useraddr
+                + ", sex=" + sex + ", emailselect=" + emailselect
+                + ", usernickname=" + usernickname + "]";
     }
-    public ModelUser() {
-        super();
-    }
-    public ModelUser(Integer userno, Integer userlevel, String email,
-            String passwd, String userphone, String useraddr, String sex,
-            String emailselect, String usernickname) {
+    public ModelUser(Integer userno, String email, String passwd, String userphone,
+            String useraddr, String sex, String emailselect,
+            String usernickname) {
         super();
         this.userno = userno;
-        this.userlevel = userlevel;
         this.email = email;
         this.passwd = passwd;
         this.userphone = userphone;
@@ -97,12 +85,14 @@ public class ModelUser {
         this.emailselect = emailselect;
         this.usernickname = usernickname;
     }
+    public ModelUser() {
+        super();
+    }
     public ModelUser(String email, String passwd) {
         super();
         this.email = email;
         this.passwd = passwd;
     }
-<<<<<<< HEAD
     public ModelUser( String passwd, String userphone, String useraddr,
             String sex, String emailselect, String usernickname) {
         super();
@@ -115,11 +105,6 @@ public class ModelUser {
     }
     public ModelUser(String email, String passwd, String userphone, String useraddr,
             String sex, String emailselect, String usernickname) {
-=======
-    public ModelUser(String email, String passwd, String userphone,
-            String useraddr, String sex, String emailselect,
-            String usernickname) {
->>>>>>> aee0ce2d580ce65ea05cb232ae6c31d879e1f24d
         super();
         this.email = email;
         this.passwd = passwd;
@@ -129,7 +114,6 @@ public class ModelUser {
         this.emailselect = emailselect;
         this.usernickname = usernickname;
     }
-<<<<<<< HEAD
     public ModelUser(String email, String passwd, String userphone,
             String useraddr, String usernickname) {
         super();
@@ -139,28 +123,9 @@ public class ModelUser {
         this.useraddr = useraddr;
         this.usernickname = usernickname;
     }
-    public ModelUser(String passwd) {
+    public ModelUser(String email) {
         super();
-        this.passwd = passwd;
+        this.email = email;
     }
     
-=======
-    
-    
-  
-    
- 
-    
-   
-    
-    
-    
-    
-    
-  
- 
-    
-  
-   
->>>>>>> aee0ce2d580ce65ea05cb232ae6c31d879e1f24d
 }

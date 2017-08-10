@@ -10,18 +10,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
-
 import com.cafe.ownerapp.Http.HttpRequest;
-import com.cafe.ownerapp.Model.ModelUser;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+
 
 public class DeleteUser extends AppCompatActivity {
 
     private CheckBox ck_deluser;
     private Button btn_delete_ok;
+    private String email;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,13 +30,17 @@ public class DeleteUser extends AppCompatActivity {
         ck_deluser = (CheckBox) findViewById(R.id.ck_del_user);
         btn_delete_ok = (Button) findViewById(R.id.btn_delete_ok);
 
+        // 값 받아오기
+        Intent intent = getIntent();
+        email = intent.getExtras().getString("email");
+
         btn_delete_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(ck_deluser.isChecked() == true){
                     Toast toast = Toast.makeText(getApplicationContext(),"탈퇴 완료",Toast.LENGTH_SHORT);
                     toast.show();
-                    new HttpDeleteUser().execute();
+                    new HttpDeleteUser().execute(email);
                 }
                 else {
 
@@ -64,10 +68,12 @@ public class DeleteUser extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
 
-            String selectEmail = params[0];   //  1번쨰 방 = pw
+            String email = params[0];   //  1번쨰 방 = email
+
+            deleteuser(email);
 
             //String result = changeuserinfo();
-            return selectEmail;
+            return email;
         }
 
         @Override
@@ -81,35 +87,23 @@ public class DeleteUser extends AppCompatActivity {
             }
 
             // 받은 결과 출력
-            if (s.equals("1")){
                 //success
                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(intent);
                 finish();
-            }
-            else {
-
-            }
         }
     }
 
-    public String deleteuser(){
+    public String deleteuser(String email){
         String weburl = "http://192.168.0.54:8080/user/deleteUser";
 
         HttpRequest request = null;
         String response = null;
 
         try {
-            // ModelUser를 json으로 변환
-            ModelUser obj = new ModelUser();
-            String data = new Gson().toJson(obj); // java object to JSON
-
-            request = new HttpRequest(weburl)
-                    .addHeader("charset","utf-8")
-                    .addHeader("Content-Type", "application/json")
-                    .addHeader("Accept", "application/json");
-
-            int httpCode = request.post(data);
+            request = new HttpRequest(weburl).addHeader("charset", "utf-8");
+            request.addParameter("email", email);
+            int httpCode = request.post();
 
             if (httpCode == HttpURLConnection.HTTP_OK){
                 response = request.getStringResponse();
@@ -125,4 +119,5 @@ public class DeleteUser extends AppCompatActivity {
         }
         return response;
     }
+
 }

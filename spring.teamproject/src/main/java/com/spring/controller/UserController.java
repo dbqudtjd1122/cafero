@@ -91,15 +91,31 @@ public class UserController {
     }
 	
 	@RequestMapping(value = "/user/updatePasswd", method = {RequestMethod.GET, RequestMethod.POST})
-    public int updatePasswd(Locale locale, Model model, @RequestBody ModelUser updateValue) {
+    public int updatePasswd(Locale locale, Model model
+                            ,@RequestParam(value="email", defaultValue="")String email
+                            ,@RequestParam(value="newPasswd", defaultValue="")String newPasswd
+                            ,@RequestParam(value="currentPasswd", defaultValue="")String currentPasswd) {
         logger.info("updateUserInfo : post");
         
         ModelUser searchValue = svr.selectUserOne(1);
         
-        int result = svr.updatePasswd(updateValue,searchValue);
+        int result = svr.updatePasswd(email, newPasswd, currentPasswd);
                          
         return result;     
        
     }
+	
+	   @RequestMapping(value = "/user/deleteUser", method = {RequestMethod.GET, RequestMethod.POST})
+	    @ResponseBody
+	    public int deleteuser(Locale locale, Model model, @RequestParam(value="email", defaultValue="")String email
+	                                                       ) {
+	        logger.info("/team/login");
+	        
+	        ModelUser user = new ModelUser(email);
+	        
+	        int result = svr.deleteUser(user);
+	        
+	        return result;
+	    }
 	
 }

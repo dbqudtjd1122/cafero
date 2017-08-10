@@ -41,10 +41,11 @@ public class DaoUser implements IDaoUser {
     }
     
     @Override
-    public int updatePasswd(ModelUser updateValue, ModelUser searchValue) {
+    public int updatePasswd(String newPasswd, String currentPasswd, String email) {
         HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("updateValue"    , updateValue);
-        map.put("searchValue", searchValue);
+        map.put("newPasswd"    , newPasswd);
+        map.put("currentPasswd", currentPasswd);
+        map.put("email", email);
                 
         return session.update("mapper.mysql.mapperTeam.updatePasswd", map);
     }
