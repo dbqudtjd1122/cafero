@@ -1,88 +1,102 @@
 package com.cafe.userapp;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RatingBar;
-import android.widget.TabHost;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-
 
 public class review extends AppCompatActivity {
 
-    ArrayAdapterEx mAdapter = null;
-    ArrayList<wirte> mData = null;
-    private ListView mListView;
-    private RatingBar ratingBar;
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.review);
-
-        ratingBar = (RatingBar) findViewById(R.id.rtb_review);
-
-        TabHost tabHost = (TabHost) findViewById(R.id.tabhost);
-        tabHost.setup();
-
-        TabHost.TabSpec tab1 = tabHost.newTabSpec("menu").setIndicator("메뉴");
-        tab1.setContent(R.id.tab1);
-        tabHost.addTab(tab1);
-
-        TabHost.TabSpec tab2 = tabHost.newTabSpec("imformation").setIndicator("정보");
-        tab2.setContent(R.id.tab2);
-        tabHost.addTab(tab2);
-
-        TabHost.TabSpec tab3 = tabHost.newTabSpec("reivew").setIndicator("리뷰");
-        tab3.setContent(R.id.tab3);
-        tabHost.addTab(tab3);
-
-        tabHost.setCurrentTab(0);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
 
-        mListView = (ListView) findViewById(R.id.reviewlistview);
 
-        mData = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            wirte data = new wirte();
-            data.setReview("들어가랏!!!");
-            data.setStar("0점");
-            mData.add(data);
-        }
+        //TabLyaout 초기화
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("메뉴"));
+        tabLayout.addTab(tabLayout.newTab().setText("정보"));
+        tabLayout.addTab(tabLayout.newTab().setText("리뷰"));
+        tabLayout.setTabGravity(tabLayout.GRAVITY_FILL);
 
 
-        mAdapter = new ArrayAdapterEx(this, R.layout.reviewlistview, R.id.write, mData);
-        mListView.setAdapter(mAdapter);
+        //ViewPager 초기화
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+
+        //PagerAdapter생성
+        TabPagerAdapter pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
+
+        //TabPagerAdapter 와 ViewPager연결
+        viewPager.setAdapter(pagerAdapter);
+
+        //ViewPager의 OnPageChangeListener 리스터 설정    : Tab<-->ViewPager연결
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+
+        //TabSelectedListener 리스너 설정 : 화면에서 탭을 클릭할때 설정
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
 
     }
 
-    public void onclick(View view) {
-        final wirte addData = new wirte();
-        switch (view.getId()) {
-            case R.id.btn:
-                EditText edt_review = (EditText) findViewById(R.id.edt_review);
-                final RatingBar rtb_review = (RatingBar) findViewById(R.id.rtb_review);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
-                rtb_review.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-                    @Override
-                    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                        
-                    }
-                });
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
-//                wirte addData = new wirte();
-                addData.setReview(edt_review.getText().toString());
-
-
-                mAdapter.insert(addData, 0);
-
-                Toast.makeText(getApplicationContext(), "리뷰완료!!", Toast.LENGTH_SHORT).show();
-                break;
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
         }
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -12,6 +12,9 @@ import com.spring.model.ModelUser;
 public interface IDaoUser {
     
     int login(ModelUser team);
+    
     List<ModelUser> getTeamList(ModelUser team);
+    
     int insertTeam(ModelUser team);
+    
 }
