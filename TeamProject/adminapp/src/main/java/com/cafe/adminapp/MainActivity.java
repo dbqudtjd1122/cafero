@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.NavigationView;
 import android.support.transition.Visibility;
 import android.support.v4.view.GravityCompat;
@@ -16,21 +17,25 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Intent;
 
 import com.cafe.adminapp.cafeinfo.FragmentListActivity;
+import com.cafe.common.CommonActvity;
 import com.cafe.common.Model.ModelUser;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends CommonActvity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private View hView;
     private TextView nickname, level;
     private ImageView headerimg;
-    private SharedPreferences pref = null;
+    private LinearLayout headerlinear;
+    private Button logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,29 +71,28 @@ public class MainActivity extends AppCompatActivity
         headerimg = (ImageView) hView.findViewById(R.id.headerimg);
         nickname = (TextView)hView.findViewById(R.id.nickname);
         level = (TextView) hView.findViewById(R.id.level);
+        logout = (Button) hView.findViewById(R.id.logout);
+        headerlinear = (LinearLayout) hView.findViewById(R.id.headerlinear);
 
-
-        Intent mainintent = getIntent();
-        String stremail =  mainintent.getStringExtra("email".toString());
-        String strnickname =  mainintent.getStringExtra("nickname".toString());
-        String strlevel = mainintent.getStringExtra("level".toString());
-
-        // 1. 공유 프레퍼런스 객체를 얻어온다. /data/data/패키지명/shared_prefs/Setting.xml
-        pref = getSharedPreferences("Setting", Context.MODE_PRIVATE);
-
-        // 2. 공유 프레퍼런스를 이용하여 로그인 on/off 설정값을 얻어온다.
-        int isheaderimg = pref.getInt("headerimg_Set", View.GONE);
-        String isnickname = pref.getString("nickname_Set", nickname.getText().toString());
-        String islevel = pref.getString("level_Set", level.getText().toString());
-
-        // 3. 현재 사운드 설정값을 체크 박스에 반영한다.
-        headerimg.setVisibility(View.GONE);
-        nickname.setText(isnickname);
-        level.setText(islevel);
-
-        if(strnickname !=null && strlevel !=null ){
-            HeaderLogin(strnickname, strlevel);
+        if (nickname.getText().toString()=="" || nickname.getText().toString()==null){
+            headerimg.setVisibility(View.VISIBLE);
+            headerlinear.setVisibility(View.GONE);
+        }else {
+            headerimg.setVisibility(View.GONE);
+            headerlinear.setVisibility(View.VISIBLE);
+            nickname.setText(isnickname);
+            level.setText(islevel);
         }
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(headerimg.getVisibility() == View.GONE){
+                    onDestroy();
+                }
+                else {}
+            }
+        });
 
     }
 
@@ -152,10 +156,11 @@ public class MainActivity extends AppCompatActivity
 
         if(item.getItemId() == R.id.login){
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
+
+            startActivityForResult(intent, 0);
         }
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            // Handle the* camera action
             Toast.makeText(getApplicationContext(), "카메라", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_gallery) {
 
@@ -172,6 +177,21 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        String strnickname = data.getStringExtra("nickname_Set");
+        String strlevel = data.getStringExtra("level_Set");
+
+        nickname.setText(strnickname);
+        level.setText("Lv."+strlevel);
+        headerimg.setVisibility(View.GONE);
+
+        Toast.makeText(getApplicationContext(), nickname.getText().toString()+" 환영합니다.", Toast.LENGTH_SHORT).show();
+    }
+
+    // 메인 레이아웃 클릭 이벤트
     public void layoutClick(View view) {
 
         Intent intent2 = new Intent(MainActivity.this, FragmentListActivity.class);
@@ -187,23 +207,23 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
     }
-    public void HeaderLogin(String strnickname, String strlevel){
 
-        headerimg.setVisibility(View.GONE);
-        nickname.setText(strnickname);
-        level.setText("Lv."+strlevel);
-
-        SharedPreferences.Editor prefEditor = pref.edit();
-        prefEditor.putInt("headerimg_Set", headerimg.getVisibility());
-        prefEditor.putString("nickname_Set", nickname.getText().toString());
-        prefEditor.putString("level_Set", level.getText().toString());
-        prefEditor.apply();
-    }
-
+    // 로그아웃
     @Override
     protected void onDestroy() {
         // 공유 프레퍼런스 값이 변경되었을때 호출되는 등록된 리스너 해제
         // pref.unregisterOnSharedPreferenceChangeListener(new PrefChangeListener());
         super.onDestroy();
+        if(headerimg.getVisibility()==View.GONE){
+        headerimg.setVisibility(View.VISIBLE);
+        SharedPreferences pref = getSharedPreferences("Setting", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.clear();
+        editor.commit();
+        }else {
+        }
+
+
+
     }
 }

@@ -1,31 +1,28 @@
 package com.cafe.adminapp;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.cafe.adminapp.cafeinfo.FragmentListActivity;
+import com.cafe.common.CommonActvity;
 import com.cafe.common.Http.HttpRequest;
-import com.cafe.common.Model.ModelCafeinfo;
 import com.cafe.common.Model.ModelUser;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.util.List;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends CommonActvity {
 
     private EditText editID, editPW;
     private Button btnLogin, Signup;
@@ -101,12 +98,19 @@ public class LoginActivity extends AppCompatActivity {
                 waitDlg.dismiss();
                 waitDlg = null;
             }
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.putExtra("email" , modelUser.getEmail().toString());
-            intent.putExtra("nickname" , modelUser.getUsernickname().toString());
-            intent.putExtra("level" , modelUser.getUserlevel().toString());
-            startActivity(intent);
+            String nickname = modelUser.getUsernickname().toString();
+            String level = String.valueOf(modelUser.getUserlevel().toString());
 
+            SharedPreferences.Editor prefEditor = pref.edit();
+            prefEditor.putString("nickname_Set", nickname);
+            prefEditor.putString("level_Set", level);
+            prefEditor.apply();
+
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.putExtra("nickname_Set", nickname);
+            intent.putExtra("level_Set", level);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
         }
     }
 
@@ -117,9 +121,7 @@ public class LoginActivity extends AppCompatActivity {
         JSONObject response = null;
         ModelUser user = null;
 
-
         try {
-
             request = new HttpRequest(weburl).addHeader("charset", "utf-8");
             request.addParameter("email", id);
             request.addParameter("passwd", pw);
@@ -134,6 +136,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             String jsonInString = response.toString();
             user = new Gson().fromJson(jsonInString, ModelUser.class);
+
 
         } catch (IOException e) {
             e.printStackTrace();

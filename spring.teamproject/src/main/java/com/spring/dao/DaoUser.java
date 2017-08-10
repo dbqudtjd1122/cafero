@@ -25,8 +25,9 @@ public class DaoUser implements IDaoUser {
     }
     
     @Override
-    public ModelUser login(ModelUser team) {
-        return session.selectOne("mapper.mysql.mapperTeam.login", team);
+    public ModelUser login(ModelUser user) {
+        
+        return session.selectOne("mapper.mysql.mapperTeam.login", user);
     }
 
     @Override

@@ -24,6 +24,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.model.ModelUser;
 import com.spring.service.IServiceUser;
 
+import android.service.textservice.SpellCheckerService.Session;
+
 /**
  * Handles requests for the application home page.
  */
@@ -46,9 +48,10 @@ public class UserController {
 	
 	@RequestMapping(value = "/team/login", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public ModelUser currentversion(Locale locale, Model model, @RequestParam(value="email", defaultValue="")String email
+    public ModelUser Login(Locale locale, Model model, @RequestParam(value="email", defaultValue="")String email
                                                         , @RequestParam(value="passwd", defaultValue="")String passwd) {
         logger.info("/team/login");
+        Session session ;
         ModelUser team= new ModelUser(email, passwd);
         
         ModelUser result = svr.login(team);
