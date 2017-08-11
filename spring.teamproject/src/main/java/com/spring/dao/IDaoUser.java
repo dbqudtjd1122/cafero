@@ -15,7 +15,6 @@ public interface IDaoUser {
     ModelUser selectUserOne(int userno);
     
     ModelUser login(ModelUser team);
-
     
     List<ModelUser> getTeamList(ModelUser team);
     
