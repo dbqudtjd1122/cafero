@@ -3,6 +3,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.mysql.mapperTeam">
+
+
+    <select id="login" parameterType="ModelUser" resultType="int">
+        SELECT count(*)
+        FROM tb_cafe_user
+        WHERE email = #{email} and passwd = #{passwd}
+    </select>
+
+
+    <select id="getTeamList" parameterType="ModelUser">
+=======
     
     <select id="login" parameterType="ModelUser" resultType="ModelUser">        
         SELECT *
@@ -17,12 +28,37 @@
     </select>
     
     <select id="getTeamList"  parameterType="ModelUser"  >
+>>>>>>> f1eb6db7ddde5f6c858dba5d259e953130d472a4
         SELECT *
-          FROM tb_cafe_user
+        FROM tb_cafe_user
         WHERE email like concat('%', #{email}, '%');
-    </select>         
-        
+    </select>
+
     <insert id="insertTeam" parameterType="ModelUser">
+<<<<<<< HEAD
+        INSERT INTO
+        tb_cafe_user ( email , passwd , userphone , useraddr , sex ,
+        emailselect , usernickname )
+        VALUES ( #{email}, #{passwd},
+        #{userphone}, #{useraddr}, #{sex}, #{emailselect} ,
+        #{usernickname} )
+    </insert>
+
+    <select id="getCafeList" resultType="ModelCafeinfo">
+        SELECT *
+        FROM tb_cafe_cafeinfo
+        ORDER BY cafeno asc;
+    </select>
+
+
+    <insert id="insertReview" parameterType="ModelCafeReview">
+        INSERT INTO
+        tb_cafe_review ( content , grade , regdate )
+        VALUES ( #{content}, #{grade}, now() )
+    </insert>
+
+</mapper>
+=======
         INSERT INTO 
         tb_cafe_user ( email   , passwd   , userphone   , useraddr   ,   sex ,  emailselect   , usernickname )
         VALUES       ( #{email}, #{passwd}, #{userphone}, #{useraddr}, #{sex}, #{emailselect} , #{usernickname} )
@@ -69,3 +105,4 @@
            
     </delete>
  </mapper>
+

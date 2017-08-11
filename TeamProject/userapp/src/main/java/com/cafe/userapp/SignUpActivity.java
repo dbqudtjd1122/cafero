@@ -53,11 +53,10 @@ public class SignUpActivity extends AppCompatActivity {
         checkall.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked == true) {
+                if (isChecked == true) {
                     checkBox1.setChecked(true);
                     checkBox2.setChecked(true);
-                }
-                else {
+                } else {
                     checkBox1.setChecked(false);
                     checkBox2.setChecked(false);
                 }
@@ -67,10 +66,9 @@ public class SignUpActivity extends AppCompatActivity {
         btn_final.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkBox1.isChecked() == false || (rtn1.isChecked() == rtn2.isChecked())){
+                if (checkBox1.isChecked() == false || (rtn1.isChecked() == rtn2.isChecked())) {
                     return;
-                }
-                else {
+                } else {
                     new HttpLogin().execute(edtemail.getText().toString(), edtpw.getText().toString(), edtphone.getText().toString(), edtaddr.getText().toString(), String.valueOf(checkemail.isChecked()), String.valueOf(rtn1.isChecked()));
                 }
             }
@@ -78,6 +76,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     }
+
     public class HttpLogin extends AsyncTask<String, Integer, String> {
 
         private ProgressDialog waitDlg = null;
@@ -133,8 +132,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    public String insert(String email, String pw, String phone, String addr, Boolean checkemail, Boolean sex){
-        String weburl = "http://192.168.0.52:8080/team/insertteam";
+    public String insert(String email, String pw, String phone, String addr, Boolean checkemail, Boolean sex) {
+        String weburl = "http://192.168.0.44:8080/team/insertteam";
 
         HttpRequest request = null;
         String response = null;
@@ -150,14 +149,13 @@ public class SignUpActivity extends AppCompatActivity {
                     .addHeader("Accept", "application/json");
             httpCode = request.post(data);
 
-            if(httpCode == HttpURLConnection.HTTP_OK){ // HttpURLConnection.HTTP_OK == 200
+            if (httpCode == HttpURLConnection.HTTP_OK) { // HttpURLConnection.HTTP_OK == 200
                 try {
                     response = request.getStringResponse(); // 서버값이 리턴된다
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
-            else {
+            } else {
             }
 
         } catch (IOException e) {
