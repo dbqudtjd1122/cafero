@@ -28,7 +28,7 @@ public class CafeReviewTest {
         ModelCafeReview review = new ModelCafeReview();
         
         review.setContent("asfd");
-        review.setGrade( 4.5);
+        review.setGrade(4.5);
         
         int result = service.insertReview(review);
         assertSame(result, 1);

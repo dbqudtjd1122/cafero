@@ -11,12 +11,20 @@ import com.spring.model.ModelUser;
 @Repository
 public interface IDaoUser {
     
+
     ModelUser selectUserOne(int userno);
+    
     ModelUser login(ModelUser team);
+
+    
     List<ModelUser> getTeamList(ModelUser team);
     
     int insertTeam(ModelUser team);
-    int updateUserinfo(ModelUser updateValue,ModelUser searchValue);
+
+    int updateUserinfo(ModelUser updateValue, ModelUser searchValue);
+    
     int updatePasswd(String email, String newPasswd, String passwd);
+    
     int deleteUser(ModelUser user);
+
 }

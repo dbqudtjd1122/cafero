@@ -59,17 +59,17 @@ public class UserController {
         return result;
     }
 	
-	/*@RequestMapping(value = "/team/teamone", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "/team/teamone", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public ModelUser teamone(Locale locale, Model model, @RequestParam(value="name", defaultValue="")String name) {
         logger.info("/team/teamone");
         
-        ModelUser result = new ModelUser("pw", "userphone", "useraddr", "y", "n", "상어알");
+        ModelUser result = new ModelUser();
         
         return result;
-    }*/
+    }
 	
-	/*@RequestMapping(value = "/team/Teamlist", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "/team/Teamlist", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public List<ModelUser> Teamlist(Locale locale, Model model, @RequestParam(value="email", defaultValue="")String email) {
         logger.info("/team/Teamlist");
@@ -79,7 +79,7 @@ public class UserController {
         List<ModelUser> result = svr.getTeamList(team);
         
         return result;
-    }*/
+    }
 	
 	@RequestMapping(value = "/user/updateUserInfo", method = {RequestMethod.GET, RequestMethod.POST})
     public int updatePasswd(Locale locale, Model model
@@ -92,10 +92,19 @@ public class UserController {
                             ,@RequestParam(value="selectEmail", defaultValue="")String emailselect) {
         logger.info("updateUserInfo : post");
 
+        ModelUser updateValue = new ModelUser();
+        updateValue.setPasswd(passwd);
+        updateValue.setUserphone(userphone);
+        updateValue.setUseraddr(useraddr);
+        updateValue.setSex(sex);
+        updateValue.setUsernickname(usernickname);
+        updateValue.setEmailselect(emailselect);
+        ModelUser searchValue = new ModelUser(email);
         
-        // int result = svr.updateUserinfo(updateValue, searchValue);
+        int result = svr.updateUserinfo(updateValue, searchValue);
                          
-        return 0;     
+        return result;     
+       
     }
 	
 	@RequestMapping(value = "/user/updatePasswd", method = {RequestMethod.GET, RequestMethod.POST})
@@ -111,7 +120,7 @@ public class UserController {
        
     }
 	
-	   /*@RequestMapping(value = "/user/deleteUser", method = {RequestMethod.GET, RequestMethod.POST})
+	   @RequestMapping(value = "/user/deleteUser", method = {RequestMethod.GET, RequestMethod.POST})
 	    @ResponseBody
 	    public int deleteuser(Locale locale, Model model, @RequestParam(value="email", defaultValue="")String email) {
 	        logger.info("/team/login");
@@ -121,6 +130,6 @@ public class UserController {
 	        int result = svr.deleteUser(user);
 	        
 	        return result;
-	    }*/
+	    }
 	
 }

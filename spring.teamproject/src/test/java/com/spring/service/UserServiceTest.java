@@ -53,17 +53,25 @@ public class UserServiceTest {
     
     @Test
     public void testInsertTeam() {
-        ModelUser team = new ModelUser("dbqudtjd1122@nate.com", "1231", "010-9928-9787", "서울시 중랑구 면목동11", "y", "n", "상어알");
+        ModelUser team = new ModelUser();
         
         int result = service.insertTeam(team);
         
         assertSame(result, 1);
     }
     
-    /*@Test
+    @Test
     public void testupdateUserinfo() {
         
-        ModelUser updatevalue = new ModelUser("fsdf","fdsf","sdfsdf","sdfsd","fsdf","sdfsf");
+        ModelUser updatevalue = new ModelUser();
+        updatevalue.setEmailselect("asdf");
+        updatevalue.setPasswd("1325");
+        updatevalue.setSex("남");
+        updatevalue.setUseraddr("상계동");
+        updatevalue.setUserlevel(1);
+        updatevalue.setUsernickname("ㅁㄴㅇㄹ");
+        updatevalue.setUserno(1);
+        updatevalue.setUserphone("010111111");
         
         ModelUser searchValue = new ModelUser();
         searchValue.setEmail("aa@afsd");
@@ -71,7 +79,7 @@ public class UserServiceTest {
         int result = service.updateUserinfo(updatevalue,searchValue);
         
         assertEquals(result, 1);
-    }*/
+    }
     
     @Test
     public void testupdatePasswd() {
