@@ -16,13 +16,14 @@ import com.spring.model.ModelUser;
 public class DaoUser implements IDaoUser {
     // SLF4J Logging
     private static Logger logger = LoggerFactory.getLogger(DaoUser.class);
-
+    
     @Autowired
-    private SqlSession session;
+    private SqlSession    session;
     
     @Override
     public ModelUser selectUserOne(int userno) {
-        return session.selectOne("mapper.mysql.mapperTeam.selectUserOne", userno);
+        return session.selectOne("mapper.mysql.mapperTeam.selectUserOne",
+                userno);
     }
     
     @Override
@@ -30,12 +31,12 @@ public class DaoUser implements IDaoUser {
         
         return session.selectOne("mapper.mysql.mapperTeam.login", user);
     }
-
+    
     @Override
     public List<ModelUser> getTeamList(ModelUser team) {
         return session.selectList("mapper.mysql.mapperTeam.getTeamList", team);
     }
-
+    
     @Override
     public int insertTeam(ModelUser team) {
         return session.insert("mapper.mysql.mapperTeam.insertTeam", team);
@@ -44,24 +45,24 @@ public class DaoUser implements IDaoUser {
     @Override
     public int updatePasswd(String email, String passwd, String newPasswd) {
         HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("newPasswd"    , newPasswd);
+        map.put("newPasswd", newPasswd);
         map.put("passwd", passwd);
         map.put("email", email);
-                
+        
         return session.update("mapper.mysql.mapperTeam.updatePasswd", map);
     }
     
     @Override
-    public int updateUserinfo(ModelUser updateValue,ModelUser searchValue) {
-        Map<String,Object> map = new HashMap<String,Object>();
+    public int updateUserinfo(ModelUser updateValue, ModelUser searchValue) {
+        Map<String, Object> map = new HashMap<String, Object>();
         map.put("updateValue", updateValue);
         map.put("searcheValue", searchValue);
-        return session.update("mapper.mysql.mapperTeam.updateUserinfo",map);
+        return session.update("mapper.mysql.mapperTeam.updateUserinfo", map);
     }
     
     @Override
     public int deleteUser(ModelUser user) {
         
-        return session.delete("mapper.mysql.mapperTeam.deleteUser",user);
+        return session.delete("mapper.mysql.mapperTeam.deleteUser", user);
     }
 }
