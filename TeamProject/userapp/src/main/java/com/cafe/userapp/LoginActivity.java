@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // Http 로그인 확인
-    public class HttpLogin extends AsyncTask<String, Integer, String>{
+    public class HttpLogin extends AsyncTask<String, Integer, String> {
 
         private ProgressDialog waitDlg = null;
 
@@ -95,7 +95,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
-    public String login(String id, String pw){
+
+    public String login(String id, String pw) {
         String weburl = "http://192.168.0.52:8080/team/login";
 
         HttpRequest request = null;
@@ -107,10 +108,9 @@ public class LoginActivity extends AppCompatActivity {
             request.addParameter("pw", pw);
             int httpCode = request.post();
 
-            if(httpCode == HttpURLConnection.HTTP_OK){
+            if (httpCode == HttpURLConnection.HTTP_OK) {
                 response = request.getStringResponse();
-            }
-            else {
+            } else {
                 // error
             }
         } catch (IOException e) {
