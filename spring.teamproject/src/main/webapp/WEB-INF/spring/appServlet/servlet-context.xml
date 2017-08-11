@@ -47,13 +47,12 @@
     <!-- step3. 데이터베이스 커넥션 설정 -->
     <beans:bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
         <beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
-<<<<<<< HEAD
-        <beans:property name="url" value="jdbc:mysql://192.168.0.44:5600/cafeboard?useUnicode=true&amp;characterEncoding=utf8" />
+
+        <beans:property name="url"
+            value="jdbc:mysql://192.168.0.44:5600/cafeboard?useUnicode=true&amp;characterEncoding=utf8" />
         <beans:property name="username" value="tester1" />
-=======
-        <beans:property name="url" value="jdbc:mysql://localhost:5600/cafeboard?useUnicode=true&amp;characterEncoding=utf8" />
-        <beans:property name="username" value="root" />
->>>>>>> f1eb6db7ddde5f6c858dba5d259e953130d472a4
+
+
         <beans:property name="password" value="1234" />
 
         <beans:property name="defaultAutoCommit" value="true" />
@@ -81,8 +80,7 @@
             value="classpath:Configuration.xml" />
 
         <!-- mybatis 디렉토리에 xml 파일만 추가해주면 알아서 xml내의 쿼리 자동 인식 -->
-        <!-- <beans:property name="m
-erLocations" value="classpath*:mybatis/**/mapper*.xml" 
+        <!-- <beans:property name="m erLocations" value="classpath*:mybatis/**/mapper*.xml" 
             /> -->
     </beans:bean>
 

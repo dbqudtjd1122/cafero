@@ -11,7 +11,7 @@ import com.spring.model.ModelUser;
 @Repository
 public interface IDaoUser {
     
-    int login(ModelUser team);
+//    int login(ModelUser team);
     
     ModelUser selectUserOne(int userno);
     

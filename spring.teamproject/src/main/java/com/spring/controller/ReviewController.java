@@ -35,11 +35,11 @@ public class ReviewController {
     @Autowired
     IServiceReview              svr;
     
-    // @RequestParam(value="grade", defaultValue="") String grade)
-    
-    @RequestMapping(value = "/review/insertReview", method = {RequestMethod.GET, RequestMethod.POST })
+    @RequestMapping(value = "/review/insertReview", method = {
+            RequestMethod.GET, RequestMethod.POST })
     @ResponseBody
-    public int insertReview(Locale locale, Model model, @RequestBody ModelCafeReview reivew) {
+    public int insertReview(Locale locale, Model model,
+            @RequestBody ModelCafeReview reivew) {
         logger.info("/review/insertReview");
         
         int result = svr.insertReview(reivew);
