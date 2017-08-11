@@ -1,6 +1,5 @@
 package com.cafe.ownerapp;
 
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -12,9 +11,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import com.cafe.ownerapp.Http.HttpRequest;
-import com.cafe.ownerapp.Model.ModelUser;
-import com.google.gson.Gson;
+import com.cafe.common.Http.HttpRequest;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
@@ -27,6 +24,7 @@ public class ChangeUserInfo extends AppCompatActivity {
     private Button btnOk;
     private CheckBox checkEmail;
     private String sexstr,emailstr;
+    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +42,9 @@ public class ChangeUserInfo extends AppCompatActivity {
         rdbGroup = (RadioGroup) findViewById(R.id.rdb_group);
 
         checkEmail = (CheckBox) findViewById(R.id.check_email);
+
+        Intent intent = getIntent();
+        email = intent.getExtras().getString("email");
 
         btnOk = (Button) findViewById(R.id.btn_change_complete);
 
@@ -63,7 +64,7 @@ public class ChangeUserInfo extends AppCompatActivity {
                 String selectEmail = emailstr.toString();
                 String sex = sexstr.toString();
 
-                new HttpLogin().execute(selectEmail,passwd,userphone,nickname,sex,addr); // execute 인자는 HttpLogin의 첫번째 String 인자에 들어감
+                new HttpLogin().execute(email,passwd,userphone,addr,sex,nickname,selectEmail); // execute 인자는 HttpLogin의 첫번째 String 인자에 들어감
             }
         });
 
@@ -87,15 +88,16 @@ public class ChangeUserInfo extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
              //  0번째 방 = id
-            String selectEmail = params[0];   //  1번쨰 방 = pw
+            String email = params[0];
             String passwd = params[1];
             String userphone = params[2];
-            String nickname = params[3];
+            String addr = params[3];
             String sex = params[4];
-            String addr = params[5];
+            String nickname = params[5];
+            String selectEmail = params[6];   //  1번쨰 방 = pw
 
-            String result = changeuserinfo(selectEmail,passwd,userphone,nickname,sex,addr);
-            return result;
+            changeuserinfo(email,passwd,userphone,addr,sex,nickname,selectEmail);
+            return changeuserinfo(email,passwd,userphone,addr,sex,nickname,selectEmail);
         }
 
         @Override
@@ -108,38 +110,28 @@ public class ChangeUserInfo extends AppCompatActivity {
                 waitDlg = null;
             }
 
-            // 받은 결과 출력
-            if (s.equals("1")){
-                //success
-//                Toast.makeText(getApplicationContext(),"로그인 성공",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-            else {
-                // fail
-//                Toast.makeText(getApplicationContext(),"로그인 실패",Toast.LENGTH_SHORT).show();
-            }
+            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 
-    public String changeuserinfo(String selectEmail, String passwd, String sex, String addr, String nickname, String userphone ){
+    public String changeuserinfo(String email,  String passwd, String userphone, String addr, String sex, String nickname, String selectEmail){
         String weburl = "http://192.168.0.54:8080/user/updateUserInfo";
 
         HttpRequest request = null;
         String response = null;
 
         try {
-            // ModelUser를 json으로 변환
-            ModelUser obj = new ModelUser(passwd,addr,nickname,sex,userphone,selectEmail);
-            String data = new Gson().toJson(obj); // java object to JSON
-
-            request = new HttpRequest(weburl)
-                    .addHeader("charset","utf-8")
-                    .addHeader("Content-Type", "application/json")
-                    .addHeader("Accept", "application/json");
-
-            int httpCode = request.post(data);
+            request = new HttpRequest(weburl).addHeader("charset", "utf-8");
+            request.addParameter("email", email);
+            request.addParameter("passwd", passwd);
+            request.addParameter("userphone", userphone);
+            request.addParameter("addr", addr);
+            request.addParameter("sex", sex);
+            request.addParameter("nickname", nickname);
+            request.addParameter("selectEmail", selectEmail);
+            int httpCode = request.post();
 
             if (httpCode == HttpURLConnection.HTTP_OK){
                 response = request.getStringResponse();

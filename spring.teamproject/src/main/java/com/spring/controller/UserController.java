@@ -24,6 +24,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.model.ModelUser;
 import com.spring.service.IServiceUser;
 
+import android.service.textservice.SpellCheckerService.Session;
+
 /**
  * Handles requests for the application home page.
  */
@@ -46,9 +48,10 @@ public class UserController {
 	
 	@RequestMapping(value = "/team/login", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public ModelUser currentversion(Locale locale, Model model, @RequestParam(value="email", defaultValue="")String email
+    public ModelUser Login(Locale locale, Model model, @RequestParam(value="email", defaultValue="")String email
                                                         , @RequestParam(value="passwd", defaultValue="")String passwd) {
         logger.info("/team/login");
+        Session session ;
         ModelUser team= new ModelUser(email, passwd);
         
         ModelUser result = svr.login(team);
@@ -61,7 +64,7 @@ public class UserController {
     public ModelUser teamone(Locale locale, Model model, @RequestParam(value="name", defaultValue="")String name) {
         logger.info("/team/teamone");
         
-        ModelUser result = new ModelUser("pw", "userphone", "useraddr", "y", "n", "상어알");
+        ModelUser result = new ModelUser();
         
         return result;
     }
@@ -79,27 +82,54 @@ public class UserController {
     }
 	
 	@RequestMapping(value = "/user/updateUserInfo", method = {RequestMethod.GET, RequestMethod.POST})
-    public int updateUserInfo(Locale locale, Model model, @RequestBody ModelUser updateValue) {
+    public int updatePasswd(Locale locale, Model model
+                            ,@RequestParam(value="email", defaultValue="")String email
+                            ,@RequestParam(value="passwd", defaultValue="")String passwd
+                            ,@RequestParam(value="userphone", defaultValue="")String userphone
+                            ,@RequestParam(value="addr", defaultValue="")String useraddr
+                            ,@RequestParam(value="sex", defaultValue="")String sex
+                            ,@RequestParam(value="nickname", defaultValue="")String usernickname
+                            ,@RequestParam(value="selectEmail", defaultValue="")String emailselect) {
         logger.info("updateUserInfo : post");
+
+        ModelUser updateValue = new ModelUser();
+        updateValue.setPasswd(passwd);
+        updateValue.setUserphone(userphone);
+        updateValue.setUseraddr(useraddr);
+        updateValue.setSex(sex);
+        updateValue.setUsernickname(usernickname);
+        updateValue.setEmailselect(emailselect);
+        ModelUser searchValue = new ModelUser(email);
         
-        ModelUser searchValue = svr.selectUserOne(1);
-        
-        int result = svr.updateUserinfo(updateValue,searchValue);
-                         
-        return result;     
-	   
-    }
-	
-	@RequestMapping(value = "/user/updatePasswd", method = {RequestMethod.GET, RequestMethod.POST})
-    public int updatePasswd(Locale locale, Model model, @RequestBody ModelUser updateValue) {
-        logger.info("updateUserInfo : post");
-        
-        ModelUser searchValue = svr.selectUserOne(1);
-        
-        int result = svr.updatePasswd(updateValue,searchValue);
+        int result = svr.updateUserinfo(updateValue, searchValue);
                          
         return result;     
        
     }
+	
+	@RequestMapping(value = "/user/updatePasswd", method = {RequestMethod.GET, RequestMethod.POST})
+    public int updatePasswd(Locale locale, Model model
+                            ,@RequestParam(value="email", defaultValue="")String email
+                            ,@RequestParam(value="passwd", defaultValue="")String passwd
+                            ,@RequestParam(value="newPasswd", defaultValue="")String newPasswd) {
+        logger.info("updateUserInfo : post");
+        
+        int result = svr.updatePasswd(email, passwd, newPasswd);
+                         
+        return result;     
+       
+    }
+	
+	   @RequestMapping(value = "/user/deleteUser", method = {RequestMethod.GET, RequestMethod.POST})
+	    @ResponseBody
+	    public int deleteuser(Locale locale, Model model, @RequestParam(value="email", defaultValue="")String email) {
+	        logger.info("/team/login");
+	        
+	        ModelUser user = new ModelUser(email);
+	        
+	        int result = svr.deleteUser(user);
+	        
+	        return result;
+	    }
 	
 }

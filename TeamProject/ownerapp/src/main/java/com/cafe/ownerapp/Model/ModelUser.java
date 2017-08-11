@@ -76,16 +76,16 @@ public class ModelUser {
         this.userphone = userphone;
         this.useraddr = useraddr;
         this.sex = sex;
-        this.emailselect = emailselect;
         this.usernickname = usernickname;
+        this.emailselect = emailselect;
     }
     public ModelUser(String passwd, String userphone, String useraddr, String sex, String emailselect, String usernickname) {
         this.passwd = passwd;
         this.userphone = userphone;
         this.useraddr = useraddr;
         this.sex = sex;
-        this.emailselect = emailselect;
         this.usernickname = usernickname;
+        this.emailselect = emailselect;
     }
 
     public ModelUser(Integer userno, String email, String passwd, String userphone,
@@ -98,8 +98,8 @@ public class ModelUser {
         this.userphone = userphone;
         this.useraddr = useraddr;
         this.sex = sex;
-        this.emailselect = emailselect;
         this.usernickname = usernickname;
+        this.emailselect = emailselect;
     }
     public ModelUser(String email, String passwd, String addr, String nickname, String userphone) {
         super();

@@ -26,8 +26,9 @@ public class DaoUser implements IDaoUser {
     }
     
     @Override
-    public ModelUser login(ModelUser team) {
-        return session.selectOne("mapper.mysql.mapperTeam.login", team);
+    public ModelUser login(ModelUser user) {
+        
+        return session.selectOne("mapper.mysql.mapperTeam.login", user);
     }
 
     @Override
@@ -41,10 +42,11 @@ public class DaoUser implements IDaoUser {
     }
     
     @Override
-    public int updatePasswd(ModelUser updateValue, ModelUser searchValue) {
+    public int updatePasswd(String email, String passwd, String newPasswd) {
         HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("updateValue"    , updateValue);
-        map.put("searchValue", searchValue);
+        map.put("newPasswd"    , newPasswd);
+        map.put("passwd", passwd);
+        map.put("email", email);
                 
         return session.update("mapper.mysql.mapperTeam.updatePasswd", map);
     }

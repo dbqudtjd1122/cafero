@@ -97,70 +97,18 @@ public class ModelUser {
     @Override
     public String toString() {
         return "ModelUser [userno=" + userno + ", userlevel=" + userlevel
-                + ", email=" + email + ", passwd=" + passwd + ", userphone="
-                + userphone + ", useraddr=" + useraddr + ", sex=" + sex
-                + ", emailselect=" + emailselect + ", usernickname="
-                + usernickname + "]";
+                + ", email=" + email + ", passwd=" + passwd
+                + ", userphone=" + userphone + ", useraddr=" + useraddr
+                + ", sex=" + sex + ", emailselect=" + emailselect
+                + ", usernickname=" + usernickname + "]";
     }
-    
     public ModelUser() {
         super();
     }
-    
-    public ModelUser(Integer userno, Integer userlevel, String email,
-            String passwd, String userphone, String useraddr, String sex,
-            String emailselect, String usernickname) {
-        super();
-        this.userno = userno;
-        this.userlevel = userlevel;
-        this.email = email;
-        this.passwd = passwd;
-        this.userphone = userphone;
-        this.useraddr = useraddr;
-        this.sex = sex;
-        this.emailselect = emailselect;
-        this.usernickname = usernickname;
-    }
-    
     public ModelUser(String email, String passwd) {
         super();
         this.email = email;
         this.passwd = passwd;
     }
-    
-    public ModelUser(String passwd, String userphone, String useraddr,
-            String sex, String emailselect, String usernickname) {
-        super();
-        this.passwd = passwd;
-        this.userphone = userphone;
-        this.useraddr = useraddr;
-        this.sex = sex;
-        this.emailselect = emailselect;
-        this.usernickname = usernickname;
-    }
-    
-    public ModelUser(String email, String passwd, String userphone,
-            String useraddr, String sex, String emailselect,
-            String usernickname) {
-        
-        super();
-        this.email = email;
-        this.passwd = passwd;
-        this.userphone = userphone;
-        this.useraddr = useraddr;
-        this.sex = sex;
-        this.emailselect = emailselect;
-        this.usernickname = usernickname;
-    }
-    
-    public ModelUser(String email, String passwd, String userphone,
-            String useraddr, String usernickname) {
-        super();
-        this.email = email;
-        this.passwd = passwd;
-        this.userphone = userphone;
-        this.useraddr = useraddr;
-        this.usernickname = usernickname;
-    }
-    
+
 }

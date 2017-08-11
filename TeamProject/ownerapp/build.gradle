@@ -37,4 +37,5 @@ dependencies {
     compile 'commons-codec:commons-codec:1.10'
     compile 'org.json:json:20160810'
     testCompile 'junit:junit:4.12'
+    compile project(path: ':common')
 }
