@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
-import com.cafe.ownerapp.Http.HttpRequest;
+import com.cafe.common.Http.HttpRequest;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -42,9 +42,7 @@ public class DeleteUser extends AppCompatActivity {
                     toast.show();
                     new HttpDeleteUser().execute(email);
                 }
-                else {
 
-                }
             }
         });
 

@@ -70,12 +70,12 @@ public class ServiceUser implements IServiceUser {
     }
     
     @Override
-    public int updatePasswd(String email, String newPasswd, String currentPasswd) {
+    public int updatePasswd(String email, String passwd, String newPasswd) {
         int result = -1;
         try {
-            result = dao.updatePasswd(email, newPasswd, currentPasswd);
+            result = dao.updatePasswd(email, passwd, newPasswd );
         } catch (Exception e) {
-            logger.error("updateUserInfo" + e.getMessage() );
+            logger.error("updatePasswd" + e.getMessage() );
         }
         return result;
     }

@@ -8,11 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.cafe.ownerapp.Http.HttpRequest;
-import com.cafe.ownerapp.Model.ModelUser;
-import com.google.gson.Gson;
+import com.cafe.common.Http.HttpRequest;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -21,7 +18,7 @@ public class ChangePw extends AppCompatActivity {
 
     private EditText edt_first, edt_second;
     private Button btn_ok;
-    private String email;
+    private String email, passwd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +29,7 @@ public class ChangePw extends AppCompatActivity {
 
         Intent intent = getIntent();
         email = intent.getExtras().getString("email");
+        passwd = intent.getExtras().getString("passwd");
 
         btn_ok = (Button) findViewById(R.id.btn_ok);
 
@@ -39,15 +37,12 @@ public class ChangePw extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String currentPasswd = edt_first.getText().toString();
-                String newPasswd = edt_second.getText().toString();
+                String newPasswd = edt_first.getText().toString();
+                String newPasswd2 = edt_second.getText().toString();
 
-                    if (currentPasswd.equals(newPasswd)) {
-                        new HttpChangePw().execute(email,currentPasswd,newPasswd); // execute 인자는 HttpLogin의 첫번째 String 인자에 들어감
+                    if (newPasswd.equals(newPasswd2)) {
+                        new HttpChangePw().execute(email,passwd,newPasswd); // execute 인자는 HttpLogin의 첫번째 String 인자에 들어감
 
-                    } else {
-                        Toast toast = Toast.makeText(getApplicationContext(), "비밀번호를 정확하게 입력해주3", Toast.LENGTH_SHORT);
-                        toast.show();
                     }
 
             }
@@ -69,19 +64,17 @@ public class ChangePw extends AppCompatActivity {
             waitDlg = new ProgressDialog(ChangePw.this);
             waitDlg.setMessage("기다리삼");
             waitDlg.show();
-
-            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-            startActivity(intent);
         }
 
         @Override
         protected String doInBackground(String... params) {
             String email = params[0];   //  0번째 방 = id
-            String currentPasswd = params[1];
+            String passwd = params[1];
             String newPasswd = params[2];
 
-            String result = changepw(email,currentPasswd, newPasswd);
-            return result;
+            changepw(email,passwd,newPasswd);
+//            String result = changepw(email,passwd, newPasswd);
+            return changepw(email,passwd,newPasswd);
         }
 
         @Override
@@ -111,9 +104,8 @@ public class ChangePw extends AppCompatActivity {
         try {
             request = new HttpRequest(weburl).addHeader("charset", "utf-8");
             request.addParameter("email", email);
-            request.addParameter("newPasswd", newPasswd);
-            request.addParameter("currentPasswd", currentPasswd);
-            
+            request.addParameter("passwd", newPasswd);
+            request.addParameter("newPasswd", currentPasswd);
             int httpCode = request.post();
 
             if (httpCode == HttpURLConnection.HTTP_OK){

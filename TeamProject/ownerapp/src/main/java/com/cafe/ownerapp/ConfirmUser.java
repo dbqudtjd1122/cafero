@@ -8,9 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.cafe.ownerapp.Http.HttpRequest;
+import com.cafe.common.Http.HttpRequest;
 import com.cafe.ownerapp.Model.ModelUser;
 import com.google.gson.Gson;
 
@@ -24,7 +23,7 @@ public class ConfirmUser extends AppCompatActivity {
 
     private int conNum;
     Button btn_Confirm;
-    private EditText email, pw;
+    private EditText email, passwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +34,7 @@ public class ConfirmUser extends AppCompatActivity {
         conNum = intent.getExtras().getInt("conNum");
 
         email = (EditText) findViewById(R.id.edt_confirm_user_email);
-        pw = (EditText) findViewById(R.id.edt_confirm_user_pw);
+        passwd = (EditText) findViewById(R.id.edt_confirm_user_pw);
 
         btn_Confirm = (Button) findViewById(R.id.btn_confirm_ok);
 
@@ -43,15 +42,13 @@ public class ConfirmUser extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (conNum == 1){
-                    Intent intent = new Intent(getApplicationContext(),ChangePw.class);
-                    startActivity(intent);
+                    new HttpChangePw().execute(email.getText().toString(), passwd.getText().toString());
                 }
                 else if (conNum == 2) {
-                    Intent intent = new Intent(getApplicationContext(),ChangeUserInfo.class);
-                    startActivity(intent);
+                    new HttpChangeUserInfo().execute(email.getText().toString(), passwd.getText().toString());
                 }
                 else if (conNum == 3) {
-                    new HttpLogin().execute(email.getText().toString(), pw.getText().toString());
+                    new HttpDeleteUser().execute(email.getText().toString(), passwd.getText().toString());
                 }
             }
         });
@@ -59,7 +56,7 @@ public class ConfirmUser extends AppCompatActivity {
 
     }
     // Http 로그인 확인
-    public class HttpLogin extends AsyncTask<String, Integer, ModelUser> {
+    public class HttpDeleteUser extends AsyncTask<String, Integer, ModelUser> {
 
         private ProgressDialog waitDlg = null;
 
@@ -99,14 +96,116 @@ public class ConfirmUser extends AppCompatActivity {
                 waitDlg.dismiss();
                 waitDlg = null;
             }
-            Intent intent = new Intent(getApplicationContext(), DeleteUser.class);
-            intent.putExtra("email",modelUser.getEmail().toString());
+
+                Intent intent = new Intent(getApplicationContext(), DeleteUser.class);
+                intent.putExtra("email", modelUser.getEmail().toString());
+                startActivity(intent);
+
+
+        }
+    }
+    public class HttpChangePw extends AsyncTask<String, Integer, ModelUser> {
+
+        private ProgressDialog waitDlg = null;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            // ProgressDialog 보이기
+            // 서버 요청 완료후 Mating dialog를 보여주도록 한다.
+            waitDlg = new ProgressDialog(ConfirmUser.this);
+            waitDlg.setMessage(" ID / PW 확인 중");
+            waitDlg.show();
+        }
+
+        @Override
+        protected ModelUser doInBackground(String... params) {
+
+            String id = params[0];
+            String pw = params[1];
+
+            ModelUser result = login(id, pw);
+
+            return result;
+        }
+
+        //
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(ModelUser modelUser) {
+            super.onPostExecute(modelUser);
+
+            // Progressbar 감추기 : 서버 요청 완료수 Maiting dialog를 제거한다.
+            if (waitDlg != null) {
+                waitDlg.dismiss();
+                waitDlg = null;
+            }
+
+            Intent intent = new Intent(getApplicationContext(), ChangePw.class);
+            intent.putExtra("email", modelUser.getEmail().toString());
+            intent.putExtra("passwd", modelUser.getpasswd().toString());
             startActivity(intent);
 
         }
     }
 
-    public ModelUser login(String id, String pw) {
+    public class HttpChangeUserInfo extends AsyncTask<String, Integer, ModelUser> {
+
+        private ProgressDialog waitDlg = null;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            // ProgressDialog 보이기
+            // 서버 요청 완료후 Mating dialog를 보여주도록 한다.
+            waitDlg = new ProgressDialog(ConfirmUser.this);
+            waitDlg.setMessage(" ID / PW 확인 중");
+            waitDlg.show();
+        }
+
+        @Override
+        protected ModelUser doInBackground(String... params) {
+
+            String id = params[0];
+            String pw = params[1];
+
+            ModelUser result = login(id, pw);
+
+            return result;
+        }
+
+        //
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(ModelUser modelUser) {
+            super.onPostExecute(modelUser);
+
+            // Progressbar 감추기 : 서버 요청 완료수 Maiting dialog를 제거한다.
+            if (waitDlg != null) {
+                waitDlg.dismiss();
+                waitDlg = null;
+            }
+
+            Intent intent = new Intent(getApplicationContext(), ChangeUserInfo.class);
+            intent.putExtra("email", modelUser.getEmail().toString());
+            startActivity(intent);
+
+
+        }
+    }
+
+
+    public ModelUser login(String id, String passwd) {
         String weburl = "http://192.168.0.54:8080/team/login";
 
         HttpRequest request = null;
@@ -115,10 +214,9 @@ public class ConfirmUser extends AppCompatActivity {
 
 
         try {
-
             request = new HttpRequest(weburl).addHeader("charset", "utf-8");
             request.addParameter("email", id);
-            request.addParameter("passwd", pw);
+            request.addParameter("passwd", passwd);
 
             int httpCode = request.post();
 

@@ -16,6 +16,6 @@ public interface IDaoUser {
     List<ModelUser> getTeamList(ModelUser team);
     int insertTeam(ModelUser team);
     int updateUserinfo(ModelUser updateValue,ModelUser searchValue);
-    int updatePasswd(String email, String newPasswd, String currentPasswd);
+    int updatePasswd(String email, String newPasswd, String passwd);
     int deleteUser(ModelUser user);
 }

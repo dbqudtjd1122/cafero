@@ -73,8 +73,8 @@ public class ModelUser {
                 + ", usernickname=" + usernickname + "]";
     }
     public ModelUser(Integer userno, String email, String passwd, String userphone,
-            String useraddr, String sex, String emailselect,
-            String usernickname) {
+            String useraddr, String sex, String usernickname,
+            String emailselect) {
         super();
         this.userno = userno;
         this.email = email;
@@ -82,8 +82,8 @@ public class ModelUser {
         this.userphone = userphone;
         this.useraddr = useraddr;
         this.sex = sex;
-        this.emailselect = emailselect;
         this.usernickname = usernickname;
+        this.emailselect = emailselect;
     }
     public ModelUser() {
         super();
@@ -94,25 +94,25 @@ public class ModelUser {
         this.passwd = passwd;
     }
     public ModelUser( String passwd, String userphone, String useraddr,
-            String sex, String emailselect, String usernickname) {
+            String sex, String usernickname, String emailselect) {
         super();
         this.passwd = passwd;
         this.userphone = userphone;
         this.useraddr = useraddr;
         this.sex = sex;
-        this.emailselect = emailselect;
         this.usernickname = usernickname;
+        this.emailselect = emailselect;
     }
     public ModelUser(String email, String passwd, String userphone, String useraddr,
-            String sex, String emailselect, String usernickname) {
+            String sex, String usernickname, String emailselect) {
         super();
         this.email = email;
         this.passwd = passwd;
         this.userphone = userphone;
         this.useraddr = useraddr;
         this.sex = sex;
-        this.emailselect = emailselect;
         this.usernickname = usernickname;
+        this.emailselect = emailselect;
     }
     public ModelUser(String email, String passwd, String userphone,
             String useraddr, String usernickname) {
