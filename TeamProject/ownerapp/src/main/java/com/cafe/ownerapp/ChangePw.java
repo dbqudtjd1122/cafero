@@ -8,9 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.cafe.ownerapp.Http.HttpRequest;
+import com.cafe.common.Http.HttpRequest;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -19,6 +18,7 @@ public class ChangePw extends AppCompatActivity {
 
     private EditText edt_first, edt_second;
     private Button btn_ok;
+    private String email, passwd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,21 +27,26 @@ public class ChangePw extends AppCompatActivity {
         edt_first = (EditText) findViewById(R.id.edt_changepw_first);
         edt_second = (EditText) findViewById(R.id.edt_changepw_second);
 
+        Intent intent = getIntent();
+        email = intent.getExtras().getString("email");
+        passwd = intent.getExtras().getString("passwd");
+
         btn_ok = (Button) findViewById(R.id.btn_ok);
 
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String pw = edt_first.getText().toString();
-                String pw2 = edt_second.getText().toString();
 
-                if (pw == null || pw2 == null || pw != pw2) {
-                    Toast.makeText(getApplicationContext(),"비밀번호를 정확하게 입력해",Toast.LENGTH_SHORT);
-                }
-                else {
+                String newPasswd = edt_first.getText().toString();
+                String newPasswd2 = edt_second.getText().toString();
 
-                }
+                    if (newPasswd.equals(newPasswd2)) {
+                        new HttpChangePw().execute(email,passwd,newPasswd); // execute 인자는 HttpLogin의 첫번째 String 인자에 들어감
+
+                    }
+
             }
+
         });
 
     }
@@ -55,6 +60,7 @@ public class ChangePw extends AppCompatActivity {
 
             //ProgressDialog 보이기
             //서버에 요청 동안 Waiting dialog를 보여주도록 한다
+
             waitDlg = new ProgressDialog(ChangePw.this);
             waitDlg.setMessage("기다리삼");
             waitDlg.show();
@@ -62,13 +68,13 @@ public class ChangePw extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            String pw = params[0];   //  0번째 방 = id
+            String email = params[0];   //  0번째 방 = id
+            String passwd = params[1];
+            String newPasswd = params[2];
 
-
-
-
-            String result = changepw(pw);
-            return result;
+            changepw(email,passwd,newPasswd);
+//            String result = changepw(email,passwd, newPasswd);
+            return changepw(email,passwd,newPasswd);
         }
 
         @Override
@@ -81,30 +87,25 @@ public class ChangePw extends AppCompatActivity {
                 waitDlg = null;
             }
 
-            // 받은 결과 출력
-            if (s.equals("1")){
-                //success
-                Toast.makeText(getApplicationContext(),"변경 성공",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(intent);
                 finish();
-            }
-            else {
-                // fail
-                Toast.makeText(getApplicationContext(),"변경 실패",Toast.LENGTH_SHORT).show();
-            }
+
         }
 
     }
 
-    public String changepw(String pw){
-        String weburl = "Http://192.168.0.54:8080/rest/login";
+    public String changepw(String email,  String currentPasswd, String newPasswd){
+        String weburl = "http://192.168.0.54:8080/user/updatePasswd";
 
         HttpRequest request = null;
-        String response = "";
+        String response = null;
+
         try {
-            request = new HttpRequest(weburl).addHeader("charset","utf-8");
-            request.addParameter("pw",pw);
+            request = new HttpRequest(weburl).addHeader("charset", "utf-8");
+            request.addParameter("email", email);
+            request.addParameter("passwd", newPasswd);
+            request.addParameter("newPasswd", currentPasswd);
             int httpCode = request.post();
 
             if (httpCode == HttpURLConnection.HTTP_OK){
@@ -121,4 +122,5 @@ public class ChangePw extends AppCompatActivity {
         }
         return response;
     }
+
 }

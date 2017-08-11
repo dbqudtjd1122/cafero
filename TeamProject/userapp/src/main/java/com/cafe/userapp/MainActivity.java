@@ -41,9 +41,7 @@ public class MainActivity extends AppCompatActivity
     private float xATDown;
     private float xATUp;
     private ImageButton imageButton;
-//    ArrayAdapterEx mAdapter = null;
-//    ArrayList<wirte> mData = null;
-//    private ListView mListView;
+
 
 
 
@@ -60,7 +58,7 @@ public class MainActivity extends AppCompatActivity
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),review.class);
+               Intent intent = new Intent(getApplicationContext(),review.class);
                 startActivity(intent);
             }
         });
@@ -95,12 +93,12 @@ public class MainActivity extends AppCompatActivity
         vflipper = (ViewFlipper) findViewById(R.id.viewflipper);
         vflipper.setOnTouchListener(this);
 
-        vflipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_right_in));
-        vflipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_right_out));
+//        vflipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_right_in));
+//        vflipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_right_out));
         vflipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_left_in));
-        vflipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_left_out));
+//        vflipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_left_out));
 
-        vflipper.setFlipInterval(2000);
+        vflipper.setFlipInterval(1800);
 
         vflipper.startFlipping();
 
@@ -182,8 +180,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-//        Animation showln= AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
-//        Animation showout= AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
+        Animation showln= AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
+        Animation showout= AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
 
 
         if(v !=vflipper) {
@@ -195,14 +193,14 @@ public class MainActivity extends AppCompatActivity
         else if(event.getAction()==MotionEvent.ACTION_UP){
             xATUp=event.getX(); // 터치 끝난지점에 X좌표 저장
             if (xATUp < xATDown){
-                Animation showln= AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
+//                Animation showln= AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
 
                 vflipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_left_in));
                 vflipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_left_out));
 
                 vflipper.showNext();  // 다음 view 보여줌
             }else if(xATUp > xATDown){
-                Animation showout= AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
+//                Animation showout= AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
 
                 vflipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_right_in));
                 vflipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_right_out));

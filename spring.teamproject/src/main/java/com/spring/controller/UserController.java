@@ -64,7 +64,7 @@ public class UserController {
     public ModelUser teamone(Locale locale, Model model, @RequestParam(value="name", defaultValue="")String name) {
         logger.info("/team/teamone");
         
-        ModelUser result = new ModelUser("email", "pw", "userphone", "useraddr", "y", "n", "상어알");
+        ModelUser result = new ModelUser("pw", "userphone", "useraddr", "y", "n", "상어알");
         
         return result;
     }
@@ -82,17 +82,48 @@ public class UserController {
     }
 	
 	@RequestMapping(value = "/user/updateUserInfo", method = {RequestMethod.GET, RequestMethod.POST})
-	
-    public int updateUserInfo(Locale locale, Model model, @RequestBody ModelUser updateValue, ModelUser searchValue) {
+    public int updatePasswd(Locale locale, Model model
+                            ,@RequestParam(value="email", defaultValue="")String email
+                            ,@RequestParam(value="passwd", defaultValue="")String passwd
+                            ,@RequestParam(value="userphone", defaultValue="")String userphone
+                            ,@RequestParam(value="addr", defaultValue="")String useraddr
+                            ,@RequestParam(value="sex", defaultValue="")String sex
+                            ,@RequestParam(value="nickname", defaultValue="")String usernickname
+                            ,@RequestParam(value="selectEmail", defaultValue="")String emailselect) {
         logger.info("updateUserInfo : post");
+
+        ModelUser updateValue = new ModelUser(passwd,userphone,useraddr,sex,usernickname,emailselect);
+        ModelUser searchValue = new ModelUser(email);
         
-        updateValue = new ModelUser("email","selectEmail","passwd","userphone","nickname","sex","addr");
-        searchValue = svr.selectUserOne(4);
-        
-        int result = svr.updateUserinfo(searchValue,updateValue);
+        int result = svr.updateUserinfo(updateValue, searchValue);
                          
         return result;     
-	   
+       
     }
+	
+	@RequestMapping(value = "/user/updatePasswd", method = {RequestMethod.GET, RequestMethod.POST})
+    public int updatePasswd(Locale locale, Model model
+                            ,@RequestParam(value="email", defaultValue="")String email
+                            ,@RequestParam(value="passwd", defaultValue="")String passwd
+                            ,@RequestParam(value="newPasswd", defaultValue="")String newPasswd) {
+        logger.info("updateUserInfo : post");
+        
+        int result = svr.updatePasswd(email, passwd, newPasswd);
+                         
+        return result;     
+       
+    }
+	
+	   @RequestMapping(value = "/user/deleteUser", method = {RequestMethod.GET, RequestMethod.POST})
+	    @ResponseBody
+	    public int deleteuser(Locale locale, Model model, @RequestParam(value="email", defaultValue="")String email) {
+	        logger.info("/team/login");
+	        
+	        ModelUser user = new ModelUser(email);
+	        
+	        int result = svr.deleteUser(user);
+	        
+	        return result;
+	    }
 	
 }

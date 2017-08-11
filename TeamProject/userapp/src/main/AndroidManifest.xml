@@ -32,10 +32,6 @@
         </activity>
         <activity android:name=".review">
         </activity>
-        <activity android:name="menuprice">
-        </activity>
-       
-        
        
     </application>
 

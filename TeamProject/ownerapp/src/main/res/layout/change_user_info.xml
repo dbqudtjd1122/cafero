@@ -26,14 +26,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
     
-            <TextView
-                android:textSize="15dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:id="@+id/textView12"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="이메일"/>
+          
     
             <TextView
                 android:textSize="15dp"
@@ -87,14 +80,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
     
-            <EditText
-                android:layout_marginRight="20dp"
-                android:id="@+id/edt_change_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                />
+            
     
             <EditText
                 android:layout_marginRight="20dp"

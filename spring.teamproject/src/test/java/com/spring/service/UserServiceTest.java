@@ -63,18 +63,12 @@ public class UserServiceTest {
     @Test
     public void testupdateUserinfo() {
         
-        ModelUser updatevalue = new ModelUser();
-        updatevalue.setEmail("sonyo@hanmail.net");
-        updatevalue.setPasswd("14232");
-        updatevalue.setSex("0");
-        updatevalue.setUseraddr("건영백화점");
-        updatevalue.setUsernickname("지져스");
-        updatevalue.setUserphone("일오");
-       
-        ModelUser searchvalue = new ModelUser();
-        searchvalue.setUsernickname("하계동배트맨"); 
+        ModelUser updatevalue = new ModelUser("fsdf","fdsf","sdfsdf","sdfsd","fsdf","sdfsf");
         
-        int result = service.updateUserinfo(updatevalue, searchvalue);
+        ModelUser searchValue = new ModelUser();
+        searchValue.setEmail("aa@afsd");
+        
+        int result = service.updateUserinfo(updatevalue,searchValue);
         
         assertEquals(result, 1);
     }
@@ -82,15 +76,6 @@ public class UserServiceTest {
     @Test
     public void testupdatePasswd() {
         
-        ModelUser user = service.selectUserOne( 3 );
-        
-        // currentpasswd
-        user.setPasswd( "1543" );
-        user.setEmail("sonyo@hanmail.net");
-        
-        int result = service.updatePasswd("2704", user.getPasswd(), user.getEmail());
-        
-        assertEquals(result, 3);
     }
 
     

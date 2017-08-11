@@ -8,18 +8,20 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.RatingBar;
 import android.widget.TextView;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2017-08-02.
+ * Created by Administrator on 2017-08-04.
  */
 
-public class ArrayAdapterEx extends ArrayAdapter<wirte> {
+public class ArrayAdapterEx extends ArrayAdapter<write> {
 
-    ArrayList<wirte> mData = null;
+    ArrayList<write> mData = null;
 
     public ArrayAdapterEx(@NonNull Context context, @LayoutRes int resource) {
         super(context, resource);
@@ -29,25 +31,27 @@ public class ArrayAdapterEx extends ArrayAdapter<wirte> {
         super(context, resource, textViewResourceId);
     }
 
-    public ArrayAdapterEx(@NonNull Context context, @LayoutRes int resource, @NonNull wirte[] objects) {
+    public ArrayAdapterEx(@NonNull Context context, @LayoutRes int resource, @NonNull write[] objects) {
         super(context, resource, objects);
     }
 
-    public ArrayAdapterEx(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull wirte[] objects) {
+    public ArrayAdapterEx(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull write[] objects) {
         super(context, resource, textViewResourceId, objects);
     }
 
-    public ArrayAdapterEx(@NonNull Context context, @LayoutRes int resource, @NonNull List<wirte> objects) {
+    public ArrayAdapterEx(@NonNull Context context, @LayoutRes int resource, @NonNull List<write> objects) {
         super(context, resource, objects);
     }
 
-    public ArrayAdapterEx(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull List<wirte> objects) {
+    public ArrayAdapterEx(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull List<write> objects) {
         super(context, resource, textViewResourceId, objects);
     }
 
     private class ViewHolder {
         TextView reviewTv;
-        TextView ratingTv;
+        RatingBar ratingTv;
+        TextView dayTv;
+
     }
 
     @NonNull
@@ -59,11 +63,14 @@ public class ArrayAdapterEx extends ArrayAdapter<wirte> {
         if (viewHolder == null) {
             viewHolder = new ViewHolder();
             viewHolder.reviewTv = (TextView) itemLayout.findViewById(R.id.write);
-            viewHolder.ratingTv = (TextView) itemLayout.findViewById(R.id.starTv);
+            viewHolder.ratingTv = (RatingBar) itemLayout.findViewById(R.id.starTv);
+            viewHolder.dayTv = (TextView) itemLayout.findViewById(R.id.dayTv);
             itemLayout.setTag(viewHolder);
         }
         viewHolder.reviewTv.setText(getItem(position).getReview());
-        viewHolder.ratingTv.setText(getItem(position).getStar());
+        viewHolder.ratingTv.setRating(getItem(position).getStar());
+        viewHolder.dayTv.setText((CharSequence) getItem(position).getDay());
+
 
         return itemLayout;
     }

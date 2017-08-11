@@ -3,24 +3,31 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-
+    
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="id"/>
     <TextView
+        android:id="@+id/dayTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="day"/>
-    <TextView
+ 
+    <RatingBar
         android:id="@+id/starTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ratingbar"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    
     <TextView
         android:id="@+id/write"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="내용"/>
+    <View
+        android:layout_width="400dp"
+        android:layout_height="0.5dp"
+        android:background="#000000"
+        />
     
 </LinearLayout>
