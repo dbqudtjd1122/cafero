@@ -51,8 +51,8 @@ public class LoginActivity extends CommonActvity {
         Signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(getApplicationContext(), SignUpActivity.class);
+                startActivity(intent2);
             }
         });
     }
@@ -106,10 +106,10 @@ public class LoginActivity extends CommonActvity {
             prefEditor.putString("level_Set", level);
             prefEditor.apply();
 
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.putExtra("nickname_Set", nickname);
             intent.putExtra("level_Set", level);
-            setResult(Activity.RESULT_OK, intent);
+            setResult(RESULT_OK, intent);
             finish();
         }
     }
