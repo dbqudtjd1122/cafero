@@ -119,7 +119,6 @@ public class tab_frgment3 extends Fragment {
 
                 new HttpReview().execute(content, grade);
 
-
             }
         });
 
