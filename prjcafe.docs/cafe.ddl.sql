@@ -16,12 +16,23 @@ GRANT ALL privileges ON cafedb.* TO 'cafe1'@'%' ;
 
 FLUSH PRIVILEGES;
 
+
+
+
+
+
+
+
+
 -- 데이터베이스 변경
 USE cafedb;
 
 -- 유저테이블
+-- 삭제순서를 바꾸지 마시오
+DROP TABLE IF EXISTS TB_cafe_reviewimg_data; -- 손자 테이블
+DROP TABLE IF EXISTS TB_cafe_review;         -- 자식 테이블 
+DROP TABLE IF EXISTS TB_cafe_user;           -- 부모 테이블
 
-DROP TABLE IF EXISTS TB_cafe_user;
 CREATE TABLE TB_cafe_user (
       userno        INT             AUTO_INCREMENT
     , userlevel     INT             DEFAULT 1
@@ -48,38 +59,7 @@ Insert into TB_cafe_user (email, passwd, userphone, useraddr, sex, emailselect, 
 
 select * from TB_cafe_user;
 
--- 카페정보 테이블
-DROP TABLE IF EXISTS TB_cafe_cafeinfo;
-CREATE TABLE TB_cafe_cafeinfo (
-      cafeno        INT             AUTO_INCREMENT
-    , brand         NVARCHAR(50)
-    , cafename      NVARCHAR(30)    NOT NULL
-    , cafeaddr      NVARCHAR(100)   NOT NULL 
-    , cafephone     NVARCHAR(30)            
-    , avg_grade     FLOAT           DEFAULT 0                                     
-    , review_count  INT             DEFAULT 0
-    , like_count    INT             DEFAULT 0           
-    , PRIMARY KEY(cafeno, cafename)
-
-)
-
-
-ENGINE=InnoDB 
-AUTO_INCREMENT=1 
-DEFAULT CHARACTER SET utf8 
-COLLATE utf8_general_ci;
-
-Insert into TB_cafe_cafeinfo (brand, cafename, cafeaddr, cafephone) values ('이디야','이디야_노원역점','노원역 9번출구 앞','1577-1212');
-Insert into TB_cafe_cafeinfo (brand, cafename, cafeaddr, cafephone) values ('할리스','할리스_상계역점','상계역 2번출구 나와서 앞으로 삼보','1577-1213');
-Insert into TB_cafe_cafeinfo (brand, cafename, cafeaddr, cafephone) values ('스타벅스','스타벅스_하계역점','하계동 4번출구 나와서 뒤로 삼보','1577-1210');
-
-
-select * from TB_cafe_cafeinfo;
-
-
-
 -- 카페 리뷰 테이블
-DROP TABLE IF EXISTS TB_cafe_review;
 CREATE TABLE IF NOT EXISTS  TB_cafe_review (
       commentno     INT        AUTO_INCREMENT
     , userno        INT
@@ -115,8 +95,75 @@ DEFAULT CHARACTER SET utf8
 COLLATE utf8_general_ci;
 
 
+
+
+
+
+
+
+-- 카페정보 테이블
+-- 삭제 순서를 바꾸지 마시오
+DROP TABLE IF EXISTS TB_cafe_reviewimg_data ;  -- TB_cafe_menu의 손자 테이블
+DROP TABLE IF EXISTS TB_cafe_menu           ;  -- 자식 테이블
+DROP TABLE IF EXISTS TB_cafe_star_point     ;  -- 자식 테이블
+DROP TABLE IF EXISTS TB_cafe_cafeinfo       ;  -- 부모 테이블
+
+
+CREATE TABLE TB_cafe_cafeinfo (
+      cafeno        INT             AUTO_INCREMENT
+    , brand         NVARCHAR(50)
+    , cafename      NVARCHAR(30)    NOT NULL
+    , cafeaddr      NVARCHAR(100)   NOT NULL 
+    , cafephone     NVARCHAR(30)            
+    , avg_grade     FLOAT           DEFAULT 0                                     
+    , review_count  INT             DEFAULT 0
+    , like_count    INT             DEFAULT 0           
+    , PRIMARY KEY(cafeno, cafename)
+)
+ENGINE=InnoDB 
+AUTO_INCREMENT=1 
+DEFAULT CHARACTER SET utf8 
+COLLATE utf8_general_ci;
+
+Insert into TB_cafe_cafeinfo (brand, cafename, cafeaddr, cafephone) values ('이디야','이디야_노원역점','노원역 9번출구 앞','1577-1212');
+Insert into TB_cafe_cafeinfo (brand, cafename, cafeaddr, cafephone) values ('할리스','할리스_상계역점','상계역 2번출구 나와서 앞으로 삼보','1577-1213');
+Insert into TB_cafe_cafeinfo (brand, cafename, cafeaddr, cafephone) values ('스타벅스','스타벅스_하계역점','하계동 4번출구 나와서 뒤로 삼보','1577-1210');
+
+
+select * from TB_cafe_cafeinfo;
+
+
+-- 카페 별점 테이블
+CREATE TABLE IF NOT EXISTS  TB_cafe_star_point (
+      starno         INT             AUTO_INCREMENT
+    , cafeno         INT             
+    , grade          FLOAT
+    
+    ,PRIMARY KEY(starno)
+)
+ENGINE=InnoDB 
+AUTO_INCREMENT=1 
+DEFAULT CHARACTER SET utf8 
+COLLATE utf8_general_ci;
+
+
+-- 카페 메뉴 테이블
+CREATE TABLE IF NOT EXISTS  TB_cafe_menu (
+      cafeno         INT             
+    , menu_id        INT             AUTO_INCREMENT
+    , menu_name      NVARCHAR(50)    
+    , price          INT             
+    , descrption     NVARCHAR(50)
+    
+    ,PRIMARY KEY(menu_id)
+)
+ENGINE=InnoDB 
+AUTO_INCREMENT=1 
+DEFAULT CHARACTER SET utf8 
+COLLATE utf8_general_ci;
+
+
 -- 카페 리뷰 이미지데이터 테이블
-DROP TABLE IF EXISTS TB_cafe_reviewimg_data;
 CREATE TABLE IF NOT EXISTS  TB_cafe_reviewimg_data (
       reviewfileno   INT             AUTO_INCREMENT
     , filename       NVARCHAR(50)    
@@ -133,45 +180,17 @@ AUTO_INCREMENT=1
 DEFAULT CHARACTER SET utf8 
 COLLATE utf8_general_ci;
 
--- 카페 메뉴 테이블
-DROP TABLE IF EXISTS TB_cafe_menu;
-CREATE TABLE IF NOT EXISTS  TB_cafe_menu (
-      cafeno         INT             
-    , menu_id        INT             AUTO_INCREMENT
-    , menu_name      NVARCHAR(50)    
-    , price          INT             
-    , descrption     NVARCHAR(50)
-    
-    ,PRIMARY KEY(menu_id)
-)
-ENGINE=InnoDB 
-AUTO_INCREMENT=1 
-DEFAULT CHARACTER SET utf8 
-COLLATE utf8_general_ci;
 
 
--- 카페 별점 테이블
-DROP TABLE IF EXISTS TB_cafe_star_point;
-CREATE TABLE IF NOT EXISTS  TB_cafe_star_point (
-      starno         INT             AUTO_INCREMENT
-    , cafeno         INT             
-    , grade          FLOAT
-    
-    ,PRIMARY KEY(starno)
-)
-ENGINE=InnoDB 
-AUTO_INCREMENT=1 
-DEFAULT CHARACTER SET utf8 
-COLLATE utf8_general_ci;
+
 
 
 -- foreign key 설정
 
-alter table TB_cafe_review add constraint cafereview_cafeinfo_fk foreign key(cafeno) references TB_cafe_cafeinfo(cafeno);
-alter table TB_cafe_management_data add constraint cafemanagement_cafemenu_fk foreign key(menu_id) references TB_cafe_menu(menu_id);
-alter table TB_cafe_menu add constraint cafemenu_cafeinfo_fk foreign key(cafeno) references TB_cafe_cafeinfo(cafeno);
-alter table TB_cafe_reviewimg_data add constraint reviewdata_cafeeview_fk foreign key(commentno) references TB_cafe_review(commentno);
-alter table TB_cafe_star_point add constraint starpoint_cafeinfo_fk foreign key(cafeno) references TB_cafe_cafeinfo(cafeno);
-
-alter table TB_cafe_review add constraint cafereview_cafeuser_fk foreign key(userno) references TB_cafe_user(userno);
+alter table TB_cafe_review          add constraint cafereview_cafeinfo_fk     foreign key(cafeno)    references TB_cafe_cafeinfo(cafeno);
+alter table TB_cafe_management_data add constraint cafemanagement_cafemenu_fk foreign key(menu_id)   references TB_cafe_menu(menu_id);
+alter table TB_cafe_menu            add constraint cafemenu_cafeinfo_fk       foreign key(cafeno)    references TB_cafe_cafeinfo(cafeno);
+alter table TB_cafe_reviewimg_data  add constraint reviewdata_cafeeview_fk    foreign key(commentno) references TB_cafe_review(commentno);
+alter table TB_cafe_star_point      add constraint starpoint_cafeinfo_fk      foreign key(cafeno)    references TB_cafe_cafeinfo(cafeno);
+alter table TB_cafe_review          add constraint cafereview_cafeuser_fk     foreign key(userno)    references TB_cafe_user(userno);
 -- alter table TB_cafe_star_point add constraint starpoint_cafereview_fk foreign key(commentno) references TB_cafe_review(commentno);

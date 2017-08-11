@@ -1,5 +1,4 @@
-package com.cafe.ownerapp;
-
+package com.cafe.adminapp.userinfo;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -8,47 +7,51 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.Toast;
+import android.widget.EditText;
+
+import com.cafe.adminapp.R;
 import com.cafe.common.Http.HttpRequest;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
+public class ChangePw extends AppCompatActivity {
 
-public class DeleteUser extends AppCompatActivity {
-
-    private CheckBox ck_deluser;
-    private Button btn_delete_ok;
-    private String email;
-
+    private EditText edt_first, edt_second;
+    private Button btn_ok;
+    private String email, passwd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.delete_user);
+        setContentView(R.layout.change_pw);
 
-        ck_deluser = (CheckBox) findViewById(R.id.ck_del_user);
-        btn_delete_ok = (Button) findViewById(R.id.btn_delete_ok);
+        edt_first = (EditText) findViewById(R.id.edt_changepw_first);
+        edt_second = (EditText) findViewById(R.id.edt_changepw_second);
 
-        // 값 받아오기
         Intent intent = getIntent();
         email = intent.getExtras().getString("email");
+        passwd = intent.getExtras().getString("passwd");
 
-        btn_delete_ok.setOnClickListener(new View.OnClickListener() {
+        btn_ok = (Button) findViewById(R.id.btn_ok);
+
+        btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ck_deluser.isChecked() == true){
-                    Toast toast = Toast.makeText(getApplicationContext(),"탈퇴 완료",Toast.LENGTH_SHORT);
-                    toast.show();
-                    new HttpDeleteUser().execute(email);
-                }
+
+                String newPasswd = edt_first.getText().toString();
+                String newPasswd2 = edt_second.getText().toString();
+
+                    if (newPasswd.equals(newPasswd2)) {
+                        new HttpChangePw().execute(email,passwd,newPasswd); // execute 인자는 HttpLogin의 첫번째 String 인자에 들어감
+
+                    }
 
             }
+
         });
 
     }
-
-    public class HttpDeleteUser extends AsyncTask<String, Integer, String> {// 첫 param 인자 = ID, PW 가운데 인자는 현재 진행률 = Integer 결과 Id,PW String
+    public class HttpChangePw extends AsyncTask<String, Integer, String> {// 첫 param 인자 = ID, PW 가운데 인자는 현재 진행률 = Integer 결과 Id,PW String
 
         ProgressDialog waitDlg = null;
 
@@ -58,20 +61,21 @@ public class DeleteUser extends AppCompatActivity {
 
             //ProgressDialog 보이기
             //서버에 요청 동안 Waiting dialog를 보여주도록 한다
-            waitDlg = new ProgressDialog(DeleteUser.this);
+
+            waitDlg = new ProgressDialog(ChangePw.this);
             waitDlg.setMessage("기다리삼");
             waitDlg.show();
         }
 
         @Override
         protected String doInBackground(String... params) {
+            String email = params[0];   //  0번째 방 = id
+            String passwd = params[1];
+            String newPasswd = params[2];
 
-            String email = params[0];   //  1번쨰 방 = email
-
-            deleteuser(email);
-
-            //String result = changeuserinfo();
-            return email;
+            changepw(email,passwd,newPasswd);
+//            String result = changepw(email,passwd, newPasswd);
+            return changepw(email,passwd,newPasswd);
         }
 
         @Override
@@ -84,16 +88,16 @@ public class DeleteUser extends AppCompatActivity {
                 waitDlg = null;
             }
 
-            // 받은 결과 출력
-                //success
-                Intent intent = new Intent(getApplicationContext(),userinfo.class);
+                Intent intent = new Intent(getApplicationContext(),Userinfo.class);
                 startActivity(intent);
                 finish();
+
         }
+
     }
 
-    public String deleteuser(String email){
-        String weburl = "http://192.168.0.54:8080/user/deleteUser";
+    public String changepw(String email,  String currentPasswd, String newPasswd){
+        String weburl = "http://192.168.0.54:8080/user/updatePasswd";
 
         HttpRequest request = null;
         String response = null;
@@ -101,6 +105,8 @@ public class DeleteUser extends AppCompatActivity {
         try {
             request = new HttpRequest(weburl).addHeader("charset", "utf-8");
             request.addParameter("email", email);
+            request.addParameter("passwd", newPasswd);
+            request.addParameter("newPasswd", currentPasswd);
             int httpCode = request.post();
 
             if (httpCode == HttpURLConnection.HTTP_OK){

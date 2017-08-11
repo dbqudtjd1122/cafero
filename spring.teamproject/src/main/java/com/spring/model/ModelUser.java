@@ -17,11 +17,6 @@ public class ModelUser {
     private String  emailselect  = "";
     private String  usernickname = "";
     
-    public ModelUser(String passwd) {
-        super();
-        this.passwd = passwd;
-    }
-    
     public Integer getUserno() {
         return userno;
     }
@@ -102,9 +97,17 @@ public class ModelUser {
                 + ", sex=" + sex + ", emailselect=" + emailselect
                 + ", usernickname=" + usernickname + "]";
     }
+
     public ModelUser() {
         super();
     }
+
+    public ModelUser(String passwd) {
+        super();
+        this.passwd = passwd;
+    }
+    
+
     public ModelUser(String email, String passwd) {
         super();
         this.email = email;

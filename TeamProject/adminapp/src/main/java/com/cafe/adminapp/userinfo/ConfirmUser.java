@@ -1,15 +1,17 @@
-package com.cafe.ownerapp;
+package com.cafe.adminapp.userinfo;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.content.Intent;
 import android.widget.EditText;
 
+import com.cafe.adminapp.R;
 import com.cafe.common.Http.HttpRequest;
+import com.cafe.common.Model.ModelUser;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -147,7 +149,7 @@ public class ConfirmUser extends AppCompatActivity {
 
             Intent intent = new Intent(getApplicationContext(), ChangePw.class);
             intent.putExtra("email", modelUser.getEmail().toString());
-            intent.putExtra("passwd", modelUser.getpasswd().toString());
+            intent.putExtra("passwd", modelUser.getPasswd().toString());
             startActivity(intent);
 
         }

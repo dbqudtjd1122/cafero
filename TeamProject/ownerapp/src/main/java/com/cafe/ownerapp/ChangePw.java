@@ -87,7 +87,7 @@ public class ChangePw extends AppCompatActivity {
                 waitDlg = null;
             }
 
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(),userinfo.class);
                 startActivity(intent);
                 finish();
 

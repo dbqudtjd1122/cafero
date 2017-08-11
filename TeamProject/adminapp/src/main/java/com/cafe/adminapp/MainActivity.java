@@ -1,43 +1,27 @@
 package com.cafe.adminapp;
 
-import android.app.Activity;
-import android.content.ClipData;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
-import android.support.transition.Visibility;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.ActionProvider;
-import android.view.ContextMenu;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import android.view.SubMenu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Intent;
 
 import com.cafe.adminapp.cafeinfo.FragmentListActivity;
+import com.cafe.adminapp.userinfo.Userinfo;
 import com.cafe.common.CommonActvity;
-import com.cafe.common.Model.ModelUser;
 
 public class MainActivity extends CommonActvity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -159,14 +143,17 @@ public class MainActivity extends CommonActvity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        /*switch (item.getItemId()){
-            case show:
-                break;
-        }*/
+        //NavigationView navigationView = (NavigationView) findViewById(R.id.activity_main_drawer);
 
-        if (item.getItemId() == R.id.login) {
+        if (item.getItemId() == R.id.menulogin) {
+            // MenuItem aa;
+            // aa = (MenuItem) findViewById(R.id.menulogin);
+            // aa.setVisible(true);
+            item.setVisible(false);
+
+
+
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-
             startActivityForResult(intent, REQUEST_CODE);
         }
         if (id == R.id.nav_camera) {
@@ -176,15 +163,14 @@ public class MainActivity extends CommonActvity
 
         } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.userinfo) {
+            Intent userinfo = new Intent(MainActivity.this, Userinfo.class);
+            startActivity(userinfo);
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.menulogout){
 
         }
-
-        return true;
+            return true;
     }
 
     @Override
