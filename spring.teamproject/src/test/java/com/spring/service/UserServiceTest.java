@@ -60,7 +60,7 @@ public class UserServiceTest {
         assertSame(result, 1);
     }
     
-    @Test
+    /*@Test
     public void testupdateUserinfo() {
         
         ModelUser updatevalue = new ModelUser("fsdf","fdsf","sdfsdf","sdfsd","fsdf","sdfsf");
@@ -71,7 +71,7 @@ public class UserServiceTest {
         int result = service.updateUserinfo(updatevalue,searchValue);
         
         assertEquals(result, 1);
-    }
+    }*/
     
     @Test
     public void testupdatePasswd() {

@@ -110,21 +110,18 @@ public class ModelUser {
         this.emailselect = emailselect;
         this.usernickname = usernickname;
     }
-    
-    
-  
-    
- 
-    
-   
-    
-    
-    
-    
-    
-  
- 
-    
-  
-   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

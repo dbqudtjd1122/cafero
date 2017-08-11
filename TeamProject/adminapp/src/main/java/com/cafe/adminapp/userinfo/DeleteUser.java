@@ -1,4 +1,4 @@
-package com.cafe.ownerapp;
+package com.cafe.adminapp.userinfo;
 
 
 import android.app.ProgressDialog;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
+
+import com.cafe.adminapp.R;
 import com.cafe.common.Http.HttpRequest;
 
 import java.io.IOException;
@@ -86,7 +88,7 @@ public class DeleteUser extends AppCompatActivity {
 
             // 받은 결과 출력
                 //success
-                Intent intent = new Intent(getApplicationContext(),userinfo.class);
+                Intent intent = new Intent(getApplicationContext(),Userinfo.class);
                 startActivity(intent);
                 finish();
         }

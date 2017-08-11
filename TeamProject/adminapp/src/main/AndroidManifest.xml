@@ -30,6 +30,16 @@
         </activity>
         <activity android:name=".IDPW_Search">
         </activity>
+        <activity android:name=".userinfo.ChangePw">
+        </activity>
+        <activity android:name=".userinfo.ChangeUserInfo">
+        </activity>
+        <activity android:name=".userinfo.ConfirmUser">
+        </activity>
+        <activity android:name=".userinfo.DeleteUser">
+        </activity>
+        <activity android:name=".userinfo.Userinfo">
+        </activity>
         <activity
             android:name=".cafeinfo.FragmentListActivity"
             android:label="@string/title_activity_list2"

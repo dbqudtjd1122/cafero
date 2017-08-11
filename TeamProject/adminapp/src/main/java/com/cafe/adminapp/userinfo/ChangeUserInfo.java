@@ -1,4 +1,4 @@
-package com.cafe.ownerapp;
+package com.cafe.adminapp.userinfo;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -11,7 +11,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import com.cafe.adminapp.R;
 import com.cafe.common.Http.HttpRequest;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
@@ -110,7 +113,7 @@ public class ChangeUserInfo extends AppCompatActivity {
                 waitDlg = null;
             }
 
-            Intent intent = new Intent(getApplicationContext(),userinfo.class);
+            Intent intent = new Intent(getApplicationContext(),Userinfo.class);
             startActivity(intent);
             finish();
         }
