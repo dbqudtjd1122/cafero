@@ -1,6 +1,7 @@
 package com.cafe.userapp;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -20,6 +21,7 @@ public class AdapterCustom extends ArrayAdapter<ModelItem> {
     public Context context = null;
     private ViewHolder holder = null;
     private LayoutInflater inflater = null;
+
 
     private class ViewHolder {
         private ImageView mIcon;
@@ -41,6 +43,7 @@ public class AdapterCustom extends ArrayAdapter<ModelItem> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         Log.i("getView", "started");
+
 
         View itemLayout = super.getView(position, convertView, parent);
 
@@ -85,7 +88,7 @@ public class AdapterCustom extends ArrayAdapter<ModelItem> {
 
     public List<ModelItem> makeData(int start, int end) {
 
-        if (end > 9) end = 9;
+        if (end > 8) end = 8;
 
         List<ModelItem> list = new ArrayList<>();
         for (int i = start; i <= end; i++) {

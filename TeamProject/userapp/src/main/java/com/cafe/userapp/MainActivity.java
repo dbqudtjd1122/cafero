@@ -35,14 +35,12 @@ import java.util.ArrayList;
 import static android.R.transition.fade;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,View.OnTouchListener, CompoundButton.OnCheckedChangeListener{
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnTouchListener, CompoundButton.OnCheckedChangeListener {
 
     private ViewFlipper vflipper = null;
     private float xATDown;
     private float xATUp;
     private ImageButton imageButton;
-
-
 
 
     @Override
@@ -58,12 +56,11 @@ public class MainActivity extends AppCompatActivity
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Intent intent = new Intent(getApplicationContext(),review.class);
+                Intent intent = new Intent(getApplicationContext(), review.class);
                 startActivity(intent);
+
             }
         });
-
-
 
 
         // FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -84,10 +81,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
-
-
 
 
         vflipper = (ViewFlipper) findViewById(R.id.viewflipper);
@@ -143,7 +136,6 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
@@ -155,7 +147,7 @@ public class MainActivity extends AppCompatActivity
                 break;
         }*/
 
-        if(item.getItemId() == R.id.login){
+        if (item.getItemId() == R.id.login) {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         }
@@ -180,26 +172,25 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        Animation showln= AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
-        Animation showout= AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
+        Animation showln = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
+        Animation showout = AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
 
 
-        if(v !=vflipper) {
+        if (v != vflipper) {
             return false;
         }
-        if(event.getAction()==MotionEvent.ACTION_DOWN){
-            xATDown=event.getX(); // 터치 시작지점 X좌표 저장
-        }
-        else if(event.getAction()==MotionEvent.ACTION_UP){
-            xATUp=event.getX(); // 터치 끝난지점에 X좌표 저장
-            if (xATUp < xATDown){
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            xATDown = event.getX(); // 터치 시작지점 X좌표 저장
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+            xATUp = event.getX(); // 터치 끝난지점에 X좌표 저장
+            if (xATUp < xATDown) {
 //                Animation showln= AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
 
                 vflipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_left_in));
                 vflipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_left_out));
 
                 vflipper.showNext();  // 다음 view 보여줌
-            }else if(xATUp > xATDown){
+            } else if (xATUp > xATDown) {
 //                Animation showout= AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
 
                 vflipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_right_in));

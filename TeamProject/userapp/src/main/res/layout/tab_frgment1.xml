@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.cafe.userapp.tab_frgment1"
-    >
+    tools:context="com.cafe.userapp.tab_frgment1">
     
     
     <ImageView
@@ -83,12 +82,12 @@
         <!--android:stretchMode="columnWidth"-->
         <!--android:background="#bfdfe0">-->
     <!--</GridView>-->
+    
+   
     <GridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        
-        
     </GridView>
 
 </LinearLayout>

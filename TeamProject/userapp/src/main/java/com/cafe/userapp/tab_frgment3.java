@@ -1,10 +1,16 @@
 package com.cafe.userapp;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.text.InputFilter;
 import android.text.Spanned;
@@ -13,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -24,6 +31,7 @@ import com.google.gson.Gson;
 
 import android.content.SharedPreferences;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.text.DateFormat;
@@ -48,6 +56,9 @@ public class tab_frgment3 extends Fragment {
     private float aaa;
     private ModelCafeReview modelReview;
     private SharedPreferences mPref = null;
+    final int REQ_CODE_SELECT_IMAGE = 100;
+    private Button picture;
+
 
     public tab_frgment3() {
     }
@@ -63,6 +74,17 @@ public class tab_frgment3 extends Fragment {
         rtb_review = (RatingBar) fragment.findViewById(R.id.rtb_review);
         text = (TextView) fragment.findViewById(R.id.text);
         edt_review.setPrivateImeOptions("defaultInputmode=korea;");
+
+        picture = (Button) fragment.findViewById(R.id.picture);
+        picture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
+                intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+            }
+        });
 
 
         mData = new ArrayList<>();
@@ -219,5 +241,3 @@ public class tab_frgment3 extends Fragment {
         }
     }
 }
-
-
