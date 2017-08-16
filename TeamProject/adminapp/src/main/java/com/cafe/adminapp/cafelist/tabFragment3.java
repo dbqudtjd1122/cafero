@@ -1,4 +1,4 @@
-package com.cafe.adminapp.cafeinfo;
+package com.cafe.adminapp.cafelist;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -14,14 +14,13 @@ import com.cafe.adminapp.adapter.ArrayAdapterEx;
 import com.cafe.adminapp.R;
 import com.cafe.common.HttpCafeinfo;
 import com.cafe.common.Model.ModelCafeinfo;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class tabFragment2 extends CafeinfoFragment {
+public class tabFragment3 extends CafeListFragment {
 
     private View view = null;
 
@@ -29,17 +28,18 @@ public class tabFragment2 extends CafeinfoFragment {
     private List<ModelCafeinfo> cafelist;
     private ModelCafeinfo cafeinfo = new ModelCafeinfo();
 
-    public tabFragment2() {
+    public tabFragment3() {
     }
     @Override
     public void recall() {
         super.recall();
-        new tabFragment2.Httplist().execute(cafeinfo, getOrderKind());
+        new tabFragment3.Httplist().execute(cafeinfo, getOrderKind());
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.tab_fragment_2, container, false);
+        view = inflater.inflate(R.layout.cafelist_tab_fragment_3, container, false);
 
         return view;
     }
@@ -56,7 +56,7 @@ public class tabFragment2 extends CafeinfoFragment {
         // 출력 데이터 생성
 
         // ListView 생성
-        ListView listView= (ListView) view.findViewById(R.id.fraglist2);
+        ListView listView= (ListView) view.findViewById(R.id.fraglist3);
 
         // 출력 데이터 생성
         cafelist = new ArrayList<>();
@@ -64,13 +64,13 @@ public class tabFragment2 extends CafeinfoFragment {
         // Adapter 생성
         adapterEx = new ArrayAdapterEx(getContext(), R.layout.activity_list_item, R.id.cafe_name, cafelist);
 
-        cafeinfo.setCafebigtype("빙수");
+        cafeinfo.setCafebigtype("펫");
 
         // ListView와 Adapter 연결
         listView.setAdapter(adapterEx);
-        new tabFragment2.Httplist().execute(cafeinfo, "cafename");
-    }
+        new tabFragment3.Httplist().execute(cafeinfo, "cafename");
 
+    }
     // Arrays List Adapter 연결
     class OnItemHandler implements ListView.OnItemClickListener, ListView.OnItemLongClickListener, ListView.OnItemSelectedListener {
 
@@ -99,6 +99,7 @@ public class tabFragment2 extends CafeinfoFragment {
         }
     }
 
+    // Http List DB 가져오기
     public class Httplist extends AsyncTask<Object, Integer, List<ModelCafeinfo>> {
 
         private ProgressDialog waitDlg = null;

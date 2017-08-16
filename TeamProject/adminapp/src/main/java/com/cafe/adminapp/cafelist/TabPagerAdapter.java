@@ -1,4 +1,4 @@
-package com.cafe.adminapp.cafeinfo;
+package com.cafe.adminapp.cafelist;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

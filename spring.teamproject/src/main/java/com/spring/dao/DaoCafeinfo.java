@@ -30,6 +30,18 @@ public class DaoCafeinfo implements IDaoCafeinfo {
         
         return session.selectList("mapper.mysql.mapperTeam.getCafeList", map);
     }
+
+    @Override
+    public List<ModelCafeinfo> getCafeListName(String name) {
+                
+        return session.selectList("mapper.mysql.mapperTeam.getCafeListName", name);
+    }
+
+    @Override
+    public List<ModelCafeinfo> getCafeListAddr(String addr) {
+        
+        return session.selectList("mapper.mysql.mapperTeam.getCafeListAddr", addr);
+    }
     
  
 }

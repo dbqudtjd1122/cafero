@@ -42,20 +42,12 @@ public class UserServiceTest {
         assertEquals(0, result);
     }
     
+   
     @Test
-    public void testGetTeamList() {
-        ModelUser test = new ModelUser();
-        List<ModelUser> result = service.getTeamList(test);
+    public void testInsertUser() {
+        ModelUser user = new ModelUser();
         
-        assertNotNull(result);
-        assertNotEquals(0, result.size());
-    }
-    
-    @Test
-    public void testInsertTeam() {
-        ModelUser team = new ModelUser();
-        
-        int result = service.insertTeam(team);
+        int result = service.insertUser(user);
         
         assertSame(result, 1);
     }

@@ -30,4 +30,28 @@ public class ServiceCafeinfo implements IServiceCafeinfo {
         }
         return result;
     }
+
+
+    @Override
+    public List<ModelCafeinfo> getCafeListName(String name) {
+        List<ModelCafeinfo> result = null;
+        try {
+            result = dao.getCafeListName(name);
+        } catch (Exception e) {
+            logger.error("getCafeListName" + e.getMessage() );
+        }
+        return result;
+    }
+
+
+    @Override
+    public List<ModelCafeinfo> getCafeListAddr(String addr) {
+        List<ModelCafeinfo> result = null;
+        try {
+            result = dao.getCafeListAddr(addr);
+        } catch (Exception e) {
+            logger.error("getCafeListAddr" + e.getMessage() );
+        }
+        return result;
+    }
 }

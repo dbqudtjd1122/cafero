@@ -28,6 +28,10 @@ dependencies {
     })
 
     // ... 이어서
+    compile project(path: ':common')
+
+
+
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:design:25.3.1'
@@ -36,10 +40,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'commons-codec:commons-codec:1.10'
     compile 'org.json:json:20160810'
-    testCompile 'junit:junit:4.12'
-    compile project(path: ':common')
     compile 'tech.thdev.support:base:1.0.1'
-
-
-
+    testCompile 'junit:junit:4.12'
 }

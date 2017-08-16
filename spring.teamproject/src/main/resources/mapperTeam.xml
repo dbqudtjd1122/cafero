@@ -9,49 +9,19 @@
 
     <select id="login" parameterType="ModelUser" resultType="ModelUser">
         SELECT *
-        FROM tb_cafe_user
+        FROM TB_cafe_user
         WHERE email = #{email} and passwd =
         #{passwd}
     </select>
 
-    <select id="selectUserOne" parameterType="int" resultType="ModelUser">
-        SELECT *
-        FROM TB_cafe_user
-        WHERE userno = #{userno}
-    </select>
 
-    <select id="getTeamList" parameterType="ModelUser">
-
-        SELECT *
-        FROM
-        tb_cafe_user
-        WHERE email like concat('%', #{email}, '%');
-    </select>
-
-    <insert id="insertTeam" parameterType="ModelUser">
+    <insert id="insertUser" parameterType="ModelUser">
 
         INSERT INTO
-        tb_cafe_user ( email , passwd , userphone , useraddr , sex ,
-        emailselect , usernickname )
-        VALUES ( #{email}, #{passwd},
-        #{userphone}, #{useraddr}, #{sex}, #{emailselect} ,
-        #{usernickname} )
+        tb_cafe_user ( email , passwd , userphone , useraddr ,   sex ,emailselect , usernickname )
+        VALUES      (#{email},#{passwd},#{userphone},#{useraddr},#{sex},#{emailselect},#{usernickname}
+        )
     </insert>
-
-
-
-    <insert id="insertReview" parameterType="ModelCafeReview">
-        INSERT INTO
-        tb_cafe_review ( content , grade , regdate )
-        VALUES ( #{content},
-        #{grade}, now() )
-    </insert>
-
-
-    <!-- <insert id = "insertTeam" parameterType = "ModelUser"> INSERT INTO 
-        tb_cafe_user ( email , passwd , userphone , useraddr , sex , emailselect 
-        , usernickname ) VALUES ( #{email}, #{passwd}, #{userphone}, #{useraddr}, 
-        #{sex}, #{emailselect} , #{usernickname} ) </insert> -->
 
     <select id="getCafeList" parameterType="java.util.Map"
         resultType="ModelCafeinfo">
@@ -67,6 +37,35 @@
 
         </trim>
     </select>
+    
+    <select id="getCafeListName" parameterType="String"
+        resultType="ModelCafeinfo">
+        SELECT *
+        FROM tb_cafe_cafeinfo
+        where cafename LIKE CONCAT( '%' , #{cafename} , '%' )
+    </select>
+    
+    <select id="getCafeListAddr" parameterType="String"
+        resultType="ModelCafeinfo">
+        SELECT *
+        FROM tb_cafe_cafeinfo
+        where cafeaddr LIKE CONCAT( '%' , #{cafeaddr} , '%' )
+    </select>
+
+    <insert id="insertReview" parameterType="ModelCafeReview">
+        INSERT INTO
+        tb_cafe_review ( content , grade , regdate )
+        VALUES ( #{content},
+        #{grade}, now() )
+    </insert>
+
+
+    <!-- <insert id = "insertTeam" parameterType = "ModelUser"> INSERT INTO 
+        tb_cafe_user ( email , passwd , userphone , useraddr , sex , emailselect 
+        , usernickname ) VALUES ( #{email}, #{passwd}, #{userphone}, #{useraddr}, 
+        #{sex}, #{emailselect} , #{usernickname} ) </insert> -->
+
+
 
     <update id="updateUserinfo" parameterType="hashmap">
         UPDATE tb_cafe_user

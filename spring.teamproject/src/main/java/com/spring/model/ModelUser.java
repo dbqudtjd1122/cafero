@@ -114,4 +114,32 @@ public class ModelUser {
         this.passwd = passwd;
     }
 
+    public ModelUser(Integer userno, Integer userlevel, String email,
+            String passwd, String userphone, String useraddr, String sex,
+            String emailselect, String usernickname) {
+        super();
+        this.userno = userno;
+        this.userlevel = userlevel;
+        this.email = email;
+        this.passwd = passwd;
+        this.userphone = userphone;
+        this.useraddr = useraddr;
+        this.sex = sex;
+        this.emailselect = emailselect;
+        this.usernickname = usernickname;
+    }
+
+    public ModelUser(String email, String passwd, String userphone,
+            String useraddr, String sex, String emailselect,
+            String usernickname) {
+        super();
+        this.email = email;
+        this.passwd = passwd;
+        this.userphone = userphone;
+        this.useraddr = useraddr;
+        this.sex = sex;
+        this.emailselect = emailselect;
+        this.usernickname = usernickname;
+    }
+
 }

@@ -37,21 +37,12 @@ public class UserController {
 	@Autowired
 	IServiceUser svr;
 	
-	@RequestMapping(value = "/team/currentversion", method = {RequestMethod.GET, RequestMethod.POST})
-	@ResponseBody
-	public long currentversion(Locale locale, Model model) {
-		logger.info("/team/currentversion");
-		
-		
-		return new Date().getTime();
-	}
 	
 	@RequestMapping(value = "/team/login", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public ModelUser Login(Locale locale, Model model, @RequestParam(value="email", defaultValue="")String email
                                                         , @RequestParam(value="passwd", defaultValue="")String passwd) {
         logger.info("/team/login");
-        Session session ;
         ModelUser team= new ModelUser(email, passwd);
         
         ModelUser result = svr.login(team);
@@ -59,24 +50,12 @@ public class UserController {
         return result;
     }
 	
-	@RequestMapping(value = "/team/teamone", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "/team/insertuser", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public ModelUser teamone(Locale locale, Model model, @RequestParam(value="name", defaultValue="")String name) {
-        logger.info("/team/teamone");
+    public int insertUser(Locale locale, Model model, @RequestBody ModelUser user) {
+        logger.info("/team/insertuser");
         
-        ModelUser result = new ModelUser();
-        
-        return result;
-    }
-	
-	@RequestMapping(value = "/team/Teamlist", method = {RequestMethod.GET, RequestMethod.POST})
-    @ResponseBody
-    public List<ModelUser> Teamlist(Locale locale, Model model, @RequestParam(value="email", defaultValue="")String email) {
-        logger.info("/team/Teamlist");
-        ModelUser team= new ModelUser();
-        team.setEmail(email);
-        
-        List<ModelUser> result = svr.getTeamList(team);
+        int result = svr.insertUser(user);
         
         return result;
     }

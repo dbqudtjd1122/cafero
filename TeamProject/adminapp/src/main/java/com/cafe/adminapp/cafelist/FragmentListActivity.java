@@ -1,4 +1,4 @@
-package com.cafe.adminapp.cafeinfo;
+package com.cafe.adminapp.cafelist;
 
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -10,19 +10,16 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.support.v4.app.FragmentManager;
 
 import com.cafe.adminapp.R;
-import com.cafe.common.Model.ModelCafeinfo;
 
 import java.util.List;
 
 
 public class FragmentListActivity extends AppCompatActivity {
 
-    private ImageButton imgLeft, imgRigth;
+    // private ImageView imgLeft, imgRigth;
     private TextView textname;
     private String [] asc = new String[]{
             "이름순", "별점순", "리뷰순", "즐겨찾기순"};
@@ -53,41 +50,8 @@ public class FragmentListActivity extends AppCompatActivity {
         tabLayout.addTab( tabLayout.newTab().setText("카페") );
         tabLayout.addTab( tabLayout.newTab().setIcon(android.R.drawable.ic_dialog_email).setText("빙수") );
         tabLayout.addTab( tabLayout.newTab().setText("펫") );
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        // tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-
-        imgLeft = (ImageButton) findViewById(R.id.imgLeft);
-        imgRigth = (ImageButton) findViewById(R.id.imgRigth);
-        textname = (TextView) findViewById(R.id.textname);
-
-        // viewPager = (ViewPager) findViewById(R.id.view_pager);
-
-        imgLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (index == 0) {
-                    index = asc.length - 1;
-                    textname.setText(asc[index]);
-                } else {
-                    index = index - 1;
-                    textname.setText(asc[index]);
-                }
-                setValueFragment(stringasc[index]);
-            }
-        });
-        imgRigth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(index!=asc.length-1){
-                    index = index + 1;
-                }
-                else {
-                    index=0;
-                }
-                textname.setText(asc[index]);
-                setValueFragment(stringasc[index]);
-            }
-        });
 
         final Fragment fragmentManager = getSupportFragmentManager().findFragmentById(R.id.fraglist1);
 
@@ -141,6 +105,34 @@ public class FragmentListActivity extends AppCompatActivity {
         });
 
     }
+    public void imgOnclick(View view){
+
+        textname = (TextView) findViewById(R.id.textname);
+
+        switch (view.getId()){
+            case R.id.imgLeft:
+                if (index == 0) {
+                    index = asc.length - 1;
+                    textname.setText(asc[index]);
+                } else {
+                    index = index - 1;
+                    textname.setText(asc[index]);
+                }
+                setValueFragment(stringasc[index]);
+                break;
+            case R.id.imgRigth:
+                if(index!=asc.length-1){
+                    index = index + 1;
+                }
+                else {
+                    index=0;
+                }
+                textname.setText(asc[index]);
+                setValueFragment(stringasc[index]);
+                break;
+        }
+    }
+
     public String result (){
 
         return stringasc[index];
@@ -153,18 +145,18 @@ public class FragmentListActivity extends AppCompatActivity {
             for(Fragment fragment : fragments){
 
                 if(fragment != null && fragment.isVisible())
-                    ((CafeinfoFragment)fragment).setOrderKind( orderKind );
+                    ((CafeListFragment)fragment).setOrderKind( orderKind );
             }
         }
     }
 
-    public CafeinfoFragment getVisibleFragment(){
+    public CafeListFragment getVisibleFragment(){
         FragmentManager fragmentManager = this.getSupportFragmentManager();
         List<Fragment> fragments = fragmentManager.getFragments();
         if(fragments != null){
             for(Fragment fragment : fragments){
                 if(fragment != null && fragment.isVisible())
-                    return (CafeinfoFragment)fragment;
+                    return (CafeListFragment)fragment;
             }
         }
         return null;

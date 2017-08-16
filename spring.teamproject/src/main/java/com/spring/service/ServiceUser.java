@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.dao.IDaoUser;
 import com.spring.model.ModelUser;
 
-@Repository("serviceteam")
+@Repository("serviceuser")
 public class ServiceUser implements IServiceUser {
     // SLF4J Logging
     private static Logger logger = LoggerFactory.getLogger(ServiceUser.class);
@@ -31,24 +31,12 @@ public class ServiceUser implements IServiceUser {
     }
 
     @Override
-    public List<ModelUser> getTeamList(ModelUser team) {
-        List<ModelUser> result = null;
-        try {
-            result = dao.getTeamList(team);
-        } catch (Exception e) {
-            logger.error("getTeamList" + e.getMessage() );
-            throw e;
-        }
-        return result;
-    }
-
-    @Override
-    public int insertTeam(ModelUser team) {
+    public int insertUser(ModelUser user) {
         int result = -1;
         try {
-            result = dao.insertTeam(team);
+            result = dao.insertUser(user);
         } catch (Exception e) {
-            logger.error("insertTeam" + e.getMessage() );
+            logger.error("insertUser" + e.getMessage() );
             throw e;
         }
         return result;
@@ -80,23 +68,6 @@ public class ServiceUser implements IServiceUser {
         return result;
     }
 
-    @Override
-    public ModelUser selectUserOne(int userno) {
-        
-        ModelUser result = null;
-        
-        try {
-            result = dao.selectUserOne(userno);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            // e.printStackTrace();
-            logger.error("selectUserOne" + e.getMessage() );
-            throw e;
-        }
-        
-        return result;
-    }
-    
     @Override
     public int deleteUser(ModelUser searchValue) {
         int result = -1;

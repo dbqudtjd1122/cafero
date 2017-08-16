@@ -130,7 +130,7 @@ public class ChangeUserInfo extends AppCompatActivity {
             request.addParameter("email", email);
             request.addParameter("passwd", passwd);
             request.addParameter("userphone", userphone);
-            request.addParameter("addr", addr);
+            request.addParameter("name", addr);
             request.addParameter("sex", sex);
             request.addParameter("nickname", nickname);
             request.addParameter("selectEmail", selectEmail);
