@@ -101,5 +101,14 @@
             and email = #{email}
         </if>
     </delete>
+    
+    
+    <select id="getCafeMenu" parameterType="int" resultType="ModelCafeMenu">
+        SELECT *
+        FROM TB_cafe_menu
+        WHERE cafeno = #{cafeno}
+    </select>
+    
 
 </mapper>
+
