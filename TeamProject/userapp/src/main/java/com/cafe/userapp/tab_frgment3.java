@@ -104,11 +104,7 @@ public class tab_frgment3 extends Fragment {
         });
 
         Calendar cal = Calendar.getInstance();
-
-
         DateFormat day1 = DateFormat.getDateInstance(DateFormat.FULL, Locale.KOREAN);
-
-
         day1.setTimeZone(cal.getTimeZone());
 
         final String day = day1.format(cal.getTime());
@@ -153,13 +149,11 @@ public class tab_frgment3 extends Fragment {
 
         private ProgressDialog waitDlg = null;
 
-
         @Override
         protected String doInBackground(String... params) {
             String content = params[0];
 
             Double grade = Double.valueOf(params[1]);
-
 
             String result = review(content, grade);
 

@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.cafe.userapp.Http.ModelCafeMenu;
 
 import org.json.JSONArray;
@@ -22,9 +24,11 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,10 +41,15 @@ public class tab_frgment1 extends Fragment {
     private View view = null;
     private boolean calling = false;
     AdapterCustom adapter = null;
+    private TextView menutype, dataItem01, detai1, dataItem02, dataItem03, dataItem04, detai2;
+    private review review;
+    private ModelCafeMenu cafeMenu = new ModelCafeMenu();
+
 
     public tab_frgment1() {
 
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,11 +108,150 @@ public class tab_frgment1 extends Fragment {
             }
         });
 
+        new HttpRequestAsyncTask().execute();
+
         return view;
 
     }
 
+    public class HttpRequestAsyncTask extends AsyncTask<Integer, Integer, Integer> {
 
+        ProgressDialog waitDlg = null;
+
+        @Override
+        protected Integer doInBackground(Integer... params) {
+            Integer version = null;
+            try {
+                version = request();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return version;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            waitDlg = new ProgressDialog(getContext());
+            waitDlg.setMessage("버전확인중");
+            waitDlg.show();
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
+
+            if (waitDlg != null) {
+                waitDlg.dismiss();
+                waitDlg = null;
+            }
+
+//            menutype = (TextView) review1.findViewById(R.id.menutype);
+//            dataItem01 = (TextView) review1.findViewById(R.id.dataItem01);
+//            dataItem02 = (TextView) review1.findViewById(R.id.dataItem02);
+//            dataItem03 = (TextView) review1.findViewById(R.id.dataItem03);
+//            dataItem04 = (TextView) review1.findViewById(R.id.dataItem04);
+//            detai1 = (TextView) review1.findViewById(R.id.detai1);
+//            detai2 = (TextView) review1.findViewById(R.id.detai2);
+            menutype = (TextView) view.findViewById(R.id.menutype);
+            dataItem01 = (TextView) view.findViewById(R.id.dataItem01);
+            dataItem02 = (TextView) view.findViewById(R.id.dataItem02);
+            dataItem03 = (TextView) view.findViewById(R.id.dataItem03);
+            dataItem04 = (TextView) view.findViewById(R.id.dataItem04);
+            detai1 = (TextView) view.findViewById(R.id.detai1);
+            detai2 = (TextView) view.findViewById(R.id.detai2);
+
+            //integer에 결과가 담겨옴
+            menutype.setText(String.valueOf(integer));
+            dataItem01.setText(String.valueOf(integer));
+            dataItem02.setText(String.valueOf(integer));
+            dataItem03.setText(String.valueOf(integer));
+            dataItem04.setText(String.valueOf(integer));
+            detai1.setText(String.valueOf(integer));
+            detai2.setText(String.valueOf(integer));
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onCancelled(Integer integer) {
+            super.onCancelled(integer);
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+
+            if (waitDlg != null) {
+                waitDlg.dismiss();
+                waitDlg = null;
+            }
+        }
+    }
+
+    private Integer request() throws IOException {
+
+        BufferedReader rd = null;
+        HttpURLConnection HttpConn = null;
+        InputStream in = null;
+        Integer result = null;
+
+        //서버주소
+        String weburl = "http://192.168.0.239:8080/menu/cafenomenu";
+
+        URL url = null;
+
+        try {
+            url = new URL(weburl);
+            HttpConn = (HttpURLConnection) url.openConnection();
+            HttpConn.setConnectTimeout(1000);
+            HttpConn.setReadTimeout(1000);
+            HttpConn.setRequestMethod("GET");
+            HttpConn.setRequestProperty("charset", "utf-8");
+            HttpConn.connect();
+
+            int responseCode = HttpConn.getResponseCode();
+
+            if (responseCode < 200 || responseCode >= 300) {
+                //오류
+                Log.d("request", HttpConn.getResponseMessage());
+                return -1;
+            }
+
+            in = HttpConn.getInputStream();
+            rd = new BufferedReader(new InputStreamReader(in));
+            StringBuffer bf = new StringBuffer();
+
+            String line = "";
+            for (; (line = rd.readLine()) != null; ) {
+                bf.append(line);
+            }
+
+            result = Integer.valueOf(bf.toString());
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+            result = -1;
+        } finally {
+
+            if (rd != null) rd.close();
+            if (in != null) in.close();
+
+            HttpConn.disconnect();
+        }
+        return result;
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////
     public class HttpMenu extends AsyncTask<Integer, Integer, List<ModelItem>> {
         private ProgressDialog waitDlg = null;
 
@@ -148,3 +296,4 @@ public class tab_frgment1 extends Fragment {
 
     }
 }
+

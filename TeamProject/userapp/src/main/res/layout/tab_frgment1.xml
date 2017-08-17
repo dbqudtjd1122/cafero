@@ -9,14 +9,6 @@
     tools:context="com.cafe.userapp.tab_frgment1">
     
     
-    <ImageView
-        android:id="@+id/brandmainimg"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/hollys"
-        />
-    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,9 +56,16 @@
                 android:layout_marginLeft="100dp"
                 android:text="0"/>
         </LinearLayout>
-    
-    
+        
     </LinearLayout>
+    
+    
+    <ImageView
+        android:id="@+id/brandmainimg"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/hollys"/>
     
     <!--<GridView-->
         <!--android:id="@+id/gridView"-->

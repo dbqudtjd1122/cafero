@@ -14,6 +14,7 @@ import com.cafe.adminapp.R;
 import com.cafe.common.HttpCafeinfo;
 import com.cafe.adminapp.adapter.ArrayAdapterEx;
 import com.cafe.common.Model.ModelCafeinfo;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class tabFragment1 extends CafeinfoFragment {
 
     public tabFragment1() {
     }
+
     @Override
     public void recall() {
         super.recall();
@@ -56,7 +58,7 @@ public class tabFragment1 extends CafeinfoFragment {
         // 출력 데이터 생성
 
         // ListView 생성
-        ListView listView= (ListView) view.findViewById(R.id.fraglist1);
+        ListView listView = (ListView) view.findViewById(R.id.fraglist1);
 
         // 출력 데이터 생성
         cafelist = new ArrayList<>();
@@ -72,6 +74,7 @@ public class tabFragment1 extends CafeinfoFragment {
 
 
     }
+
     // Arrays List Adapter 연결
     class OnItemHandler implements ListView.OnItemClickListener, ListView.OnItemLongClickListener, ListView.OnItemSelectedListener {
 
@@ -122,7 +125,7 @@ public class tabFragment1 extends CafeinfoFragment {
 
 
             try {
-                cafelist = new HttpCafeinfo().itemlist((ModelCafeinfo)params[0] , (String)params[1]);
+                cafelist = new HttpCafeinfo().itemlist((ModelCafeinfo) params[0], (String) params[1]);
             } catch (Exception e) {
                 e.printStackTrace();
             }
