@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.cafe.userapp.tab_frgment2"
-    tools:showIn="@layout/review">
+    >
     
     <LinearLayout
         android:layout_width="wrap_content"
