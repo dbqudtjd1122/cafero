@@ -39,5 +39,15 @@ public class CafeinfoServiceTest extends ServiceCafeinfo {
         assertNotEquals(0, result.size());
     }
     
+    @Test
+    public void testgetAddrListCafe() {
+        
+        String name = "노원구";
+        List<ModelCafeinfo> result = service.getCafeListName(name);
+        
+        assertNotNull(result);
+        assertNotEquals(0, result.size());
+    }
+    
    
 }

@@ -1,10 +1,10 @@
-package com.cafe.adminapp.cafeinfo;
+package com.cafe.adminapp.cafelist;
 
 import android.support.v4.app.Fragment;
 
 
 
-public class CafeinfoFragment extends Fragment {
+public class CafeListFragment extends Fragment {
     protected String orderKind="";
 
     public String getOrderKind() {

@@ -14,15 +14,16 @@ import android.widget.TextView;
 import com.cafe.common.Model.ModelCafeinfo;
 import com.cafe.adminapp.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArrayAdapterEx extends android.widget.ArrayAdapter<ModelCafeinfo> {
 
+    public ArrayList<ModelCafeinfo> Data = null;
+
     public ArrayAdapterEx(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull List<ModelCafeinfo> objects) {
         super(context, resource, textViewResourceId, objects);
     }
-
-
 
     class ViewHolder {
         TextView cafename;
@@ -46,6 +47,7 @@ public class ArrayAdapterEx extends android.widget.ArrayAdapter<ModelCafeinfo> {
             viewHolder.cafename = (TextView) itemLayout.findViewById(R.id.cafe_name);
             viewHolder.review_count = (TextView) itemLayout.findViewById(R.id.review_count);
             viewHolder.like_count = (TextView) itemLayout.findViewById(R.id.star_count);
+            
             itemLayout.setTag(viewHolder);
         }
         if (cafeinfo.getBrand().equals("이디야")) {

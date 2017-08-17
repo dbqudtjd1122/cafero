@@ -1,4 +1,4 @@
-package com.cafe.adminapp.cafeinfo;
+package com.cafe.adminapp.cafelist;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class tabFragment1 extends CafeinfoFragment {
+public class tabFragment1 extends CafeListFragment {
 
     private View view = null;
 
@@ -41,7 +41,7 @@ public class tabFragment1 extends CafeinfoFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.tab_fragment_1, container, false);
+        view = inflater.inflate(R.layout.cafelist_tab_fragment_1, container, false);
 
         return view;
     }

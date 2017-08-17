@@ -76,7 +76,7 @@ public class SignUpActivity extends AppCompatActivity {
                 else {
                     if(rtn1.isChecked() == true){sex = "남자";} else {sex = "여자";}
                     if(checkemail.isChecked() == true){emailcheck = "1";} else {emailcheck = "0";}
-                    new HttpLogin().execute(edtemail.getText().toString(), edtpw.getText().toString(), edtphone.getText().toString(), edtaddr.getText().toString(), emailcheck.toString(), sex.toString(), nickname.getText().toString());
+                    new HttpLogin().execute(edtemail.getText().toString(), edtpw.getText().toString(), edtphone.getText().toString(), edtaddr.getText().toString(), sex.toString(), emailcheck.toString(),  nickname.getText().toString());
                 }
             }
         });
@@ -141,7 +141,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public String insert(String email, String pw, String phone, String addr, String sex, String checkemail, String nickname ){
-        String weburl = "http://192.168.0.52:8080/team/insertteam";
+        String weburl = "http://192.168.0.52:8080/team/insertuser";
 
         HttpRequest request = null;
         String response = null;

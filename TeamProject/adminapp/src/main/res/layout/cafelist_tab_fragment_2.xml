@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cafe.adminapp.cafeinfo.tabFragment3"
+    tools:context="com.cafe.adminapp.cafelist.tabFragment2"
     tools:showIn="@layout/fragmentlist">
     
     <LinearLayout
@@ -14,12 +14,11 @@
         android:orientation="vertical">
         
         <ListView
-            android:id="@+id/fraglist3"
+            android:id="@+id/fraglist2"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         
         </ListView>
     
     </LinearLayout>
-
 </android.support.constraint.ConstraintLayout>

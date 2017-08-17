@@ -47,6 +47,28 @@ public class CafeinfoController {
         return result;
     }
 	
+	@RequestMapping(value = "/team/getCafeListName", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public List<ModelCafeinfo> getCafeListName( Model model, @RequestParam(value="cafename", defaultValue="")String name) {
+        logger.info("/team/getCafeListName");
+         
+        
+        List<ModelCafeinfo> result = svr.getCafeListName(name);
+                
+        return result;
+    }
+	
+	@RequestMapping(value = "/team/getCafeListAddr", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public List<ModelCafeinfo> getCafeListAddr( Model model, @RequestParam(value="cafeaddr", defaultValue="")String addr) {
+        logger.info("/team/getCafeListAddr");
+         
+        
+        List<ModelCafeinfo> result = svr.getCafeListAddr(addr);
+                
+        return result;
+    }
+	
 	
 	
 }
