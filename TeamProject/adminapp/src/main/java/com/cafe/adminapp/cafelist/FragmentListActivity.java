@@ -37,7 +37,7 @@ public class FragmentListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragmentlist);
+        setContentView(R.layout.cafelist_fragment);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("카페路로");
@@ -50,17 +50,15 @@ public class FragmentListActivity extends AppCompatActivity {
         tabLayout.addTab( tabLayout.newTab().setText("카페") );
         tabLayout.addTab( tabLayout.newTab().setIcon(android.R.drawable.ic_dialog_email).setText("빙수") );
         tabLayout.addTab( tabLayout.newTab().setText("펫") );
-        // tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-
-        final Fragment fragmentManager = getSupportFragmentManager().findFragmentById(R.id.fraglist1);
+        // final Fragment fragmentManager = getSupportFragmentManager().findFragmentById(R.id.fraglist1);
 
 
         // ViewPager 초기화
         final ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
 
         // PagerAdater 생성
-        TabPagerAdapter pagerAdapter = new TabPagerAdapter( getSupportFragmentManager(), tabLayout.getTabCount() );
+        ListTabPagerAdapter pagerAdapter = new ListTabPagerAdapter( getSupportFragmentManager(), tabLayout.getTabCount() );
 
         // PagerAdapter와 ViewPager 연결 : Fragment와 ViewPager 연결
         viewPager.setAdapter( pagerAdapter );
@@ -161,6 +159,4 @@ public class FragmentListActivity extends AppCompatActivity {
         }
         return null;
     }
-
-
 }

@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cafe.adminapp.cafelist.tabFragment2"
-    tools:showIn="@layout/fragmentlist">
+    tools:context="com.cafe.adminapp.cafelist.Cafelist_tabFragment2"
+    tools:showIn="@layout/cafelist_fragment">
     
     <LinearLayout
         android:layout_width="match_parent"

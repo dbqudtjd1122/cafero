@@ -4,7 +4,9 @@ package com.cafe.common.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class ModelCafeinfo implements Parcelable {
+import java.io.Serializable;
+
+public class ModelCafeinfo implements Serializable {
     
      private Integer cafeno;
      private String brand;
@@ -118,32 +120,11 @@ public class ModelCafeinfo implements Parcelable {
     public ModelCafeinfo() {
         super();
     }
-    public static Parcelable.Creator<ModelCafeinfo> getCREATOR() {
-        return CREATOR;
-    }
+
 
     protected ModelCafeinfo(Parcel in) {
     }
 
-    public static final Parcelable.Creator<ModelCafeinfo> CREATOR = new Parcelable.Creator<ModelCafeinfo>() {
-        @Override
-        public ModelCafeinfo createFromParcel(Parcel in) {
-            return new ModelCafeinfo(in);
-        }
 
-        @Override
-        public ModelCafeinfo[] newArray(int size) {
-            return new ModelCafeinfo[size];
-        }
-    };
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-    }
 }

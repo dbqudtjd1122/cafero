@@ -20,7 +20,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-    
+        
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -48,6 +48,11 @@
         <activity android:name=".NameSearchList">
         </activity>
         <activity android:name=".AddrSearchList">
+        </activity>
+        <activity
+            android:name=".cafeinfo.FragmentInfoActivity"
+            android:label="@string/title_activity_info"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

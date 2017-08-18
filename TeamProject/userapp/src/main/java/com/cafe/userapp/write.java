@@ -19,7 +19,7 @@ public class write implements Parcelable {
     @Override
     public String toString() {
         return "write{" +
-                "review='" + review + '\'' +
+                "Cafeinfo_Frgment='" + review + '\'' +
                 ", star=" + star +
                 ", day=" + day +
                 '}';
