@@ -1,6 +1,8 @@
 package com.spring.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -15,15 +17,26 @@ import com.spring.model.ModelCafeMenu;
 public class DaoCafeMenu implements IDaoCafeMenu {
     // SLF4J Logging
     
-    
-    @Autowired
-    private SqlSession session;
-   
     private static Logger logger = LoggerFactory.getLogger(DaoCafeMenu.class);
 
+    @Autowired
+    private SqlSession session;
+    
     @Override
-    public List<ModelCafeMenu> getCafeMenu(int cafeno) {
-        return session.selectList("mapper.mysql.mapperTeam.getCafeMenu", cafeno);
+    public List<String> getCafecd(String brand) {
+        return session.selectList("mapper.mysql.mapperTeam.getCafecd", brand);
     }
+
+    @Override
+    public List<ModelCafeMenu> getCafeMenu(String menucd, String brand) {
+        
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("menucd", menucd);
+        map.put("brand", brand);
+        
+        return session.selectList("mapper.mysql.mapperTeam.getCafeMenu", map);
+    }
+    
+    
 
 }

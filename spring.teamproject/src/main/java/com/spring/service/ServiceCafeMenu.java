@@ -23,16 +23,28 @@ public class ServiceCafeMenu implements IServiceCafeMenu {
     IDaoCafeMenu dao;
 
     @Override
-    public List<ModelCafeMenu> getCafeMenu(int cafeno) {
+    public List<String> getCafecd(String brand) {
+        List<String> result = null;
+        try {
+            result = dao.getCafecd(brand);
+        } catch (Exception e) {
+            logger.error("getCafecd" + e.getMessage() );
+            throw e;
+        }
+        return result;
+        
+    }
+
+    @Override
+    public List<ModelCafeMenu> getCafeMenu(String menucd, String brand) {
         List<ModelCafeMenu> result = null;
         try {
-            result = dao.getCafeMenu(cafeno);
+            result = dao.getCafeMenu(menucd, brand);
         } catch (Exception e) {
             logger.error("getCafeMenu" + e.getMessage() );
             throw e;
         }
         return result;
-        
     }
 
 }

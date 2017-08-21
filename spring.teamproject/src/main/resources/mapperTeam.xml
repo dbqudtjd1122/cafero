@@ -52,6 +52,22 @@
         where cafeaddr LIKE CONCAT( '%' , #{cafeaddr} , '%' )
     </select>
 
+
+    <select id="getCafecd" parameterType="String" resultType="String">
+        select menucd from tb_cafe_menu 
+        where brand = #{brand} 
+        group by menucd 
+        order by brand;
+    
+    </select>
+    
+    <select id="getCafeMenu" parameterType="String" resultType="ModelCafeMenu">
+        select * from tb_cafe_menu 
+        where menucd = #{menucd} and brand = #{brand};
+
+    </select>
+    
+    
     <insert id="insertReview" parameterType="ModelCafeReview">
         INSERT INTO
         tb_cafe_review ( content , grade , regdate )

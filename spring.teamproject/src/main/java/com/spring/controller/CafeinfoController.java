@@ -28,7 +28,7 @@ import com.spring.service.IServiceUser;
 @Controller
 public class CafeinfoController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(CafeinfoController.class);
+	private static Logger logger = LoggerFactory.getLogger(CafeinfoController.class);
 	
 	@Autowired
 	IServiceCafeinfo svr;
@@ -68,7 +68,4 @@ public class CafeinfoController {
                 
         return result;
     }
-	
-	
-	
 }

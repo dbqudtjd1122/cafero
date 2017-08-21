@@ -9,6 +9,7 @@ import com.spring.model.ModelCafeMenu;
 
 public interface IDaoCafeMenu {
     
-    List<ModelCafeMenu> getCafeMenu(int cafeno);
+    List<String> getCafecd(String brand);
+    List<ModelCafeMenu> getCafeMenu(String menucd, String brand);
     
 }

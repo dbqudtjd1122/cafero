@@ -23,8 +23,7 @@ public class CafeMenuTest {
     
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        context = new ClassPathXmlApplicationContext(
-                "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml");
+        context = new ClassPathXmlApplicationContext("file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml");
         service = context.getBean("servicecafemenu", IServiceCafeMenu.class);
     }
     
@@ -41,9 +40,18 @@ public class CafeMenuTest {
     }
     
     @Test
+    public void testGetCafecd() {
+        
+        List<String> result = service.getCafecd("스타벅스");
+        
+        assertNotNull(result);
+        assertNotEquals(0, result.size());
+    }
+    
+    @Test
     public void testGetCafeMenu() {
-//        ModelCafeMenu menu = new ModelCafeMenu();
-        List<ModelCafeMenu> result = service.getCafeMenu(1);
+        
+        List<ModelCafeMenu> result = service.getCafeMenu("커피", "스타벅스");
         
         assertNotNull(result);
         assertNotEquals(0, result.size());
