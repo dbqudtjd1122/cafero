@@ -20,7 +20,7 @@ import java.util.List;
 public class HttpCafeMenuList {
 
     public List<String> Menulist(String brand) {
-        String weburl = "http://192.168.0.52:8080/team/getCafecd";
+        String weburl = "http://192.168.0.52:8080/menu/getCafecd";
 
         HttpRequest request = null;
         JSONArray response = null;
@@ -29,7 +29,7 @@ public class HttpCafeMenuList {
         int httpCode = 0;
         try {
             request = new HttpRequest(weburl).addHeader("charset", "utf-8");
-            request.addParameter("Brand", brand);
+            request.addParameter("brand", brand);
 
 
             httpCode = request.post();
@@ -57,7 +57,7 @@ public class HttpCafeMenuList {
     }
 
     public List<ModelCafeMenu> Menulist2(String menucd, String brand) {
-        String weburl = "http://192.168.0.52:8080/team/getCafeMenu";
+        String weburl = "http://192.168.0.52:8080/menu/getCafeMenu";
 
         HttpRequest request = null;
         JSONArray response = null;

@@ -36,7 +36,6 @@ public class MainActivity extends CommonActvity
     private TextView nickname, level;
     private ImageView headerimg;
     private int REQUEST_CODE = 2004;
-    private String strnickname = "";
     private EditText edit_cafe_name, edit_cafe_addr;
     private Button btn_cafe_name, btn_cafe_addr;
 
@@ -74,11 +73,9 @@ public class MainActivity extends CommonActvity
 
 
         SharedPreferences pref = getSharedPreferences("Setting", Context.MODE_PRIVATE);
-        strnickname = pref.getString("nickname_Set", "");
-
 
         // 로그인정보가 없는경우
-        if (strnickname == "" || strnickname == null) {
+        if (pref.getString("nickname_Set", "").toString() == "" || pref.getString("nickname_Set", "").toString() == null) {
             headerimg.setVisibility(View.VISIBLE);
         // 로그인정보가 있는경우
         } else {
@@ -132,28 +129,6 @@ public class MainActivity extends CommonActvity
         MenuInflater mi = getMenuInflater();
         mi.inflate(R.menu.activity_main_drawer, menu);
 
-        /*MenuItem item = menu.add(0, 1, 0, "로그인");
-        menu.add(0, 2, 0, "공지사항");
-        menu.add(0, 3, 0, "이벤트");*/
-
-        /*menulogin = menu.getItem(1);
-        menulogout = menu.getItem(6);
-        // menulogout = (MenuItem) this.findViewById(R.id.menulogout);
-
-        // 로그인정보가 없는경우
-        if (strnickname == "" || strnickname == null) {
-            menulogin.setVisible(true);
-            menulogout.setVisible(false);
-            //menulogin.findItem(R.id.menulogin).setVisible(true);
-            //menulogout.findItem(R.id.menulogout).setVisible(false);
-            // 로그인정보가 있는경우
-        } else {
-            menulogin.setVisible(false);
-            menulogout.setVisible(true);
-            //menulogin.findItem(R.id.menulogin).setVisible(false);
-            // menulogout.findItem(R.id.menulogout).setVisible(true);
-        }*/
-
 
         return true;
     }
@@ -179,12 +154,16 @@ public class MainActivity extends CommonActvity
 
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        SharedPreferences pref = getSharedPreferences("Setting", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
 
         if (item.getItemId() == R.id.menulogin) {
-            item.setVisible(false);
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivityForResult(intent, REQUEST_CODE);
+            if (pref.getString("nickname_Set", "").toString() == ""  || pref.getString("nickname_Set", "").toString() == null) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivityForResult(intent, REQUEST_CODE);
+            } else {
+                Toast.makeText(this, "로그인 되어있습니다.", Toast.LENGTH_SHORT).show();
+            }
         }
         if (id == R.id.nav_camera) {
             // Handle the* camera action
@@ -198,17 +177,16 @@ public class MainActivity extends CommonActvity
             startActivity(userinfo);
 
         } else if (id == R.id.menulogout){
-            SharedPreferences pref = getSharedPreferences("Setting", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = pref.edit();
             editor.remove("nickname_Set");
             editor.remove("level_Set");
+            isnickname = pref.getString("nickname_Set",  "").toString();
+            islevel = pref.getString("level_Set", "").toString();
+            headerimg.setVisibility(View.VISIBLE);
 
             nickname.setText("");
             level.setText("");
             editor.clear();
             editor.commit();
-
-            headerimg.setVisibility(View.VISIBLE);
         }
             return true;
     }

@@ -28,12 +28,6 @@ public class FragmentListActivity extends AppCompatActivity {
     };
     private Integer index=0;
 
-    /*private ModelCafeinfo cafeinfo = new ModelCafeinfo();
-    private String orderKind = "";
-
-    private ViewPager viewPager;*/
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +44,6 @@ public class FragmentListActivity extends AppCompatActivity {
         tabLayout.addTab( tabLayout.newTab().setText("카페") );
         tabLayout.addTab( tabLayout.newTab().setIcon(android.R.drawable.ic_dialog_email).setText("빙수") );
         tabLayout.addTab( tabLayout.newTab().setText("펫") );
-
-        // final Fragment fragmentManager = getSupportFragmentManager().findFragmentById(R.id.fraglist1);
-
 
         // ViewPager 초기화
         final ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
@@ -95,9 +86,7 @@ public class FragmentListActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
-
             @Override
             public void onTabReselected(TabLayout.Tab tab) { }
         });

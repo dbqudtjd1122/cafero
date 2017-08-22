@@ -8,6 +8,4 @@ import com.spring.model.ModelCafeReview;
 
 public interface IServiceReview extends IDaoReview {
 
-    int insertReview(ModelCafeReview reivew);
-    
 }

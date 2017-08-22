@@ -34,12 +34,7 @@ public class UserServiceTest {
     
     @Test
     public void testLogin() {
-        ModelUser test = new ModelUser("aa@nate.com", "123123");
-        ModelUser result = service.login(test);
         
-        test = new ModelUser("test2id", "test2pw");
-        result = service.login(test);
-        assertEquals(0, result);
     }
     
    
@@ -56,7 +51,7 @@ public class UserServiceTest {
     public void testupdateUserinfo() {
         
         ModelUser updatevalue = new ModelUser();
-        updatevalue.setEmailselect("asdf");
+        updatevalue.setEmailselect(1);
         updatevalue.setPasswd("1325");
         updatevalue.setSex("남");
         updatevalue.setUseraddr("상계동");

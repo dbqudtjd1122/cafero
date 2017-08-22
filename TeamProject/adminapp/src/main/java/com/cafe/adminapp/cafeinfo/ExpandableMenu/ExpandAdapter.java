@@ -89,7 +89,7 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
 
         menuname.setText(childDatas.get(i).get(i1).getMenu_name());
         price.setText(childDatas.get(i).get(i1).getPrice().toString());
-        descrption.setText(childDatas.get(i).get(i1).getDescrption());
+        descrption.setText(childDatas.get(i).get(i1).getDescription()+"원");
 
         return view;
     }

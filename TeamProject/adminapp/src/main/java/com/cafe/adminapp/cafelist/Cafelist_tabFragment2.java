@@ -1,6 +1,7 @@
 package com.cafe.adminapp.cafelist;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,8 +11,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.cafe.adminapp.adapter.ArrayAdapterEx;
+import com.cafe.adminapp.adapter.CafeList_Adapter;
 import com.cafe.adminapp.R;
+import com.cafe.adminapp.cafeinfo.FragmentInfoActivity;
 import com.cafe.common.HttpCafeList;
 import com.cafe.common.Model.ModelCafeinfo;
 
@@ -25,7 +27,7 @@ public class Cafelist_tabFragment2 extends CafeListFragment {
 
     private View view = null;
 
-    private ArrayAdapterEx adapterEx;
+    private CafeList_Adapter adapterEx;
     private List<ModelCafeinfo> cafelist;
     private ModelCafeinfo cafeinfo = new ModelCafeinfo();
 
@@ -62,13 +64,24 @@ public class Cafelist_tabFragment2 extends CafeListFragment {
         cafelist = new ArrayList<>();
 
         // Adapter 생성
-        adapterEx = new ArrayAdapterEx(getContext(), R.layout.activity_list_item, R.id.cafe_name, cafelist);
+        adapterEx = new CafeList_Adapter(getContext(), R.layout.activity_cafelist_item, R.id.cafe_name, cafelist);
 
         cafeinfo.setCafebigtype("빙수");
 
         // ListView와 Adapter 연결
         listView.setAdapter(adapterEx);
         new Cafelist_tabFragment2.Httplist().execute(cafeinfo, "cafename");
+
+        // 아이템 클릭 이벤트 (cafeinfo 모델값을 넘겨준다.)
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), FragmentInfoActivity.class);
+                cafeinfo = cafelist.get(position);
+                intent.putExtra("cafeinfo", cafeinfo);
+                startActivity(intent);
+            }
+        });
     }
 
     // Arrays List Adapter 연결

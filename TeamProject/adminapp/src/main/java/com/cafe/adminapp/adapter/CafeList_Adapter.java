@@ -14,14 +14,17 @@ import android.widget.TextView;
 import com.cafe.common.Model.ModelCafeinfo;
 import com.cafe.adminapp.R;
 
+import java.text.DecimalFormat;
+import java.text.Format;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.List;
 
-public class ArrayAdapterEx extends android.widget.ArrayAdapter<ModelCafeinfo> {
+public class CafeList_Adapter extends android.widget.ArrayAdapter<ModelCafeinfo> {
 
     public ArrayList<ModelCafeinfo> Data = null;
 
-    public ArrayAdapterEx(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull List<ModelCafeinfo> objects) {
+    public CafeList_Adapter(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull List<ModelCafeinfo> objects) {
         super(context, resource, textViewResourceId, objects);
     }
 
@@ -57,10 +60,14 @@ public class ArrayAdapterEx extends android.widget.ArrayAdapter<ModelCafeinfo> {
         } else if (cafeinfo.getBrand().equals("할리스")) {
             viewHolder.brandImg.setImageResource(R.drawable.hallis);
         }
-        viewHolder.avg_grade.setRating(getItem(position).getAvg_grade());
-        viewHolder.cafename.setText(getItem(position).getCafename());
-        viewHolder.review_count.setText("리뷰" + getItem(position).getReview_count() + "개".toString());
-        viewHolder.like_count.setText("즐겨찾기" + getItem(position).getLike_count() + "명".toString());
+
+        String avg = String.format("%.1f", getItem(position).getAvg_grade());
+        float avg2 = Float.parseFloat(avg);
+        viewHolder.avg_grade.setRating(avg2);
+
+        viewHolder.cafename.setText(getItem(position).getCafename().toString());
+        viewHolder.review_count.setText("리뷰" + getItem(position).getReview_count().toString() + "개");
+        viewHolder.like_count.setText("즐겨찾기" + getItem(position).getLike_count() + "명");
 
         return itemLayout;
         }

@@ -68,7 +68,7 @@ public class UserController {
                             ,@RequestParam(value="addr", defaultValue="")String useraddr
                             ,@RequestParam(value="sex", defaultValue="")String sex
                             ,@RequestParam(value="nickname", defaultValue="")String usernickname
-                            ,@RequestParam(value="selectEmail", defaultValue="")String emailselect) {
+                            ,@RequestParam(value="selectEmail", defaultValue="")Integer emailselect) {
         logger.info("updateUserInfo : post");
 
         ModelUser updateValue = new ModelUser();

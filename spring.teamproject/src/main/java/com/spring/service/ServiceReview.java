@@ -1,5 +1,7 @@
 package com.spring.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +20,16 @@ public class ServiceReview implements IServiceReview {
     IDaoReview dao;
     
     @Override
-    public int insertReview(ModelCafeReview review) {
-        int result = -1;
+    public List<ModelCafeReview> getReviewList(String cafeno) {
+        List<ModelCafeReview> result;
         try {
-            result = dao.insertReview(review);
+            result = dao.getReviewList(cafeno);
         } catch (Exception e) {
-            logger.error("insertReview" + e.getMessage() );
+            logger.error("getReviewList" + e.getMessage() );
             throw e;
         }
         return result;
-        
     }
+
+
 }

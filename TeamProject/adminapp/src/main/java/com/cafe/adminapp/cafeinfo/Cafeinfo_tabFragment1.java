@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
 import com.cafe.adminapp.R;
-import com.cafe.adminapp.adapter.ArrayAdapterEx;
 import com.cafe.adminapp.cafeinfo.ExpandableMenu.ExpandAdapter;
 import com.cafe.adminapp.cafeinfo.ExpandableMenu.GroupData;
 import com.cafe.common.HttpCafeMenuList;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Cafeinfo_tabFragment1 extends CafeinfoFragment{
+public class Cafeinfo_tabFragment1 extends CafeinfoFragment {
 
     private View view = null;
     private ExpandableListView ExpandableListView;
@@ -31,8 +30,8 @@ public class Cafeinfo_tabFragment1 extends CafeinfoFragment{
     private ModelCafeinfo cafeinfo = new ModelCafeinfo();
     private List<ModelCafeMenu> menulist = new ArrayList<>();
     private ProgressDialog waitDlg = null;
+    private int sizeList = 0;
 
-    private ArrayAdapterEx adapterEx;
 
     public Cafeinfo_tabFragment1() {
 
@@ -54,13 +53,9 @@ public class Cafeinfo_tabFragment1 extends CafeinfoFragment{
         cafeinfo = ((FragmentInfoActivity) getActivity()).cafeinfo;
 
 
-
         ExpandableListView = (android.widget.ExpandableListView) view.findViewById(R.id.expanded_menu);
-        new Cafeinfo_tabFragment1.HttpMenulist().execute( cafeinfo.getBrand().toString() );
+        new Cafeinfo_tabFragment1.HttpMenulist().execute(cafeinfo.getBrand().toString());
 
-        setData2();
-        adapter = new ExpandAdapter(getActivity(), groupListDatas, childListDatas);
-        ExpandableListView.setAdapter(adapter);
 
         // Group / Child 체크 이벤트
         /*ExpandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
@@ -70,7 +65,6 @@ public class Cafeinfo_tabFragment1 extends CafeinfoFragment{
                 return false;
             }
         });
-
         ExpandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
@@ -79,51 +73,17 @@ public class Cafeinfo_tabFragment1 extends CafeinfoFragment{
             }
         });*/
     }
-    private void setData2(){
-        int sizeList = 0;
-        groupListDatas.add(new GroupData("커피"));
-        childListDatas.add(new ArrayList<ModelCafeMenu>());
-        childListDatas.get(sizeList).add(new ModelCafeMenu("아메리카노", 4000, "맛있쪙"));
-        childListDatas.get(sizeList).add(new ModelCafeMenu("카페라떼", 5000, "맛없쪙"));
-        childListDatas.get(sizeList).add(new ModelCafeMenu("바닐라라떼", 6000, "맛있쪙"));
-        groupListDatas.add(new GroupData("빙수"));
-        childListDatas.add(new ArrayList<ModelCafeMenu>());
-        sizeList++;
-        childListDatas.get(sizeList).add(new ModelCafeMenu("팥빙수", 8000, "달아"));
-        childListDatas.get(sizeList).add(new ModelCafeMenu("딸기빙수", 9000, "맛있쪙"));
-        childListDatas.get(sizeList).add(new ModelCafeMenu("초코빙수", 8500, "달아달아"));
-        groupListDatas.add(new GroupData("스무디"));
-        childListDatas.add(new ArrayList<ModelCafeMenu>());
-        sizeList++;
-        childListDatas.get(sizeList).add(new ModelCafeMenu("초코스무디", 6000, "달아"));
-        childListDatas.get(sizeList).add(new ModelCafeMenu("녹차스무디", 7000, "???"));
-        childListDatas.get(sizeList).add(new ModelCafeMenu("딸기스무디", 8000, "달아달아"));
-    }
 
-    private void setData(List<ModelCafeMenu> menu){
+    private void setData(List<ModelCafeMenu> menu) {
 
-
-        int sizeList = 0;
         groupListDatas.add(new GroupData(menu.get(0).getMenucd().toString()));
         childListDatas.add(new ArrayList<ModelCafeMenu>());
-        childListDatas.get(sizeList).add(new ModelCafeMenu("아메리카노", 4000, "맛있쪙"));
-        childListDatas.get(sizeList).add(new ModelCafeMenu("카페라떼", 5000, "맛없쪙"));
-        childListDatas.get(sizeList).add(new ModelCafeMenu("바닐라라떼", 6000, "맛있쪙"));
-
-        groupListDatas.add(new GroupData("빙수"));
-        childListDatas.add(new ArrayList<ModelCafeMenu>());
+        for (int i = 0; i <= menu.size() - 1; i++) {
+            childListDatas.get(sizeList).add(new ModelCafeMenu(menu.get(i).getMenu_name().toString(), menu.get(i).getPrice(), menu.get(i).getDescription().toString()));
+        }
         sizeList++;
-        childListDatas.get(sizeList).add(new ModelCafeMenu("팥빙수", 8000, "달아"));
-        childListDatas.get(sizeList).add(new ModelCafeMenu("딸기빙수", 9000, "맛있쪙"));
-        childListDatas.get(sizeList).add(new ModelCafeMenu("초코빙수", 8500, "달아달아"));
-
-        groupListDatas.add(new GroupData("스무디"));
-        childListDatas.add(new ArrayList<ModelCafeMenu>());
-        sizeList++;
-        childListDatas.get(sizeList).add(new ModelCafeMenu("초코스무디", 6000, "달아"));
-        childListDatas.get(sizeList).add(new ModelCafeMenu("녹차스무디", 7000, "???"));
-        childListDatas.get(sizeList).add(new ModelCafeMenu("딸기스무디", 8000, "달아달아"));
     }
+
     // Http Menu DB 가져오기
     public class HttpMenulist extends AsyncTask<String, Integer, List<String>> {
 
@@ -158,7 +118,6 @@ public class Cafeinfo_tabFragment1 extends CafeinfoFragment{
         @Override
         protected void onPostExecute(List<String> menucd) {
 
-
             new Cafeinfo_tabFragment1.HttpMenulist2().execute(menucd, cafeinfo.getBrand().toString());
 
             super.onPostExecute(menucd);
@@ -168,22 +127,20 @@ public class Cafeinfo_tabFragment1 extends CafeinfoFragment{
     // ======================================================================================
     // ======================================================================================
 
-
-
     public class HttpMenulist2 extends AsyncTask<Object, Integer, List<ModelCafeMenu>> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
         }
 
         @Override
         protected List<ModelCafeMenu> doInBackground(Object... params) {
             List<String> menucd = (List<String>) params[0];
             String brand = (String) params[1];
-            for(int i=0; i<=menucd.size(); i++) {
+            for (int i = 0; i <= menucd.size() - 1; i++) {
                 menulist = new HttpCafeMenuList().Menulist2(menucd.get(i), brand);
+                setData(menulist);
             }
             return null;
         }
@@ -195,16 +152,16 @@ public class Cafeinfo_tabFragment1 extends CafeinfoFragment{
 
         @Override
         protected void onPostExecute(List<ModelCafeMenu> menulist) {
+            super.onPostExecute(menulist);
+
+            adapter = new ExpandAdapter(getActivity(), groupListDatas, childListDatas);
+            ExpandableListView.setAdapter(adapter);
 
             // Progressbar 감추기 : 서버 요청 완료수 Maiting dialog를 제거한다.
             if (waitDlg != null) {
                 waitDlg.dismiss();
                 waitDlg = null;
             }
-
-            setData(menulist);
-
-            super.onPostExecute(menulist);
         }
     }
 }

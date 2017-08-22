@@ -69,11 +69,16 @@
     
     
     <insert id="insertReview" parameterType="ModelCafeReview">
-        INSERT INTO
-        tb_cafe_review ( content , grade , regdate )
-        VALUES ( #{content},
-        #{grade}, now() )
+        INSERT INTO tb_cafe_review (usernickname, cafeno, content, grade,regdate) 
+                            VALUES (#{usernickname}, #{cafeno}, #{content}, #{grade},now());
     </insert>
+    
+    <select id="getReviewList" parameterType="Integer" resultType="ModelCafeReview">
+        select * from tb_cafe_review 
+        where cafeno = #{cafeno} 
+        order by commentno desc;
+
+    </select>
 
 
     <!-- <insert id = "insertTeam" parameterType = "ModelUser"> INSERT INTO 
@@ -116,13 +121,6 @@
             and email = #{email}
         </if>
     </delete>
-    
-    
-    <select id="getCafeMenu" parameterType="int" resultType="ModelCafeMenu">
-        SELECT *
-        FROM TB_cafe_menu
-        WHERE cafeno = #{cafeno}
-    </select>
     
 
 </mapper>

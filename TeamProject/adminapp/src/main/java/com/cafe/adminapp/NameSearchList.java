@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.cafe.adminapp.adapter.ArrayAdapterEx;
+import com.cafe.adminapp.adapter.CafeList_Adapter;
 import com.cafe.common.HttpNameCafeList;
 import com.cafe.common.Model.ModelCafeinfo;
 
@@ -23,7 +23,7 @@ public class NameSearchList extends AppCompatActivity {
     private ListView namelist;
     private List<ModelCafeinfo> cafelist;
     private ModelCafeinfo cafeinfo = new ModelCafeinfo();
-    private ArrayAdapterEx adapter;
+    private CafeList_Adapter adapter;
     private EditText edit_cafe_name2;
     private Button btn_cafe_name2;
     private String name = "";
@@ -42,7 +42,7 @@ public class NameSearchList extends AppCompatActivity {
 
         cafelist = new ArrayList<>();
 
-        adapter = new ArrayAdapterEx(getApplicationContext(), R.layout.activity_list_item, R.id.cafe_name, cafelist );
+        adapter = new CafeList_Adapter(getApplicationContext(), R.layout.activity_cafelist_item, R.id.cafe_name, cafelist );
 
         namelist.setAdapter(adapter);
         new HttpName().execute(name);

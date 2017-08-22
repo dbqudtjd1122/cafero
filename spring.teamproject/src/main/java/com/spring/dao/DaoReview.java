@@ -1,5 +1,7 @@
 package com.spring.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,9 +18,11 @@ public class DaoReview implements IDaoReview {
     @Autowired
     private SqlSession session;
     
+    
     @Override
-    public int insertReview(ModelCafeReview review) {
-        return session.insert("mapper.mysql.mapperTeam.insertReview", review);
+    public List<ModelCafeReview> getReviewList(String strcafeno) {
         
+        Integer cafeno = Integer.valueOf(strcafeno);
+        return session.selectList("mapper.mysql.mapperTeam.getReviewList", cafeno);
     }
 }

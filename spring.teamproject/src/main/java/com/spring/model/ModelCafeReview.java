@@ -1,93 +1,102 @@
 package com.spring.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ModelCafeReview {
-    // SLF4J Logging
-    private static Logger logger  = LoggerFactory
-            .getLogger(ModelCafeReview.class);
-    
-    private String        content = "";
-    private Double        grade;
-    private Integer       commentno;
-    private Integer       userno;
-    private Integer       cafeno;
-    private Date          regdate;
-    
-    public ModelCafeReview() {
-        super();
-    }
-    
-    public ModelCafeReview(String content, Double grade, Integer commentno,
-            Integer userno, Integer cafeno, Date regdate) {
-        super();
-        this.content = content;
-        this.grade = grade;
-        this.commentno = commentno;
-        this.userno = userno;
-        this.cafeno = cafeno;
-        this.regdate = regdate;
-    }
-    
+
+
+    private Integer commentno;
+	private String usernickname;
+	private Integer cafeno;
+	private String content;
+	private double grade;
+    private Date regdate;
+	private Date updateDate;
+
+
     @Override
     public String toString() {
-        return "ModelCafeReview [content=" + content + ", grade=" + grade
-                + ", commentno=" + commentno + ", userno=" + userno
-                + ", cafeno=" + cafeno + ", regdate=" + regdate + "]";
+        return "ModelCafeReview{" +
+                "commentno=" + commentno +
+                ", usernickname='" + usernickname + '\'' +
+                ", cafeno=" + cafeno +
+                ", content='" + content + '\'' +
+                ", grade=" + grade +
+                ", regdate=" + regdate +
+                ", updateDate=" + updateDate +
+                '}';
     }
-    
-    public String getContent() {
-        return content;
+
+    public ModelCafeReview() {
     }
-    
-    public void setContent(String content) {
+
+    public ModelCafeReview(Integer commentno, String usernickname, Integer cafeno, String content, double grade, Date regdate, Date updateDate) {
+        this.commentno = commentno;
+        this.usernickname = usernickname;
+        this.cafeno = cafeno;
         this.content = content;
-    }
-    
-    public Double getGrade() {
-        return grade;
-    }
-    
-    public void setGrade(Double grade) {
         this.grade = grade;
+        this.regdate = regdate;
+        this.updateDate = updateDate;
     }
-    
-    
+
     public Integer getCommentno() {
         return commentno;
     }
-    
+
     public void setCommentno(Integer commentno) {
         this.commentno = commentno;
     }
-    
-    public Integer getUserno() {
-        return userno;
+
+    public String getUsernickname() {
+        return usernickname;
     }
-    
-    public void setUserno(Integer userno) {
-        this.userno = userno;
+
+    public void setUsernickname(String usernickname) {
+        this.usernickname = usernickname;
     }
-    
+
     public Integer getCafeno() {
         return cafeno;
     }
-    
+
     public void setCafeno(Integer cafeno) {
         this.cafeno = cafeno;
     }
-    
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public double getGrade() {
+        return grade;
+    }
+
+    public void setGrade(double grade) {
+        this.grade = grade;
+    }
+
     public Date getRegdate() {
         return regdate;
     }
-    
+
     public void setRegdate(Date regdate) {
         this.regdate = regdate;
     }
 
-   
-    
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
 }

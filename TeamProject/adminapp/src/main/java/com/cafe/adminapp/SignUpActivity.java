@@ -27,7 +27,8 @@ public class SignUpActivity extends AppCompatActivity {
     private RadioButton rtn1, rtn2;
     private RadioGroup rtng;
     private Button btn_final;
-    private String sex, emailcheck;
+    private String sex;
+    private Integer emailcheck;
 
 
     @Override
@@ -75,8 +76,12 @@ public class SignUpActivity extends AppCompatActivity {
                 }
                 else {
                     if(rtn1.isChecked() == true){sex = "남자";} else {sex = "여자";}
-                    if(checkemail.isChecked() == true){emailcheck = "1";} else {emailcheck = "0";}
-                    new HttpLogin().execute(edtemail.getText().toString(), edtpw.getText().toString(), edtphone.getText().toString(), edtaddr.getText().toString(), sex.toString(), emailcheck.toString(),  nickname.getText().toString());
+                    if(checkemail.isChecked() == true) {
+                        emailcheck = 1;
+                    } else {
+                        emailcheck = 0;
+                    }
+                    new HttpLogin().execute(edtemail.getText().toString(), edtpw.getText().toString(), edtphone.getText().toString(), edtaddr.getText().toString(), sex.toString(), emailcheck,  nickname.getText().toString());
                 }
             }
         });
@@ -106,7 +111,7 @@ public class SignUpActivity extends AppCompatActivity {
             String phone = String.valueOf(strings[2]);
             String addr = String.valueOf(strings[3]);
             String sex = String.valueOf( strings[4]);
-            String checkemail = String.valueOf(strings[5]);
+            Integer checkemail = (Integer) strings[5];
             String nickname = String.valueOf(strings[6]);
 
 
@@ -140,7 +145,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    public String insert(String email, String pw, String phone, String addr, String sex, String checkemail, String nickname ){
+    public String insert(String email, String pw, String phone, String addr, String sex, Integer checkemail, String nickname ){
         String weburl = "http://192.168.0.52:8080/team/insertuser";
 
         HttpRequest request = null;

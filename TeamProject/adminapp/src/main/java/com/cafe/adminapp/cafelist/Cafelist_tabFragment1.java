@@ -1,11 +1,9 @@
 package com.cafe.adminapp.cafelist;
 
 import android.app.ProgressDialog;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +12,9 @@ import android.widget.ListView;
 import android.content.Intent;
 
 import com.cafe.adminapp.R;
-import com.cafe.adminapp.cafeinfo.CafeinfoFragment;
-import com.cafe.adminapp.cafeinfo.Cafeinfo_tabFragment1;
-import com.cafe.adminapp.cafeinfo.Cafeinfo_tabFragment2;
 import com.cafe.adminapp.cafeinfo.FragmentInfoActivity;
 import com.cafe.common.HttpCafeList;
-import com.cafe.adminapp.adapter.ArrayAdapterEx;
+import com.cafe.adminapp.adapter.CafeList_Adapter;
 import com.cafe.common.Model.ModelCafeinfo;
 
 import java.util.ArrayList;
@@ -29,7 +24,7 @@ public class Cafelist_tabFragment1 extends CafeListFragment {
 
     private View view = null;
 
-    private ArrayAdapterEx adapterEx;
+    private CafeList_Adapter adapterEx;
     private List<ModelCafeinfo> cafelist;
     private ModelCafeinfo cafeinfo = new ModelCafeinfo();
 
@@ -68,7 +63,7 @@ public class Cafelist_tabFragment1 extends CafeListFragment {
         cafelist = new ArrayList<>();
 
         // Adapter 생성
-        adapterEx = new ArrayAdapterEx(getContext(), R.layout.activity_list_item, R.id.cafe_name, cafelist);
+        adapterEx = new CafeList_Adapter(getContext(), R.layout.activity_cafelist_item, R.id.cafe_name, cafelist);
 
         cafeinfo.setCafebigtype("카페");
 
@@ -154,9 +149,7 @@ public class Cafelist_tabFragment1 extends CafeListFragment {
 
         @Override
         protected void onPostExecute(List<ModelCafeinfo> modelCafeinfos) {
-
             super.onPostExecute(modelCafeinfos);
-
             // 1.
             cafelist = modelCafeinfos;
             adapterEx.clear();
@@ -168,7 +161,6 @@ public class Cafelist_tabFragment1 extends CafeListFragment {
                 waitDlg.dismiss();
                 waitDlg = null;
             }
-            super.onPostExecute(modelCafeinfos);
         }
     }
 }

@@ -2,6 +2,8 @@ package com.spring.service;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -24,13 +26,10 @@ public class CafeReviewTest {
     }
     
     @Test
-    public void testInsertReview() {
-        ModelCafeReview review = new ModelCafeReview();
+    public void testgetReviewList() {
         
-        review.setContent("asfd");
-        review.setGrade(4.5);
+        List<ModelCafeReview> result = service.getReviewList("1");
         
-        int result = service.insertReview(review);
-        assertSame(result, 1);
+        assertNotNull(result);
     }
 }

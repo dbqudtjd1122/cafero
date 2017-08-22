@@ -33,18 +33,15 @@ public class ReviewController {
             .getLogger(ReviewController.class);
     
     @Autowired
-    IServiceReview              svr;
+    IServiceReview  svr;
     
-    @RequestMapping(value = "/review/insertReview", method = {
-            RequestMethod.GET, RequestMethod.POST })
+    @RequestMapping(value = "/review/getReviewList", method = {RequestMethod.GET, RequestMethod.POST })
     @ResponseBody
-    public int insertReview(Locale locale, Model model,
-            @RequestBody ModelCafeReview reivew) {
-        logger.info("/review/insertReview");
+    public List<ModelCafeReview> getReviewList(Locale locale, Model model, @RequestParam(value="cafeno", defaultValue="")String cafeno ) {
+        logger.info("/review/getReviewList");
         
-        int result = svr.insertReview(reivew);
+        List<ModelCafeReview> result = svr.getReviewList(cafeno);
         
         return result;
     }
-    
 }
