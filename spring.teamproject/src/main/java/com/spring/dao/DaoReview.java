@@ -25,4 +25,11 @@ public class DaoReview implements IDaoReview {
         Integer cafeno = Integer.valueOf(strcafeno);
         return session.selectList("mapper.mysql.mapperTeam.getReviewList", cafeno);
     }
+
+
+    @Override
+    public int insertReview(ModelCafeReview review) {
+        
+        return session.insert("mapper.mysql.mapperTeam.insertReview", review);
+    }
 }

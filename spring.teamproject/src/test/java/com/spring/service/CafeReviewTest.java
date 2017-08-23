@@ -32,4 +32,20 @@ public class CafeReviewTest {
         
         assertNotNull(result);
     }
+    
+    @Test
+    public void testinsertReview() {
+        
+        ModelCafeReview review = new ModelCafeReview();
+        review.setCafeno(1);
+        review.setGrade(3.5);
+        review.setUsernickname("상어알");
+        review.setContent("맛이있었나");
+        
+        
+        int result = service.insertReview(review);
+        
+        assertSame(1, result);
+        assertNotNull(result);
+    }
 }

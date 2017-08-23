@@ -34,8 +34,8 @@
             <if test="orderKind == 'like_count' "> like_count DESC </if>
             <if test="orderKind == 'avg_grade' "> avg_grade DESC </if>
             <if test="orderKind == 'review_count' "> review_count DESC </if>
-
         </trim>
+        
     </select>
     
     <select id="getCafeListName" parameterType="String"

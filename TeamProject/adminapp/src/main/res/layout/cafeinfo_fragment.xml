@@ -60,7 +60,6 @@
                 android:layout_gravity="center"
                 android:isIndicator="true"
                 android:numStars="5"
-                android:progressBackgroundTint="@color/colorMINT"
                 android:progressTint="@color/colorMINT"
                 android:secondaryProgressTint="@color/colorMINT"
                 android:stepSize="0.5"

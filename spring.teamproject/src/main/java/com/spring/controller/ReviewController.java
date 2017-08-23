@@ -44,4 +44,14 @@ public class ReviewController {
         
         return result;
     }
+    
+    @RequestMapping(value = "/review/insertReview", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public int insertReview(Locale locale, Model model, @RequestBody ModelCafeReview review) {
+        logger.info("/team/insertReview");
+        
+        int result = svr.insertReview(review);
+        
+        return result;
+    }
 }

@@ -55,7 +55,7 @@
         android:layout_weight="1">
     
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/btn_review_update"
             android:layout_width="100dp"
             android:layout_height="30dp"
             android:layout_weight="1"
@@ -64,7 +64,7 @@
             android:layout_margin="5dp"/>
     
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/btn_review_delete"
             android:layout_width="100dp"
             android:layout_height="30dp"
             android:layout_weight="1"

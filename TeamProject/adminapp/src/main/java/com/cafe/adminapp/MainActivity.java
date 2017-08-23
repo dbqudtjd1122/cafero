@@ -39,7 +39,6 @@ public class MainActivity extends CommonActvity
     private EditText edit_cafe_name, edit_cafe_addr;
     private Button btn_cafe_name, btn_cafe_addr;
 
-    private MenuItem menulogin, menulogout;
     private float xATDown, xATUp;
     private ViewFlipper vflipper = null;
 
@@ -218,12 +217,15 @@ public class MainActivity extends CommonActvity
         Intent intent2 = new Intent(MainActivity.this, FragmentListActivity.class);
         switch (view.getId()) {
             case R.id.linear1:
+                intent2.putExtra("type", "카페");
                 startActivity(intent2);
                 break;
             case R.id.linear2:
+                intent2.putExtra("type", "빙수");
                 startActivity(intent2);
                 break;
             case R.id.linear3:
+                intent2.putExtra("type", "펫");
                 startActivity(intent2);
                 break;
         }

@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+import android.content.Intent;
 
 import com.cafe.adminapp.R;
 
@@ -53,6 +54,17 @@ public class FragmentListActivity extends AppCompatActivity {
 
         // PagerAdapter와 ViewPager 연결 : Fragment와 ViewPager 연결
         viewPager.setAdapter( pagerAdapter );
+
+        // 탭 시작지점 정하는부분
+        Intent intent = getIntent();
+        String type = intent.getStringExtra("type");
+        if(type.equals("카페")){
+            viewPager.setCurrentItem(0);
+        } else if (type.equals("빙수")){
+            viewPager.setCurrentItem(1);
+        } else{
+            viewPager.setCurrentItem(2);
+        }
 
         // ViewPager의 OnPageChangeListener 리스너 설정 : TabLayout과 ViewPager
         viewPager.addOnPageChangeListener( new TabLayout.TabLayoutOnPageChangeListener( tabLayout ));
@@ -118,11 +130,6 @@ public class FragmentListActivity extends AppCompatActivity {
                 setValueFragment(stringasc[index]);
                 break;
         }
-    }
-
-    public String result (){
-
-        return stringasc[index];
     }
 
     public void setValueFragment(String orderKind){

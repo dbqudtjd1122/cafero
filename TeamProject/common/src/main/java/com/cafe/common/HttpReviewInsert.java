@@ -13,11 +13,11 @@ import java.net.HttpURLConnection;
 
 public class HttpReviewInsert {
 
-    public ModelCafeReview reviewinsert(Object cafeReview1) {
+    public Integer reviewinsert(Object cafeReview1) {
         String weburl = "http://192.168.0.52:8080/review/insertReview";
 
         HttpRequest request = null;
-        JSONObject response = null;
+        String response = null;
         ModelCafeReview cafeReview = (ModelCafeReview) cafeReview1;
 
         int httpCode = 0;
@@ -31,11 +31,7 @@ public class HttpReviewInsert {
             httpCode = request.post(data);
 
             if (httpCode == HttpURLConnection.HTTP_OK) { // HttpURLConnection.HTTP_OK == 200
-                try {
-                    response = request.getJSONObjectResponse(); // 서버값이 리턴된다
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                response = request.getStringResponse(); // 서버값이 리턴된다
             } else {
             }
 
@@ -44,6 +40,6 @@ public class HttpReviewInsert {
         } finally {
             request.close();
         }
-        return null;
+        return Integer.valueOf(response);
     }
 }

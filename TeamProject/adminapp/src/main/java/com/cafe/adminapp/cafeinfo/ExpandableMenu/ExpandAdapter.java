@@ -8,6 +8,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.cafe.adminapp.R;
+import com.cafe.common.CommonActvity;
 import com.cafe.common.Model.ModelCafeMenu;
 
 import java.util.ArrayList;
@@ -88,8 +89,8 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
         TextView descrption = (TextView) view.findViewById(R.id.descrption);
 
         menuname.setText(childDatas.get(i).get(i1).getMenu_name());
-        price.setText(childDatas.get(i).get(i1).getPrice().toString());
-        descrption.setText(childDatas.get(i).get(i1).getDescription()+"원");
+        price.setText(childDatas.get(i).get(i1).getPrice().toString()+"원");
+        descrption.setText(childDatas.get(i).get(i1).getDescription());
 
         return view;
     }

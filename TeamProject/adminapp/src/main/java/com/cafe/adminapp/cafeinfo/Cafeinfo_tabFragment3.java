@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,8 @@ import com.cafe.common.Model.ModelCafeinfo;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
+
 
 public class Cafeinfo_tabFragment3 extends CafeinfoFragment  {
 
@@ -30,9 +34,17 @@ public class Cafeinfo_tabFragment3 extends CafeinfoFragment  {
     private ModelCafeReview cafeReview = new ModelCafeReview();
     private String nickname ;
     private Button btn_review;
-    private ModelCafeinfo cafeinfo = new ModelCafeinfo();
+    public ModelCafeinfo cafeinfo = new ModelCafeinfo();
+    public Integer REQUEST_CODE = 8573;
+
 
     public Cafeinfo_tabFragment3() {
+    }
+
+    @Override
+    public void recall() {
+        super.recall();
+        new HttpReviewList().execute(cafeinfo.getCafeno());
     }
 
     @Override
@@ -58,7 +70,6 @@ public class Cafeinfo_tabFragment3 extends CafeinfoFragment  {
         review_list.setAdapter(adapter);
         new HttpReviewList().execute(cafeinfo.getCafeno());
 
-
         nickname = ((FragmentInfoActivity) getActivity()).strnickname.toString();
         btn_review = (Button) view.findViewById(R.id.btn_review);
         btn_review.setOnClickListener(new View.OnClickListener() {
@@ -69,12 +80,11 @@ public class Cafeinfo_tabFragment3 extends CafeinfoFragment  {
                 }else {
                     Intent intent = new Intent(getActivity(), Cafeinfo_tab3_Review.class);
                     intent.putExtra("cafeinfo", cafeinfo);
-                    startActivity(intent);
+                    getActivity().startActivityForResult(intent, REQUEST_CODE);
                 }
             }
         });
     }
-
 
     // Http List DB 가져오기
     public class HttpReviewList extends AsyncTask<Integer, Integer, List<ModelCafeReview>> {
@@ -120,5 +130,6 @@ public class Cafeinfo_tabFragment3 extends CafeinfoFragment  {
                 waitDlg = null;
             }
         }
+
     }
 }

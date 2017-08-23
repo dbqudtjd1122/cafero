@@ -69,7 +69,7 @@ public class Cafelist_tabFragment1 extends CafeListFragment {
 
         // ListView와 Adapter 연결
         listView.setAdapter(adapterEx);
-        new Cafelist_tabFragment1.Httplist().execute(cafeinfo, "review_count");
+        new Cafelist_tabFragment1.Httplist().execute(cafeinfo, "cafename");
 
         // 아이템 클릭 이벤트 (cafeinfo 모델값을 넘겨준다.)
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

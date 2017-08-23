@@ -9,10 +9,12 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.cafe.adminapp.R;
+import com.cafe.adminapp.cafeinfo.Cafeinfo_tabFragment3;
 import com.cafe.common.CommonActvity;
 import com.cafe.common.Model.ModelCafeReview;
 
@@ -28,10 +30,9 @@ public class CafeReview_Adapter extends ArrayAdapter<ModelCafeReview>{
     }
 
     class ViewHolder {
-        TextView tv_nickname;
-        TextView tv_datetime;
+        TextView tv_nickname, tv_datetime, tv_review;
         RatingBar rb_review;
-        TextView tv_review;
+        Button btn_review_update, btn_review_delete;
     }
 
     @Override
@@ -47,15 +48,16 @@ public class CafeReview_Adapter extends ArrayAdapter<ModelCafeReview>{
             viewHolder.tv_datetime = (TextView) itemLayout.findViewById(R.id.tv_datetime);
             viewHolder.rb_review = (RatingBar) itemLayout.findViewById(R.id.rb_review);
             viewHolder.tv_review = (TextView) itemLayout.findViewById(R.id.tv_review);
+            viewHolder.btn_review_update = (Button) itemLayout.findViewById(R.id.btn_review_update);
+            viewHolder.btn_review_delete = (Button) itemLayout.findViewById(R.id.btn_review_delete);
 
             itemLayout.setTag(viewHolder);
         }
 
         viewHolder.tv_nickname.setText(getItem(position).getUsernickname().toString());
 
-
         SimpleDateFormat data= new SimpleDateFormat("yyyy/MM/dd HH:mm:ss"); // E 요일 HH 시간 mm 분 ss 초
-        String datetime = data.format(getItem(position).getRegdate().getTime());
+        String datetime = data.format(getItem(position).getRegdate().getTime());  // 리뷰 수정 날짜, 시간
         viewHolder.tv_datetime.setText(datetime);
 
         String avg = String.format("%.1f", getItem(position).getGrade());

@@ -11,14 +11,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.content.Intent;
 
 import com.cafe.adminapp.R;
 import com.cafe.common.CommonActvity;
 import com.cafe.common.HttpReviewInsert;
 import com.cafe.common.Model.ModelCafeReview;
 import com.cafe.common.Model.ModelCafeinfo;
-
-import java.util.List;
 
 public class Cafeinfo_tab3_Review extends CommonActvity {
 
@@ -28,6 +27,7 @@ public class Cafeinfo_tab3_Review extends CommonActvity {
     private Button btn_review_finsh;
     private ModelCafeinfo cafeinfo;
     private ModelCafeReview cafeReview = new ModelCafeReview();
+    private Intent intent;
 
 
     @Override
@@ -44,7 +44,7 @@ public class Cafeinfo_tab3_Review extends CommonActvity {
         SharedPreferences.Editor editor = pref.edit();
         tv_review_nickname.setText(pref.getString("nickname_Set", "").toString());
 
-        Intent intent = getIntent();
+        intent = getIntent();
         cafeinfo = new ModelCafeinfo();
         cafeinfo = (ModelCafeinfo) intent.getSerializableExtra("cafeinfo");
 
@@ -56,13 +56,13 @@ public class Cafeinfo_tab3_Review extends CommonActvity {
                 cafeReview.setUsernickname(tv_review_nickname.getText().toString());
                 cafeReview.setContent(edit_review.getText().toString());
 
-                new HttpReview().execute(cafeReview);
+                new Cafeinfo_tab3_Review.HttpReview().execute(cafeReview);
             }
         });
     }
 
     // Http List DB 가져오기
-    public class HttpReview extends AsyncTask<Object, Integer, ModelCafeReview> {
+    public class HttpReview extends AsyncTask<ModelCafeReview, Integer, Integer> {
 
         private ProgressDialog waitDlg = null;
 
@@ -72,17 +72,17 @@ public class Cafeinfo_tab3_Review extends CommonActvity {
 
             // ProgressDialog 보이기
             // 서버 요청 완료후 Mating dialog를 보여주도록 한다.
-            waitDlg = new ProgressDialog(getApplicationContext());
+            waitDlg = new ProgressDialog(Cafeinfo_tab3_Review.this);
             waitDlg.setMessage(" List 불러오는 중");
             waitDlg.show();
         }
 
         @Override
-        protected ModelCafeReview doInBackground(Object... params) {
+        protected Integer doInBackground(ModelCafeReview... params) {
 
-            new HttpReviewInsert().reviewinsert(params[0]);
+            int count = new HttpReviewInsert().reviewinsert(params[0]);
 
-            return null;
+            return count;
         }
 
         @Override
@@ -91,7 +91,7 @@ public class Cafeinfo_tab3_Review extends CommonActvity {
         }
 
         @Override
-        protected void onPostExecute(ModelCafeReview s) {
+        protected void onPostExecute(Integer s) {
             super.onPostExecute(s);
 
             // Progressbar 감추기 : 서버 요청 완료수 Maiting dialog를 제거한다.
@@ -99,6 +99,11 @@ public class Cafeinfo_tab3_Review extends CommonActvity {
                 waitDlg.dismiss();
                 waitDlg = null;
             }
+            intent = new Intent(getApplicationContext(), FragmentInfoActivity.class);
+            intent.putExtra("reviewcount", s);
+            setResult(RESULT_OK, intent);
+            finish();
         }
     }
+
 }
