@@ -48,9 +48,19 @@ public class ReviewController {
     @RequestMapping(value = "/review/insertReview", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public int insertReview(Locale locale, Model model, @RequestBody ModelCafeReview review) {
-        logger.info("/team/insertReview");
+        logger.info("/review/insertReview");
         
         int result = svr.insertReview(review);
+        
+        return result;
+    }
+    
+    @RequestMapping(value = "/review/updateReview", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public int updateReview(Locale locale, Model model, @RequestBody ModelCafeReview review) {
+        logger.info("/review/updateReview");
+        
+        int result = svr.updateReview(review);
         
         return result;
     }

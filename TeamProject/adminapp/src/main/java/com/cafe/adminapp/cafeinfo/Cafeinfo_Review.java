@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.content.Intent;
 
 import com.cafe.adminapp.R;
 import com.cafe.common.CommonActvity;
@@ -19,7 +18,7 @@ import com.cafe.common.HttpReviewInsert;
 import com.cafe.common.Model.ModelCafeReview;
 import com.cafe.common.Model.ModelCafeinfo;
 
-public class Cafeinfo_tab3_Review extends CommonActvity {
+public class Cafeinfo_Review extends CommonActvity {
 
     private RatingBar rb_grade;
     private TextView tv_review_nickname;
@@ -56,7 +55,7 @@ public class Cafeinfo_tab3_Review extends CommonActvity {
                 cafeReview.setUsernickname(tv_review_nickname.getText().toString());
                 cafeReview.setContent(edit_review.getText().toString());
 
-                new Cafeinfo_tab3_Review.HttpReview().execute(cafeReview);
+                new Cafeinfo_Review.HttpReview().execute(cafeReview);
             }
         });
     }
@@ -72,7 +71,7 @@ public class Cafeinfo_tab3_Review extends CommonActvity {
 
             // ProgressDialog 보이기
             // 서버 요청 완료후 Mating dialog를 보여주도록 한다.
-            waitDlg = new ProgressDialog(Cafeinfo_tab3_Review.this);
+            waitDlg = new ProgressDialog(Cafeinfo_Review.this);
             waitDlg.setMessage(" List 불러오는 중");
             waitDlg.show();
         }

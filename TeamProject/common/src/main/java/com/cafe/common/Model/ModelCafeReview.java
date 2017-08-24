@@ -17,6 +17,7 @@ public class ModelCafeReview {
     private Date regdate; //  SimpleDateFormat aa= new SimpleDateFormat("yyyy/MM/dd E HHmmss"); // E 요일 HH 시간 mm 분 ss 초
      // String asd = regdate.format(new Date());
 	private Date updateDate;
+    private String login_nickname;
 
 
     @Override
@@ -100,4 +101,12 @@ public class ModelCafeReview {
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
+
+    public String getLogin_nickname() {
+        return login_nickname;
+    }
+    public void setLogin_nickname(String login_nickname) {
+        this.login_nickname = login_nickname;
+    }
+
 }

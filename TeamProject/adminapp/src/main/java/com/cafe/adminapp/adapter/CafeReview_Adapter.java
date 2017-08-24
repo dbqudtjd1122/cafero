@@ -2,6 +2,7 @@ package com.cafe.adminapp.adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -14,25 +15,29 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.cafe.adminapp.R;
-import com.cafe.adminapp.cafeinfo.Cafeinfo_tabFragment3;
-import com.cafe.common.CommonActvity;
+import com.cafe.adminapp.cafeinfo.Cafeinfo_Review;
 import com.cafe.common.Model.ModelCafeReview;
+import com.cafe.common.Model.ModelCafeinfo;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class CafeReview_Adapter extends ArrayAdapter<ModelCafeReview>{
 
+    private String userid;
+    private ModelCafeinfo cafeinfo = new ModelCafeinfo();
 
-    public CafeReview_Adapter(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull List<ModelCafeReview> objects) {
+    public CafeReview_Adapter(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull List<ModelCafeReview> objects, String userid, ModelCafeinfo cafeinfo) {
         super(context, resource, textViewResourceId, objects);
+        this.userid = userid;
+        this.cafeinfo = cafeinfo;
     }
 
     class ViewHolder {
         TextView tv_nickname, tv_datetime, tv_review;
         RatingBar rb_review;
         Button btn_review_update, btn_review_delete;
+
     }
 
     @Override
@@ -40,7 +45,7 @@ public class CafeReview_Adapter extends ArrayAdapter<ModelCafeReview>{
         View itemLayout = super.getView(position, convertView, parent);
         ViewHolder viewHolder = (ViewHolder) itemLayout.getTag();
 
-        ModelCafeReview cafeReview = getItem(position);
+        final ModelCafeReview cafeReview = getItem(position);
 
         if(viewHolder == null){
             viewHolder = new ViewHolder();
@@ -64,6 +69,31 @@ public class CafeReview_Adapter extends ArrayAdapter<ModelCafeReview>{
         float avg2 = Float.parseFloat(avg);
         viewHolder.rb_review.setRating(avg2);
         viewHolder.tv_review.setText(getItem(position).getContent());
+
+        // 로그인한 아이디와 동일한경우만 수정,삭제버튼 보이기
+        if(userid.equals(getItem(position).getUsernickname().toString())){
+        }else {
+            viewHolder.btn_review_update.setVisibility(View.GONE);
+            viewHolder.btn_review_delete.setVisibility(View.GONE);
+        }
+
+        viewHolder.btn_review_update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getContext(), Cafeinfo_Review.class);
+                intent.putExtra("cafeinfo", cafeinfo);
+                getContext().startActivity(intent);
+            }
+        });
+        viewHolder.btn_review_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
 
         return itemLayout;
     }

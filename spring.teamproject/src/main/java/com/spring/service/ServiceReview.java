@@ -42,6 +42,18 @@ public class ServiceReview implements IServiceReview {
         }
         return result;
     }
+
+    @Override
+    public int updateReview(ModelCafeReview review) {
+        int result = -1;
+        try {
+            result = dao.updateReview(review);
+        } catch (Exception e) {
+            logger.error("updateReview" + e.getMessage() );
+            throw e;
+        }
+        return result;
+    }
     
     
 

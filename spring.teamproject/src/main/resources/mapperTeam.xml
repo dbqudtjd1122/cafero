@@ -110,8 +110,7 @@
         UPDATE
         TB_cafe_user
         SET passwd = #{updateValue.passwd}
-        WHERE email =
-        #{searchValue.email}
+        WHERE email = #{searchValue.email}
     </update>
 
     <delete id="deleteUser" parameterType="ModelUser">
@@ -121,6 +120,11 @@
             and email = #{email}
         </if>
     </delete>
+    
+    <update id="updateReview" parameterType="ModelCafeReview">
+        update tb_cafe_review set content = #{content}, updateDate = now()
+        where 1 = 1 and commentno = #{commentno} and cafeno = #{cafeno}
+    </update>
     
 
 </mapper>

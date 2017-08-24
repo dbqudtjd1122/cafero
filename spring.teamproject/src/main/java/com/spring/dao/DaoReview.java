@@ -32,4 +32,11 @@ public class DaoReview implements IDaoReview {
         
         return session.insert("mapper.mysql.mapperTeam.insertReview", review);
     }
+
+
+    @Override
+    public int updateReview(ModelCafeReview review) {
+        
+        return session.update("mapper.mysql.mapperTeam.updateReview", review);
+    }
 }

@@ -12,4 +12,6 @@ public interface IDaoReview {
     List<ModelCafeReview> getReviewList(String cafeno);
     
     int insertReview(ModelCafeReview review);
+    
+    int updateReview(ModelCafeReview review);
 }

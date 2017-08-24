@@ -4,8 +4,6 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +20,6 @@ import com.cafe.common.Model.ModelCafeinfo;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.app.Activity.RESULT_OK;
-
 
 public class Cafeinfo_tabFragment3 extends CafeinfoFragment  {
 
@@ -36,7 +32,6 @@ public class Cafeinfo_tabFragment3 extends CafeinfoFragment  {
     private Button btn_review;
     public ModelCafeinfo cafeinfo = new ModelCafeinfo();
     public Integer REQUEST_CODE = 8573;
-
 
     public Cafeinfo_tabFragment3() {
     }
@@ -59,18 +54,19 @@ public class Cafeinfo_tabFragment3 extends CafeinfoFragment  {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        nickname = ((FragmentInfoActivity) getActivity()).strnickname.toString();
+
         // 액티비티에서 cafeinfo 모델값 받아오기
         cafeinfo = ((FragmentInfoActivity) getActivity()).cafeinfo;
 
         ListView review_list = (ListView) view.findViewById(R.id.review_list);
         review = new ArrayList<>();
 
-        adapter = new CafeReview_Adapter(getContext(), R.layout.activity_cafereview_item, R.id.tv_nickname, review);
+        adapter = new CafeReview_Adapter(getContext(), R.layout.activity_cafereview_item, R.id.tv_nickname, review, nickname, cafeinfo);
 
         review_list.setAdapter(adapter);
         new HttpReviewList().execute(cafeinfo.getCafeno());
 
-        nickname = ((FragmentInfoActivity) getActivity()).strnickname.toString();
         btn_review = (Button) view.findViewById(R.id.btn_review);
         btn_review.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +74,7 @@ public class Cafeinfo_tabFragment3 extends CafeinfoFragment  {
                 if(nickname == "" || nickname ==null){
                     Toast.makeText(getContext(), "로그인 해주세요.", Toast.LENGTH_SHORT).show();
                 }else {
-                    Intent intent = new Intent(getActivity(), Cafeinfo_tab3_Review.class);
+                    Intent intent = new Intent(getActivity(), Cafeinfo_Review.class);
                     intent.putExtra("cafeinfo", cafeinfo);
                     getActivity().startActivityForResult(intent, REQUEST_CODE);
                 }
@@ -131,5 +127,12 @@ public class Cafeinfo_tabFragment3 extends CafeinfoFragment  {
             }
         }
 
+    }
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

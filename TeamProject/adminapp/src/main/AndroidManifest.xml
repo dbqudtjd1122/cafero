@@ -54,7 +54,7 @@
             android:label="@string/title_activity_info"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".cafeinfo.Cafeinfo_tab3_Review">
+        <activity android:name=".cafeinfo.Cafeinfo_Review">
             
         </activity>
     </application>
