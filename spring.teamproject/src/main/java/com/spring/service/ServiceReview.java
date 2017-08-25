@@ -54,6 +54,56 @@ public class ServiceReview implements IServiceReview {
         }
         return result;
     }
+
+    @Override
+    public int deleteReview(ModelCafeReview review) {
+        int result = -1;
+        try {
+            result = dao.deleteReview(review);
+        } catch (Exception e) {
+            logger.error("deleteReview" + e.getMessage() );
+            throw e;
+        }
+        return result;
+    }
+
+    
+    @Override
+    public int increaseLike(int cafeno) {
+        int result = 0;
+        try {
+         result = dao.increaseLike(cafeno);
+     } catch (Exception e) {
+         logger.error("increaseLike" + e.getMessage() );
+         throw e;
+     }
+         return result;
+    }
+
+    @Override
+    public int increaseReview(int cafeno) {
+        int result = 0;
+        try {
+            result = dao.increaseReview(cafeno);
+        } catch (Exception e) {
+            logger.error("increaseReview" + e.getMessage() );
+            throw e;
+        }
+        
+        return result;
+    }
+
+    @Override
+    public int increaseAvg(int cafeno) {
+        int result = 0;
+        try {
+            result = dao.increaseAvg(cafeno);
+        } catch (Exception e) {
+            logger.error("increaseAvg" + e.getMessage() );
+            throw e;
+        }
+        return result;
+    }
     
     
 

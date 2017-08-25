@@ -120,11 +120,7 @@ public class Cafelist_tabFragment2 extends CafeListFragment {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            // ProgressDialog 보이기
-            // 서버 요청 완료후 Mating dialog를 보여주도록 한다.
-            waitDlg = new ProgressDialog(getContext());
-            waitDlg.setMessage(" List 불러오는 중");
-            waitDlg.show();
+
         }
 
         @Override
@@ -150,11 +146,7 @@ public class Cafelist_tabFragment2 extends CafeListFragment {
             adapterEx.addAll(cafelist);
             adapterEx.notifyDataSetChanged();
 
-            // Progressbar 감추기 : 서버 요청 완료수 Maiting dialog를 제거한다.
-            if (waitDlg != null) {
-                waitDlg.dismiss();
-                waitDlg = null;
-            }
+
         }
     }
 }

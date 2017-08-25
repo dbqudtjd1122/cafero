@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.cafe.common.CommonActvity;
 import com.cafe.common.Http.HttpRequest;
@@ -25,7 +26,7 @@ import java.net.HttpURLConnection;
 public class LoginActivity extends CommonActvity {
 
     private EditText editID, editPW;
-    private Button btnLogin, Signup;
+    private Button btnLogin, Signup,findidpw;
 
 
     @Override
@@ -38,6 +39,7 @@ public class LoginActivity extends CommonActvity {
         editPW = (EditText) findViewById(R.id.editPW);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         Signup = (Button) findViewById(R.id.button);
+        findidpw = (Button) findViewById(R.id.findidpw);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +55,13 @@ public class LoginActivity extends CommonActvity {
             public void onClick(View v) {
                 Intent intent2 = new Intent(getApplicationContext(), SignUpActivity.class);
                 startActivity(intent2);
+            }
+        });
+        findidpw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent3 = new Intent(getApplicationContext(), IDPW_Search.class);
+                startActivity(intent3);
             }
         });
     }
@@ -98,24 +107,32 @@ public class LoginActivity extends CommonActvity {
                 waitDlg.dismiss();
                 waitDlg = null;
             }
-            String nickname = modelUser.getUsernickname().toString();
-            String level = String.valueOf(modelUser.getUserlevel().toString());
+            if(modelUser == null){
+                Toast.makeText(LoginActivity.this, "ID 또는 PW 가 틀렸습니다.", Toast.LENGTH_SHORT).show();
+            } else {
+                String nickname = modelUser.getUsernickname().toString();
+                String level = String.valueOf(modelUser.getUserlevel().toString());
+                String email = modelUser.getEmail().toString();
+                Integer userno = modelUser.getUserno();
 
-            SharedPreferences.Editor prefEditor = pref.edit();
-            prefEditor.putString("nickname_Set", nickname);
-            prefEditor.putString("level_Set", level);
-            prefEditor.apply();
+                SharedPreferences.Editor prefEditor = pref.edit();
+                prefEditor.putString("nickname_Set", nickname);
+                prefEditor.putString("level_Set", level);
+                prefEditor.putString("email",email);
+                prefEditor.putInt("userno_Set", userno);
+                prefEditor.apply();
 
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.putExtra("nickname_Set", nickname);
-            intent.putExtra("level_Set", level);
-            setResult(RESULT_OK, intent);
-            finish();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("nickname_Set", nickname);
+                intent.putExtra("level_Set", level);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
         }
     }
 
     public ModelUser login(String id, String pw) {
-        String weburl = "http://192.168.0.52:8080/team/login";
+        String weburl = "http://dbqudtjd1122.cafe24.com/team/login";
 
         HttpRequest request = null;
         JSONObject response = null;
@@ -137,15 +154,13 @@ public class LoginActivity extends CommonActvity {
             String jsonInString = response.toString();
             user = new Gson().fromJson(jsonInString, ModelUser.class);
 
-
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         } finally {
             request.close();
+            return user;
         }
-        return user;
-
     }
 }

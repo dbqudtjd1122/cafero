@@ -1,9 +1,5 @@
 package com.cafe.common;
 
-
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
-
 import com.cafe.common.Http.HttpRequest;
 import com.cafe.common.Model.ModelCafeMenu;
 import com.google.gson.Gson;
@@ -20,7 +16,7 @@ import java.util.List;
 public class HttpCafeMenuList {
 
     public List<String> Menulist(String brand) {
-        String weburl = "http://192.168.0.52:8080/menu/getCafecd";
+        String weburl = "http://dbqudtjd1122.cafe24.com/menu/getCafecd";
 
         HttpRequest request = null;
         JSONArray response = null;
@@ -57,7 +53,7 @@ public class HttpCafeMenuList {
     }
 
     public List<ModelCafeMenu> Menulist2(String menucd, String brand) {
-        String weburl = "http://192.168.0.52:8080/menu/getCafeMenu";
+        String weburl = "http://dbqudtjd1122.cafe24.com/menu/getCafeMenu";
 
         HttpRequest request = null;
         JSONArray response = null;

@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.cafe.adminapp.R;
 import com.cafe.adminapp.cafeinfo.Cafeinfo_Review;
+import com.cafe.adminapp.cafeinfo.Cafeinfo_Review_Update;
 import com.cafe.common.Model.ModelCafeReview;
 import com.cafe.common.Model.ModelCafeinfo;
 
@@ -76,24 +77,6 @@ public class CafeReview_Adapter extends ArrayAdapter<ModelCafeReview>{
             viewHolder.btn_review_update.setVisibility(View.GONE);
             viewHolder.btn_review_delete.setVisibility(View.GONE);
         }
-
-        viewHolder.btn_review_update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(getContext(), Cafeinfo_Review.class);
-                intent.putExtra("cafeinfo", cafeinfo);
-                getContext().startActivity(intent);
-            }
-        });
-        viewHolder.btn_review_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-
 
         return itemLayout;
     }

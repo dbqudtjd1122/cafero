@@ -61,7 +61,9 @@
             android:layout_weight="1"
             android:background="@color/colorMINT"
             android:text="수정"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:focusable="false"
+            android:clickable="false"/>
     
         <Button
             android:id="@+id/btn_review_delete"
@@ -70,7 +72,9 @@
             android:layout_weight="1"
             android:background="@color/colorMINT"
             android:text="삭제"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:focusable="false"
+            android:clickable="false"/>
 
     </LinearLayout>
 </LinearLayout>

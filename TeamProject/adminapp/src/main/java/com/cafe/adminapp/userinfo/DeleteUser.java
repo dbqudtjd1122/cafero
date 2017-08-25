@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import com.cafe.adminapp.MainActivity;
 import com.cafe.adminapp.R;
 import com.cafe.common.Http.HttpRequest;
 
@@ -43,6 +44,10 @@ public class DeleteUser extends AppCompatActivity {
                     Toast toast = Toast.makeText(getApplicationContext(),"탈퇴 완료",Toast.LENGTH_SHORT);
                     toast.show();
                     new HttpDeleteUser().execute(email);
+                }
+                else {
+                    Toast toast1 = Toast.makeText(getApplicationContext(),"체크박스를 체크해 주세요",Toast.LENGTH_SHORT);
+                    toast1.show();
                 }
 
             }
@@ -88,14 +93,14 @@ public class DeleteUser extends AppCompatActivity {
 
             // 받은 결과 출력
                 //success
-                Intent intent = new Intent(getApplicationContext(),Userinfo.class);
+                Intent intent = new Intent(DeleteUser.this,MainActivity.class);
                 startActivity(intent);
                 finish();
         }
     }
 
     public String deleteuser(String email){
-        String weburl = "http://192.168.0.54:8080/user/deleteUser";
+        String weburl = "http://dbqudtjd1122.cafe24.com/user/deleteUser";
 
         HttpRequest request = null;
         String response = null;

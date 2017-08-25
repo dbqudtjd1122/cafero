@@ -1,12 +1,13 @@
 package com.cafe.common.Model;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
 
-public class ModelCafeReview {
+public class ModelCafeReview implements Serializable {
 
 
     private Integer commentno;

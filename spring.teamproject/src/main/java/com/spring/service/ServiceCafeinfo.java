@@ -54,4 +54,15 @@ public class ServiceCafeinfo implements IServiceCafeinfo {
         }
         return result;
     }
+    
+    @Override
+    public ModelCafeinfo getCafeOne(ModelCafeinfo cafeinfo) {
+        ModelCafeinfo result = null;
+        try {
+            result = dao.getCafeOne(cafeinfo);
+        } catch (Exception e) {
+            logger.error("getCafeOne" + e.getMessage() );
+        }
+        return result;
+    }
 }

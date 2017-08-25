@@ -231,7 +231,7 @@
                             android:layout_width="70dp"
                             android:layout_height="60dp"
                             android:layout_marginBottom="2dp"
-                            app:srcCompat="@drawable/shaved"/>
+                            app:srcCompat="@drawable/bingsoo"/>
                     </LinearLayout>
     
                 </LinearLayout>
@@ -355,7 +355,7 @@
                             android:id="@+id/imageView8"
                             android:layout_width="70dp"
                             android:layout_height="60dp"
-                            app:srcCompat="@drawable/dogcat"/>
+                            app:srcCompat="@drawable/animal"/>
                     </LinearLayout>
     
                 </LinearLayout>
@@ -482,7 +482,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-                
+    
                 <ImageView
                     android:id="@+id/imageview1"
                     android:layout_width="match_parent"
@@ -491,7 +491,7 @@
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ediya_banner"/>
-            
+
             </FrameLayout>
             
             <FrameLayout

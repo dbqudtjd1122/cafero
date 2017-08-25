@@ -1,31 +1,39 @@
 package com.cafe.adminapp.cafeinfo;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
+import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cafe.adminapp.R;
-import com.cafe.adminapp.cafelist.CafeListFragment;
 import com.cafe.common.CommonActvity;
+import com.cafe.common.HttpCafeList;
+import com.cafe.common.HttpDeleteBookmark;
+import com.cafe.common.HttpgetBookmark;
+import com.cafe.common.HttpinsertBookmark;
+import com.cafe.common.Model.ModelCafeLike;
 import com.cafe.common.Model.ModelCafeinfo;
 
-import java.io.FileDescriptor;
-import java.io.PrintWriter;
+
 import java.util.List;
 
 
@@ -35,7 +43,9 @@ public class FragmentInfoActivity extends CommonActvity {
     private TextView tv_avg_grade, tv_review_count, tv_like_count;
     private RatingBar rb_avg_grade;
     public String strnickname;
+    public Integer userno, likecount = -1;
     public Integer REQUEST_CODE = 8573;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +60,7 @@ public class FragmentInfoActivity extends CommonActvity {
 
         SharedPreferences pref = getSharedPreferences("Setting", Context.MODE_PRIVATE);
         strnickname = pref.getString("nickname_Set", "");
+        userno = pref.getInt("userno_Set", -1);
 
         // TabLayout 초기화
         TabLayout tabLayout = (TabLayout) findViewById(R.id.cafeinfotab_layout);
@@ -61,6 +72,7 @@ public class FragmentInfoActivity extends CommonActvity {
         tabLayout.addTab(tabLayout.newTab().setText("리뷰"));
 
         setTitle(cafeinfo.getCafename().toString());
+
         tv_avg_grade = (TextView) findViewById(R.id.tv_avg_grade);
         tv_review_count = (TextView) findViewById(R.id.tv_review_count);
         tv_like_count = (TextView) findViewById(R.id.tv_like_count);
@@ -92,40 +104,82 @@ public class FragmentInfoActivity extends CommonActvity {
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
-
             @Override
             public void onPageSelected(int position) {
-
             }
-
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
-
         // TabSelectedListener 설정 : 화면에서 tab을 클릭할때
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
             }
-
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
-
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
+
+        if(userno == null || userno ==-1){
+
+        }else {
+            new getBookmark().execute(cafeinfo.getCafeno(), userno);
+        }
     }
-    public void finish2(){
-        finish();
+
+    // 타이틀바 이미지버튼(액션바) 만들기
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        ActionBar actionBar = getSupportActionBar();
+
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(false);            //액션바 아이콘을 업 네비게이션 형태로 표시합니다.
+        actionBar.setDisplayShowTitleEnabled(true);        //액션바에 표시되는 제목의 표시유무를 설정합니다.
+        actionBar.setDisplayShowHomeEnabled(false);            //홈 아이콘을 숨김처리합니다.
+
+        //layout을 가지고 와서 actionbar에 포팅을 시킵니다.
+        LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+        View actionbar = inflater.inflate(R.layout.title_bar, null);
+        actionBar.setCustomView(actionbar);
+
+        //액션바 양쪽 공백 없애기
+        Toolbar parent = (Toolbar)actionbar.getParent();
+        parent.setContentInsetsAbsolute(0,0);
+
+        final ImageButton like = (ImageButton) findViewById(R.id.like);
+        if(likecount == 1){
+            like.setImageResource(R.drawable.like);
+        } else if(likecount == null || likecount == -1){
+        }
+
+        final ModelCafeLike ModelLike = new ModelCafeLike();
+        ModelLike.setCafeno(cafeinfo.getCafeno());
+        ModelLike.setUserno(userno);
+
+        like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(userno == null || userno ==-1){
+                    Toast.makeText(FragmentInfoActivity.this, "로그인 해주세요.", Toast.LENGTH_SHORT).show();
+                }else {
+                    if (likecount == 1) {
+                        like.setImageResource(R.drawable.not_like);
+                        new deleteBookmark().execute(ModelLike);
+                    } else {
+                        like.setImageResource(R.drawable.like);
+                        new insertBookmark().execute(ModelLike);
+                    }
+                }
+            }
+        });
+
+        return true;
     }
 
     @Override
@@ -136,11 +190,9 @@ public class FragmentInfoActivity extends CommonActvity {
             if (resultCode == RESULT_OK) {
                 Integer reviewcount = data.getIntExtra("reviewcount", -1);
 
-                //Cafeinfo_tabFragment3 tab3 = (Cafeinfo_tabFragment3) getSupportFragmentManager().findFragmentById(R.id.tab3_layout);
-                //tab3.HttpResultReview();
                 setValueFragment(cafeinfo.getCafeno());
             }
-            // 리턴값이 없을때
+            //리턴값이 없을때
             else {
             }
         }
@@ -155,6 +207,89 @@ public class FragmentInfoActivity extends CommonActvity {
                 if(fragment != null && fragment.isVisible())
                     ((CafeinfoFragment)fragment).setCafeno( cafeno );
             }
+        }
+    }
+
+    // Http Likecount 가져오기(즐겨찾기 확인)
+    public class getBookmark extends AsyncTask<Integer, Integer, Integer> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... params) {
+            int count = new HttpgetBookmark().getBookmark(params[0] , params[1]);
+
+            return count;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(Integer s) {
+            super.onPostExecute(s);
+            likecount = s;
+        }
+    }
+
+    // Http Likec 삭제(즐겨찾기 삭제)
+    public class deleteBookmark extends AsyncTask<ModelCafeLike, Integer, Integer> {
+
+        private ProgressDialog waitDlg = null;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Integer doInBackground(ModelCafeLike... params) {
+            int count = new HttpDeleteBookmark().deleteBookmark(params[0]);
+
+            return count;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(Integer s) {
+            super.onPostExecute(s);
+            likecount = -1;
+        }
+    }
+
+    // Http Like 추가(즐겨찾기 추가)
+    public class insertBookmark extends AsyncTask<ModelCafeLike, Integer, Integer> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Integer doInBackground(ModelCafeLike... params) {
+            int count = new HttpinsertBookmark().insertBookmark(params[0]);
+
+            return count;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(Integer s) {
+            super.onPostExecute(s);
+            likecount = 1;
         }
     }
 }

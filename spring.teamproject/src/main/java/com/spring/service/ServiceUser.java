@@ -78,4 +78,28 @@ public class ServiceUser implements IServiceUser {
         }
         return result;
     }
+    
+    @Override
+    public ModelUser selectId(ModelUser team) {
+        ModelUser result = null;
+        try {
+            result = dao.selectId(team);
+        } catch (Exception e) {
+            logger.error("selectId" + e.getMessage() );
+            throw e;
+        }
+        return result;
+    }
+
+   @Override
+    public ModelUser selectPwd(ModelUser team) {
+        ModelUser result = null;
+        try {
+            result = dao.selectPwd(team);
+        } catch (Exception e) {
+            logger.error("selectPwd" + e.getMessage() );
+            throw e;
+        }
+        return result;
+    }
 }

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.cafe.adminapp.R;
 import com.cafe.common.Http.HttpRequest;
@@ -97,12 +98,15 @@ public class ConfirmUser extends AppCompatActivity {
                 waitDlg.dismiss();
                 waitDlg = null;
             }
-
+            if (modelUser == null) {
+                Toast toast = Toast.makeText(getApplicationContext(),"Id와 비밀번호를 확인해 주세요",Toast.LENGTH_SHORT);
+                toast.show();
+            }
+            else{
                 Intent intent = new Intent(getApplicationContext(), DeleteUser.class);
                 intent.putExtra("email", modelUser.getEmail().toString());
                 startActivity(intent);
-
-
+            }
         }
     }
     public class HttpChangePw extends AsyncTask<String, Integer, ModelUser> {
@@ -146,12 +150,15 @@ public class ConfirmUser extends AppCompatActivity {
                 waitDlg.dismiss();
                 waitDlg = null;
             }
-
-            Intent intent = new Intent(getApplicationContext(), ChangePw.class);
-            intent.putExtra("email", modelUser.getEmail().toString());
-            intent.putExtra("passwd", modelUser.getPasswd().toString());
-            startActivity(intent);
-
+           if (modelUser == null) {
+                Toast toast = Toast.makeText(getApplicationContext(),"Id와 비밀번호를 확인해 주세요",Toast.LENGTH_SHORT);
+                toast.show();
+            }else {
+               Intent intent = new Intent(getApplicationContext(), ChangePw.class);
+               intent.putExtra("email", modelUser.getEmail().toString());
+               intent.putExtra("passwd", modelUser.getPasswd().toString());
+               startActivity(intent);
+           }
         }
     }
 
@@ -196,18 +203,22 @@ public class ConfirmUser extends AppCompatActivity {
                 waitDlg.dismiss();
                 waitDlg = null;
             }
+            if (modelUser == null) {
+                Toast toast = Toast.makeText(getApplicationContext(),"Id와 비밀번호를 확인해 주세요",Toast.LENGTH_SHORT);
+                toast.show();
+            }else {
 
-            Intent intent = new Intent(getApplicationContext(), ChangeUserInfo.class);
-            intent.putExtra("email", modelUser.getEmail().toString());
-            startActivity(intent);
-
+                Intent intent = new Intent(getApplicationContext(), ChangeUserInfo.class);
+                intent.putExtra("email", modelUser.getEmail().toString());
+                startActivity(intent);
+            }
 
         }
     }
 
 
     public ModelUser login(String id, String passwd) {
-        String weburl = "http://192.168.0.54:8080/team/login";
+        String weburl = "http://dbqudtjd1122.cafe24.com/team/login";
 
         HttpRequest request = null;
         JSONObject response = null;
@@ -236,8 +247,7 @@ public class ConfirmUser extends AppCompatActivity {
             e.printStackTrace();
         } finally {
             request.close();
+            return user;
         }
-        return user;
-
     }
 }

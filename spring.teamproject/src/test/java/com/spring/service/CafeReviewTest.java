@@ -39,11 +39,13 @@ public class CafeReviewTest {
         ModelCafeReview review = new ModelCafeReview();
         review.setCafeno(1);
         review.setGrade(3.5);
-        review.setUsernickname("상어알");
+        review.setUsernickname("상어알2");
         review.setContent("맛이있었나");
         
         
         int result = service.insertReview(review);
+        service.increaseReview(review.getCafeno());
+        service.increaseAvg(review.getCafeno());
         
         assertSame(1, result);
         assertNotNull(result);
@@ -59,6 +61,20 @@ public class CafeReviewTest {
         
         
         int result = service.updateReview(review);
+        
+        assertSame(1, result);
+        assertNotNull(result);
+    }
+    
+    @Test
+    public void testdeleteReview() {
+        
+        ModelCafeReview review = new ModelCafeReview();
+        review.setCommentno(32);
+        review.setCafeno(22);
+        
+        
+        int result = service.deleteReview(review);
         
         assertSame(1, result);
         assertNotNull(result);

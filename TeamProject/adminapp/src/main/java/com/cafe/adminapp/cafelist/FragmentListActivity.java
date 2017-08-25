@@ -43,7 +43,7 @@ public class FragmentListActivity extends AppCompatActivity {
         tabLayout.setTabTextColors(ColorStateList.valueOf(Color.BLACK));
 
         tabLayout.addTab( tabLayout.newTab().setText("카페") );
-        tabLayout.addTab( tabLayout.newTab().setIcon(android.R.drawable.ic_dialog_email).setText("빙수") );
+        tabLayout.addTab( tabLayout.newTab().setText("빙수") );
         tabLayout.addTab( tabLayout.newTab().setText("펫") );
 
         // ViewPager 초기화

@@ -44,9 +44,9 @@ public class UserController {
                                                         , @RequestParam(value="passwd", defaultValue="")String passwd) {
         logger.info("/team/login");
         ModelUser team= new ModelUser(email, passwd);
-        
-        ModelUser result = svr.login(team);
-        
+        ModelUser result = new ModelUser();
+        result = svr.login(team);
+    
         return result;
     }
 	
@@ -61,7 +61,7 @@ public class UserController {
     }
 	
 	@RequestMapping(value = "/user/updateUserInfo", method = {RequestMethod.GET, RequestMethod.POST})
-    public int updatePasswd(Locale locale, Model model
+    public int updateUserinfo(Locale locale, Model model
                             ,@RequestParam(value="email", defaultValue="")String email
                             ,@RequestParam(value="passwd", defaultValue="")String passwd
                             ,@RequestParam(value="userphone", defaultValue="")String userphone
@@ -70,7 +70,7 @@ public class UserController {
                             ,@RequestParam(value="nickname", defaultValue="")String usernickname
                             ,@RequestParam(value="selectEmail", defaultValue="")Integer emailselect) {
         logger.info("updateUserInfo : post");
-
+ 
         ModelUser updateValue = new ModelUser();
         updateValue.setPasswd(passwd);
         updateValue.setUserphone(userphone);
@@ -100,15 +100,39 @@ public class UserController {
     }
 	
 	   @RequestMapping(value = "/user/deleteUser", method = {RequestMethod.GET, RequestMethod.POST})
-	    @ResponseBody
-	    public int deleteuser(Locale locale, Model model, @RequestParam(value="email", defaultValue="")String email) {
-	        logger.info("/team/login");
-	        
-	        ModelUser user = new ModelUser(email);
-	        
-	        int result = svr.deleteUser(user);
-	        
-	        return result;
-	    }
+       @ResponseBody
+       public int deleteuser(Locale locale, Model model, @RequestParam(value="email", defaultValue="")String email) {
+           logger.info("/team/login");
+           
+           ModelUser user = new ModelUser(email);
+           
+           int result = svr.deleteUser(user);
+           
+           return result;
+       }
+	   
+	   @RequestMapping(value = "/team/selectid", method = {RequestMethod.GET, RequestMethod.POST})
+       @ResponseBody
+       public ModelUser selectId(Locale locale, Model model, @RequestParam(value="userphone", defaultValue="")String userphone) {
+           logger.info("/team/selectid");
+           ModelUser team= new ModelUser();
+           team.setUserphone(userphone);
+          
+           ModelUser result = svr.selectId(team);
+           
+           return result;
+       }
+       
+       @RequestMapping(value = "/team/selectpwd", method = {RequestMethod.GET, RequestMethod.POST})
+       @ResponseBody
+       public ModelUser selectPwd(Locale locale, Model model, @RequestParam(value="email", defaultValue="")String email) {
+           logger.info("/team/selectpwd");
+           ModelUser team= new ModelUser();
+           team.setEmail(email);
+           
+           ModelUser result = svr.selectPwd(team);
+           
+           return result;
+       }
 	
 }

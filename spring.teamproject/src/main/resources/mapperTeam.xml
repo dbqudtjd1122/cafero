@@ -9,9 +9,8 @@
 
     <select id="login" parameterType="ModelUser" resultType="ModelUser">
         SELECT *
-        FROM TB_cafe_user
-        WHERE email = #{email} and passwd =
-        #{passwd}
+        FROM tb_cafe_user
+        WHERE email = #{email} and passwd = #{passwd}
     </select>
 
 
@@ -68,17 +67,7 @@
     </select>
     
     
-    <insert id="insertReview" parameterType="ModelCafeReview">
-        INSERT INTO tb_cafe_review (usernickname, cafeno, content, grade,regdate) 
-                            VALUES (#{usernickname}, #{cafeno}, #{content}, #{grade},now());
-    </insert>
     
-    <select id="getReviewList" parameterType="Integer" resultType="ModelCafeReview">
-        select * from tb_cafe_review 
-        where cafeno = #{cafeno} 
-        order by commentno desc;
-
-    </select>
 
 
     <!-- <insert id = "insertTeam" parameterType = "ModelUser"> INSERT INTO 
@@ -91,41 +80,115 @@
     <update id="updateUserinfo" parameterType="hashmap">
         UPDATE tb_cafe_user
         SET
-        passwd = #{updateValue.passwd}
-        , userphone =
-        #{updateValue.userphone}
-        , useraddr = #{updateValue.useraddr}
-        ,
-        sex = #{updateValue.sex}
-        , usernickname =
-        #{updateValue.usernickname}
-        , emailselect =
-        #{updateValue.emailselect}
-
+          passwd       = #{updateValue.passwd}
+        , userphone    = #{updateValue.userphone}
+        , useraddr     = #{updateValue.useraddr}
+        , sex          = #{updateValue.sex}
+        , usernickname = #{updateValue.usernickname}
+        , emailselect  = #{updateValue.emailselect}
+        
         WHERE email = #{searcheValue.email}
-
     </update>
 
-    <update id="updatePasswd" parameterType="hashmap">
+     <update id="updatePasswd" parameterType="hashmap">
         UPDATE
-        TB_cafe_user
-        SET passwd = #{updateValue.passwd}
-        WHERE email = #{searchValue.email}
+        tb_cafe_user
+        SET passwd  = #{newPasswd}
+        
+        WHERE email = #{email} and passwd = #{passwd}
     </update>
 
     <delete id="deleteUser" parameterType="ModelUser">
-        DELETE FROM TB_cafe_user
-        WHERE 1 = 1
-        <if test="email != null and email != ''">
-            and email = #{email}
-        </if>
+        DELETE FROM tb_cafe_user
+         WHERE 1 = 1 
+          <if test="email != null and email != ''" >
+          AND email  = #{email}
+          </if>
     </delete>
     
+    <select id="getCafeOne" parameterType="int" resultType="ModelCafeinfo">
+        select * from tb_cafe_cafeinfo 
+        where cafeno = #{cafeno}
+    </select>
+    
+    <!-- Review -->
+    <select id="getReviewList" parameterType="Integer" resultType="ModelCafeReview">
+        select * from tb_cafe_review 
+        where cafeno = #{cafeno} 
+        order by commentno desc;
+
+    </select>
+    
+    <!--  리뷰 작성 -->
+    <insert id="insertReview" parameterType="ModelCafeReview">
+        INSERT INTO tb_cafe_review (usernickname, cafeno, content, grade,regdate) 
+                            VALUES (#{usernickname}, #{cafeno}, #{content}, #{grade},now());
+    </insert>
+    
+    <!--  리뷰 수정 -->
     <update id="updateReview" parameterType="ModelCafeReview">
         update tb_cafe_review set content = #{content}, updateDate = now()
         where 1 = 1 and commentno = #{commentno} and cafeno = #{cafeno}
     </update>
     
-
+    <!-- 리뷰 삭제 -->
+    <delete id="deleteReview" parameterType="ModelCafeReview">
+       delete from tb_cafe_review 
+       where 1 = 1 and commentno = #{commentno} and cafeno = #{cafeno}
+    </delete>
+    
+    <!-- 리뷰수 증가(업데이트) -->
+    <update id="increaseReview" parameterType="int">
+        UPDATE tb_cafe_cafeinfo 
+           SET review_count= (select count(cafeno) from tb_cafe_review where cafeno = #{cafeno})
+         WHERE cafeno=#{cafeno}
+    </update>
+    
+    <!-- 카페 평점 추가 및 증가 -->
+    <update id="increaseAvg" parameterType="int">
+        UPDATE tb_cafe_cafeinfo 
+           SET avg_grade = (select avg(grade) from tb_cafe_review where cafeno = #{cafeno}) 
+         WHERE cafeno=#{cafeno};
+    </update>
+    
+    <!-- 즐찾 가져오기 -->
+    <select id="getBookmark" parameterType="hashmap" resultType="int">        
+        SELECT count(*)
+          FROM tb_cafe_like 
+         WHERE cafeno = #{cafeno}
+         and userno  = #{userno }
+    </select>
+    
+    <!-- 카페 즐찾 하기 -->
+   <insert id="insertBookmark" parameterType="ModelCafeLike">        
+        INSERT INTO tb_cafe_like (cafeno, userno)
+        values (#{cafeno}, #{userno})
+    </insert>
+    
+    <!-- 즐찾 해제하기 -->
+    <delete id="deleteBookmark" parameterType="ModelCafeLike">
+        DELETE FROM tb_cafe_like
+        WHERE cafeno = #{cafeno} 
+         and userno = #{userno}
+    </delete>
+    
+    <!-- 즐찾 업데이트 -->
+    <update id="increaseLike" parameterType="int">
+        UPDATE tb_cafe_cafeinfo 
+           SET like_count = (select count(cafeno) from tb_cafe_like where cafeno = #{cafeno})
+         WHERE cafeno=#{cafeno}
+    </update>
+    
+    <select id="selectId" parameterType = "ModelUser" resultType = "ModelUser">
+    SELECT *
+    FROM tb_cafe_user
+    WHERE userphone = #{userphone} 
+    </select>
+    
+    <select id = "selectPwd" parameterType="ModelUser" resultType = "ModelUser">
+    SELECT *
+    FROM tb_cafe_user
+    WHERE email = #{email}
+    </select> 
 </mapper>
 

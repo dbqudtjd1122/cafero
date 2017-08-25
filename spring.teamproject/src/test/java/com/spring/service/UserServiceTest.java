@@ -22,7 +22,7 @@ public class UserServiceTest {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         context= new ClassPathXmlApplicationContext("file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml");
-        service=context.getBean("serviceteam", IServiceUser.class);
+        service=context.getBean("serviceuser", IServiceUser.class);
     }
 
 
@@ -34,7 +34,11 @@ public class UserServiceTest {
     
     @Test
     public void testLogin() {
+        ModelUser user = new ModelUser();
+        user.setEmail("123123");
+        user.setPasswd("qqq");
         
+        user = service.login(user);
     }
     
    
@@ -84,5 +88,24 @@ public class UserServiceTest {
         
     }
 
+    @Test
+    public void testselectId() {
+        ModelUser team = new ModelUser();
+        team.setUserphone("010-1234-5678");
+        
+        ModelUser result = service.selectId(team);
+        
+        assertEquals(result, 1);
+    }
+    
+    @Test
+    public void testselectPwd() {
+        ModelUser team = new ModelUser();
+        team.setEmail("bbb");
+        
+        ModelUser result = service.selectPwd(team);
+        
+        assertEquals(result, 1);
+    }
     
 }

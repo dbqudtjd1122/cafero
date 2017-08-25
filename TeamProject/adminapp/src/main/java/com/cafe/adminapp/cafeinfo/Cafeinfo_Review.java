@@ -32,7 +32,7 @@ public class Cafeinfo_Review extends CommonActvity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cafeinfo_tab3_review);
+        setContentView(R.layout.cafeinfo_review);
 
         rb_grade = (RatingBar) findViewById(R.id.rb_grade);
         tv_review_nickname = (TextView) findViewById(R.id.tv_review_nickname);

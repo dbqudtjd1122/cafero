@@ -14,4 +14,10 @@ public interface IDaoReview {
     int insertReview(ModelCafeReview review);
     
     int updateReview(ModelCafeReview review);
+    
+    int deleteReview(ModelCafeReview review);
+    
+    int increaseLike(int cafeno);
+    int increaseReview(int cafeno);
+    int increaseAvg(int cafeno);
 }

@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.cafe.adminapp.MainActivity;
 import com.cafe.adminapp.R;
 import com.cafe.common.Http.HttpRequest;
 
@@ -43,7 +45,10 @@ public class ChangePw extends AppCompatActivity {
 
                     if (newPasswd.equals(newPasswd2)) {
                         new HttpChangePw().execute(email,passwd,newPasswd); // execute 인자는 HttpLogin의 첫번째 String 인자에 들어감
-
+                    }
+                    else {
+                        Toast toast = Toast.makeText(getApplicationContext(),"비밀번호를 정확하게 입력해 주세요", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
 
             }
@@ -88,16 +93,18 @@ public class ChangePw extends AppCompatActivity {
                 waitDlg = null;
             }
 
-                Intent intent = new Intent(getApplicationContext(),Userinfo.class);
-                startActivity(intent);
-                finish();
+            Intent intent = new Intent(ChangePw.this,MainActivity.class);
+            startActivity(intent);
+            finish();
 
+            Toast toast = Toast.makeText(getApplicationContext(),"비밀번호 변경 성공",Toast.LENGTH_SHORT);
+            toast.show();
         }
 
     }
 
     public String changepw(String email,  String currentPasswd, String newPasswd){
-        String weburl = "http://192.168.0.54:8080/user/updatePasswd";
+        String weburl = "http://dbqudtjd1122.cafe24.com/user/updatePasswd";
 
         HttpRequest request = null;
         String response = null;
@@ -105,8 +112,8 @@ public class ChangePw extends AppCompatActivity {
         try {
             request = new HttpRequest(weburl).addHeader("charset", "utf-8");
             request.addParameter("email", email);
-            request.addParameter("passwd", newPasswd);
-            request.addParameter("newPasswd", currentPasswd);
+            request.addParameter("passwd", currentPasswd);
+            request.addParameter("newPasswd", newPasswd);
             int httpCode = request.post();
 
             if (httpCode == HttpURLConnection.HTTP_OK){

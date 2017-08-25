@@ -14,4 +14,5 @@ public interface IDaoCafeinfo {
     List<ModelCafeinfo> getCafeList(ModelCafeinfo cafebigtype, String orderKind );
     List<ModelCafeinfo> getCafeListName(String name);
     List<ModelCafeinfo> getCafeListAddr(String addr);
+    ModelCafeinfo getCafeOne(ModelCafeinfo cafeinfo);
 }

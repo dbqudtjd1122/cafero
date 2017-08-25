@@ -11,7 +11,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import com.cafe.adminapp.MainActivity;
 import com.cafe.adminapp.R;
 import com.cafe.common.Http.HttpRequest;
 
@@ -113,14 +115,17 @@ public class ChangeUserInfo extends AppCompatActivity {
                 waitDlg = null;
             }
 
-            Intent intent = new Intent(getApplicationContext(),Userinfo.class);
+            Intent intent = new Intent(ChangeUserInfo.this,ChangeUserInfo.class);
             startActivity(intent);
             finish();
+
+            Toast toast = Toast.makeText(getApplicationContext(),"비밀번호 변경 성공",Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 
     public String changeuserinfo(String email,  String passwd, String userphone, String addr, String sex, String nickname, String selectEmail){
-        String weburl = "http://192.168.0.54:8080/user/updateUserInfo";
+        String weburl = "http://dbqudtjd1122.cafe24.com/user/updateUserInfo";
 
         HttpRequest request = null;
         String response = null;

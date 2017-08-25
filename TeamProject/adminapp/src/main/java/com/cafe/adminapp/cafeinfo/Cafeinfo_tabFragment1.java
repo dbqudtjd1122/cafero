@@ -56,7 +56,6 @@ public class Cafeinfo_tabFragment1 extends CafeinfoFragment {
         ExpandableListView = (android.widget.ExpandableListView) view.findViewById(R.id.expanded_menu);
         new Cafeinfo_tabFragment1.HttpMenulist().execute(cafeinfo.getBrand().toString());
 
-
         // Group / Child 체크 이벤트
         /*ExpandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
@@ -91,11 +90,6 @@ public class Cafeinfo_tabFragment1 extends CafeinfoFragment {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            // ProgressDialog 보이기
-            // 서버 요청 완료후 Mating dialog를 보여주도록 한다.
-            waitDlg = new ProgressDialog(getContext());
-            waitDlg.setMessage(" List 불러오는 중");
-            waitDlg.show();
         }
 
         @Override
@@ -142,6 +136,7 @@ public class Cafeinfo_tabFragment1 extends CafeinfoFragment {
                 menulist = new HttpCafeMenuList().Menulist2(menucd.get(i), brand);
                 setData(menulist);
             }
+
             return null;
         }
 
@@ -156,12 +151,10 @@ public class Cafeinfo_tabFragment1 extends CafeinfoFragment {
 
             adapter = new ExpandAdapter(getActivity(), groupListDatas, childListDatas);
             ExpandableListView.setAdapter(adapter);
-
-            // Progressbar 감추기 : 서버 요청 완료수 Maiting dialog를 제거한다.
-            if (waitDlg != null) {
-                waitDlg.dismiss();
-                waitDlg = null;
+            for(int i=0; i< adapter.getGroupCount(); i ++) {
+                ExpandableListView.expandGroup(i);
             }
+
         }
     }
 }

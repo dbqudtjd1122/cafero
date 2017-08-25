@@ -53,12 +53,32 @@ public class CafeList_Adapter extends android.widget.ArrayAdapter<ModelCafeinfo>
             
             itemLayout.setTag(viewHolder);
         }
-        if (cafeinfo.getBrand().equals("이디야")) {
+        if (cafeinfo.getBrand().toString().equals("이디야")) {
             viewHolder.brandImg.setImageResource(R.drawable.ediya);
-        } else if (cafeinfo.getBrand().equals("스타벅스")) {
+        } else if (cafeinfo.getBrand().toString().equals("스타벅스")) {
             viewHolder.brandImg.setImageResource(R.drawable.starbucks);
-        } else if (cafeinfo.getBrand().equals("할리스")) {
+        } else if (cafeinfo.getBrand().toString().equals("할리스")) {
             viewHolder.brandImg.setImageResource(R.drawable.hallis);
+        } else if (cafeinfo.getBrand().toString().equals("밀탑빙수")) {
+            viewHolder.brandImg.setImageResource(R.drawable.mealtop);
+        } else if (cafeinfo.getBrand().toString().equals("카페베네")) {
+            viewHolder.brandImg.setImageResource(R.drawable.cafebene);
+        } else if (cafeinfo.getBrand().toString().equals("탐탐")) {
+            viewHolder.brandImg.setImageResource(R.drawable.tamtam);
+        } else if (cafeinfo.getBrand().toString().equals("커피빈")) {
+            viewHolder.brandImg.setImageResource(R.drawable.coffeebean);
+        } else if (cafeinfo.getBrand().toString().equals("강아지")) {
+            viewHolder.brandImg.setImageResource(R.drawable.dog);
+        } else if (cafeinfo.getBrand().toString().equals("고양이")) {
+            viewHolder.brandImg.setImageResource(R.drawable.cat);
+        } else if (cafeinfo.getBrand().toString().equals("새")) {
+            viewHolder.brandImg.setImageResource(R.drawable.bird);
+        } else if (cafeinfo.getBrand().toString().equals("개인카페")) {
+            viewHolder.brandImg.setImageResource(R.drawable.all_cafe);
+        } else if (cafeinfo.getBrand().toString().equals("개인빙수")) {
+            viewHolder.brandImg.setImageResource(R.drawable.bingsoo);
+        } else if (cafeinfo.getBrand().toString().equals("기타")) {
+            viewHolder.brandImg.setImageResource(R.drawable.animal);
         }
 
         String avg = String.format("%.1f", getItem(position).getAvg_grade());

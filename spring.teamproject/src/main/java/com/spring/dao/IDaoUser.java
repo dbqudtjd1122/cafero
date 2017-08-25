@@ -21,5 +21,9 @@ public interface IDaoUser {
     int updatePasswd(String email, String newPasswd, String passwd);
     
     int deleteUser(ModelUser user);
+    
+    ModelUser selectId(ModelUser team);
+
+    ModelUser selectPwd(ModelUser team);
 
 }

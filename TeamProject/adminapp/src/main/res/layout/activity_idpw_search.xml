@@ -25,7 +25,7 @@
             android:layout_margin="20dp"/>
     
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/edttext_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
@@ -44,13 +44,18 @@
             android:layout_marginLeft="20dp"/>
     
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/findemailbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="확인"
             android:layout_marginTop="10dp"
             android:background="@color/colorMINT"/>
         </LinearLayout>
+    <TextView
+        android:id="@+id/viewemail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""/>
     
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,7 +73,7 @@
             android:layout_margin="20dp"/>
         
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/edttext_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
@@ -87,13 +92,18 @@
             android:layout_marginLeft="20dp"/>
         
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/findpwdbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="확인"
             android:layout_marginTop="10dp"
             android:background="@color/colorMINT"/>
     </LinearLayout>
+    <TextView
+        android:id="@+id/viewepwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""/>
 
 
 

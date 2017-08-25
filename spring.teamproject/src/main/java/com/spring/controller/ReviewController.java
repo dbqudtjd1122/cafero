@@ -51,6 +51,8 @@ public class ReviewController {
         logger.info("/review/insertReview");
         
         int result = svr.insertReview(review);
+        svr.increaseReview(review.getCafeno());
+        svr.increaseAvg(review.getCafeno());
         
         return result;
     }
@@ -61,7 +63,22 @@ public class ReviewController {
         logger.info("/review/updateReview");
         
         int result = svr.updateReview(review);
+        svr.increaseAvg(review.getCafeno());
         
         return result;
     }
+    
+    @RequestMapping(value = "/review/deleteReview", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public int deleteReview(Locale locale, Model model, @RequestBody ModelCafeReview review) {
+        logger.info("/review/deleteReview");
+        
+        int result = svr.deleteReview(review);
+        svr.increaseReview(review.getCafeno());
+        svr.increaseAvg(review.getCafeno());
+        
+        return result;
+    }
+   
+    
 }

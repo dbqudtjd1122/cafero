@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -41,6 +42,9 @@ public class MainActivity extends CommonActvity
 
     private float xATDown, xATUp;
     private ViewFlipper vflipper = null;
+    float down_x;
+    float up_x;
+    int[] imageItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,10 +89,20 @@ public class MainActivity extends CommonActvity
 
         // 뷰플리퍼 자동 넘김 (광고 배너)
         vflipper = (ViewFlipper) findViewById(R.id.viewflipper);
+
+        imageItems = new int[]{};
+
+        for (int i : imageItems) {
+            ImageView image = new ImageView(this);
+            image.setImageResource(i);
+            vflipper.addView(image, new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.FILL_PARENT,
+                    ViewGroup.LayoutParams.FILL_PARENT));
+        }
         vflipper.setOnTouchListener(this);
         vflipper.setAutoStart(true);
         // vflipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_left_in));
-        vflipper.setFlipInterval(1000);
+        vflipper.setFlipInterval(3000);
         vflipper.startFlipping();
 
         btn_cafe_name.setOnClickListener(new View.OnClickListener() {
@@ -124,10 +138,8 @@ public class MainActivity extends CommonActvity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
         MenuInflater mi = getMenuInflater();
         mi.inflate(R.menu.activity_main_drawer, menu);
-
 
         return true;
     }
@@ -139,10 +151,12 @@ public class MainActivity extends CommonActvity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        switch (item.getItemId()){
+//            case R.id.like_count:
+//                Intent intent = new Intent(getApplicationContext(), Like_List.class );
+//                startActivity(intent);
+//                break;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -166,20 +180,27 @@ public class MainActivity extends CommonActvity
         }
         if (id == R.id.nav_camera) {
             // Handle the* camera action
-            Toast.makeText(getApplicationContext(), "카메라", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "준비중 입니다.", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_gallery) {
-
+            Toast.makeText(getApplicationContext(), "준비중 입니다.", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_slideshow) {
-
+            Toast.makeText(getApplicationContext(), "준비중 입니다.", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.userinfo) {
-            Intent userinfo = new Intent(MainActivity.this, Userinfo.class);
-            startActivity(userinfo);
-
+            if (pref.getString("nickname_Set", "").toString() == ""  || pref.getString("nickname_Set", "").toString() == null) {
+                Toast.makeText(this, "로그인 해주세요.", Toast.LENGTH_SHORT).show();
+            } else {
+                Intent userinfo = new Intent(MainActivity.this, Userinfo.class);
+                startActivity(userinfo);
+            }
         } else if (id == R.id.menulogout){
             editor.remove("nickname_Set");
             editor.remove("level_Set");
+            editor.remove("userno_Set");
+            editor.remove("email");
             isnickname = pref.getString("nickname_Set",  "").toString();
             islevel = pref.getString("level_Set", "").toString();
+            isuserno = pref.getInt("userno_Set", -1);
+            isemail = pref.getString("email", "" ).toString();
             headerimg.setVisibility(View.VISIBLE);
 
             nickname.setText("");
@@ -234,25 +255,35 @@ public class MainActivity extends CommonActvity
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        Animation showln= AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
-        Animation showout= AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
-
-        if(v !=vflipper) {
+        // 터치 이벤트가 일어난 뷰가 ViewFlipper가 아니면 return
+        if (vflipper != vflipper)
             return false;
-        }
-        if(event.getAction()==MotionEvent.ACTION_DOWN){
-            xATDown=event.getX(); // 터치 시작지점 X좌표 저장
-        }
-        else if(event.getAction()==MotionEvent.ACTION_UP){
-            xATUp=event.getX(); // 터치 끝난지점에 X좌표 저장
-            if (xATUp < xATDown){
-                vflipper.setInAnimation(showout);
-                vflipper.showNext();  // 다음 view 보여줌
-            }else if(xATUp > xATDown){
-                vflipper.setInAnimation(showln);
-                vflipper.showPrevious();   // 직전 view 보여줌
+
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            // 터치 시작지점 x좌표 저장
+            down_x = event.getX();
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+            // 터치 끝난 지점 X좌표 저장
+            up_x = event.getX();
+
+            vflipper.stopFlipping();
+
+            if (up_x < down_x) {
+                // 터치 할때 왼쪽방향으로 진행
+                vflipper.setInAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.push_left_in));
+                vflipper.setOutAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.push_left_out));
+                vflipper.showNext();
             }
+            else if(up_x > down_x) {
+                // 터치 할때 왼쪽방향으로 진행
+                vflipper.setInAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.push_left_in));
+                vflipper.setOutAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.push_left_out));
+                vflipper.showPrevious();
+            }
+            vflipper.startFlipping();
+
         }
+
         return true;
     }
 

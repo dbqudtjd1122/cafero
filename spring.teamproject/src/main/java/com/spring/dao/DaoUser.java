@@ -50,10 +50,20 @@ public class DaoUser implements IDaoUser {
         map.put("searcheValue", searchValue);
         return session.update("mapper.mysql.mapperTeam.updateUserinfo",map);
     }
-    
     @Override
     public int deleteUser(ModelUser user) {
         
         return session.delete("mapper.mysql.mapperTeam.deleteUser",user);
+    }
+    
+    @Override
+    public ModelUser selectId(ModelUser team) {
+        return session.selectOne("mapper.mysql.mapperTeam.selectId",team);
+    }
+
+
+    @Override
+    public ModelUser selectPwd(ModelUser team) {
+        return session.selectOne("mapper.mysql.mapperTeam.selectPwd",team);
     }
 }

@@ -39,4 +39,30 @@ public class DaoReview implements IDaoReview {
         
         return session.update("mapper.mysql.mapperTeam.updateReview", review);
     }
+
+
+    @Override
+    public int deleteReview(ModelCafeReview review) {
+        
+        return session.delete("mapper.mysql.mapperTeam.deleteReview", review);
+    }
+
+
+    @Override
+    public int increaseLike(int cafeno) {
+        
+        return session.update("mapper.mysql.mapperTeam.increaseLike",cafeno);
+    }
+
+    @Override
+    public int increaseReview(int cafeno) {
+        
+        return session.update("mapper.mysql.mapperTeam.increaseReview",cafeno);
+    }
+
+    @Override
+    public int increaseAvg(int cafeno) {
+        return session.update("mapper.mysql.mapperTeam.increaseAvg",cafeno);
+    }
+    
 }

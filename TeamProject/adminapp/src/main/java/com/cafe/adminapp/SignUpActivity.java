@@ -12,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.cafe.common.Http.HttpRequest;
 import com.cafe.common.Model.ModelUser;
@@ -73,6 +74,10 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if((checkBox1.isChecked() == false || checkBox2.isChecked() == false )|| (rtn1.isChecked() == rtn2.isChecked())){
                     return;
+                }
+                else if(edtemail.getText().toString().equals("") || edtpw.getText().toString().equals("")){
+                    Toast toast = Toast.makeText(getApplicationContext(),"ID와 비밀번호를 입력해 주세요",Toast.LENGTH_SHORT);
+                    toast.show();
                 }
                 else {
                     if(rtn1.isChecked() == true){sex = "남자";} else {sex = "여자";}
@@ -146,7 +151,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public String insert(String email, String pw, String phone, String addr, String sex, Integer checkemail, String nickname ){
-        String weburl = "http://192.168.0.52:8080/team/insertuser";
+        String weburl = "http://dbqudtjd1122.cafe24.com/team/insertuser";
 
         HttpRequest request = null;
         String response = null;

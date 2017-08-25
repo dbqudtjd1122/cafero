@@ -68,4 +68,16 @@ public class CafeinfoController {
                 
         return result;
     }
+	
+	@RequestMapping(value = "/team/getCafeOne", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public ModelCafeinfo getCafeOne( Model model, @RequestParam(value="cafeno", defaultValue="")String cafeno) {
+        logger.info("/team/getCafeListAddr");
+         
+        ModelCafeinfo cafeinfo = new ModelCafeinfo();
+        cafeinfo.setCafeno(Integer.parseInt(cafeno));
+        ModelCafeinfo result = svr.getCafeOne(cafeinfo);    
+                
+        return result;
+    }
 }
